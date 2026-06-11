@@ -2,68 +2,135 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>로그인</title>
+<title>회원가입 / 로그인</title>
+
+<style>
+body{
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+    text-align:center;
+    margin:0;
+    padding:30px;
+}
+
+.card{
+    background:white;
+    max-width:520px;
+    margin:40px auto;
+    padding:35px 25px;
+    border-radius:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+h1{
+    color:#1f4fbf;
+    font-size:34px;
+}
+
+p{
+    font-size:18px;
+    line-height:1.7;
+    color:#333;
+}
+
+input{
+    width:85%;
+    padding:16px;
+    margin:10px 0;
+    font-size:18px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    box-sizing:border-box;
+}
+
+a.btn, button{
+    display:block;
+    width:85%;
+    max-width:360px;
+    margin:16px auto;
+    padding:16px;
+    border-radius:10px;
+    border:none;
+    font-size:18px;
+    font-weight:bold;
+    text-decoration:none;
+    cursor:pointer;
+    box-sizing:border-box;
+}
+
+.login-btn{
+    background:#1f4fbf;
+    color:white;
+}
+
+.signup-btn{
+    background:#d98218;
+    color:white;
+}
+
+.home-btn{
+    background:white;
+    color:#1f4fbf;
+    border:2px solid #1f4fbf;
+}
+</style>
 </head>
 
-<body style="text-align:center; font-family:Arial; background-color:#f5f9ff; padding:20px;">
+<body>
 
-<div style="background:white; padding:25px; border-radius:15px; max-width:420px; margin:auto; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+<div class="card">
+    <h1>🔑 회원가입 / 로그인</h1>
 
-<h1 style="color:#0066cc;">🔑 로그인</h1>
+    <p>
+        회원가입 후에는 반려견 정보 수정,<br>
+        여러 마리 관리, 분실 알림 기능을<br>
+        이용할 수 있습니다.
+    </p>
 
-<p style="font-size:18px;">
-회원 로그인 기능은 현재 준비 중입니다.
-</p>
+    <input id="email" type="email" placeholder="이메일">
+    <input id="password" type="password" placeholder="비밀번호">
 
-<div style="background:#f5f9ff; padding:15px; border-radius:10px; margin:20px 0;">
+    <button class="login-btn" onclick="loginMember()">로그인</button>
 
-<h3 style="color:#ff8800;">로그인 후 제공 예정 기능</h3>
-
-<p>✅ 여러 마리 반려견 관리</p>
-<p>✅ QR 정보 수정</p>
-<p>✅ 분실 알림 서비스</p>
-<p>✅ 커뮤니티 이용</p>
-<p>✅ 추가 기능 무료 제공</p>
-
+    <a class="btn signup-btn" href="signup.html">무료 회원가입</a>
+    <a class="btn home-btn" href="index.html">홈으로 돌아가기</a>
 </div>
 
-<p style="color:#666;">
-조금만 기다려주세요 🐶
-</p>
+<script>
+function loginMember(){
 
-<a href="signup.html">
-<button style="
-width:80%;
-height:50px;
-font-size:18px;
-background:#ff8800;
-color:white;
-border:none;
-border-radius:10px;
-margin-bottom:10px;
-">
-👤 무료 회원가입
-</button>
-</a>
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
 
-<br>
+    if(email === "" || password === ""){
+        alert("이메일과 비밀번호를 입력해주세요.");
+        return;
+    }
 
-<a href="index.html">
-<button style="
-width:80%;
-height:50px;
-font-size:18px;
-background:#0066cc;
-color:white;
-border:none;
-border-radius:10px;
-">
-🏠 펫넷 홈으로
-</button>
-</a>
-
-</div>
+    fetch("https://script.google.com/macros/s/AKfycbyLGnYtQjGZswPnuMesVh5O8YcWdZozgugZRTSJ9_VYk9uREVGQCPfWqweNj7yPlaU/exec", {
+        method: "POST",
+        body: JSON.stringify({
+            action: "login",
+            email: email,
+            password: password
+        })
+    })
+    .then(function(response){
+        return response.text();
+    })
+    .then(function(result){
+        if(result === "login_success"){
+            alert("로그인 성공 🐶");
+            window.location.href = "my.html";
+        }else{
+            alert("이메일 또는 비밀번호가 일치하지 않습니다.");
+        }
+    })
+    .catch(function(error){
+        alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
+    });
+}
+</script>
 
 </body>
 </html>

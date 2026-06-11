@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 
 <meta name="google-site-verification" content="Ot_ryA3WRG5nXIdNoy3CpTExMA3PwmiFQNCPnFIN6-4" />
-
 <meta name="naver-site-verification" content="9a03f13f757c18839ada7816b8baacc669a1fab2" />
 
 <title>펫넷(PETNET KOREA) - 대한민국 반려견 안전 네트워크</title>
@@ -22,6 +21,47 @@ body{
     background:linear-gradient(180deg,#ffffff 0%,#f5f9ff 100%);
     color:#0f2340;
     text-align:center;
+}
+
+.menu-btn{
+    position:fixed;
+    top:15px;
+    right:15px;
+    font-size:30px;
+    background:white;
+    border:none;
+    border-radius:10px;
+    padding:8px 14px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    cursor:pointer;
+    z-index:1000;
+}
+
+.side-menu{
+    display:none;
+    position:fixed;
+    top:65px;
+    right:15px;
+    width:280px;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.15);
+    overflow:hidden;
+    z-index:999;
+}
+
+.side-menu a{
+    display:block;
+    padding:15px;
+    text-decoration:none;
+    color:#333;
+    border-bottom:1px solid #eee;
+    font-size:16px;
+}
+
+.side-menu a:hover{
+    background:#f5f9ff;
+    color:#005bd8;
 }
 
 .header{
@@ -191,6 +231,18 @@ body{
 
 <body>
 
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+<div id="sideMenu" class="side-menu">
+    <a href="login.html">회원가입 / 로그인</a>
+
+    <a href="lost.html">분실 신고</a>
+    <a href="stories.html">후기 · 사례 게시판</a>
+    <a href="found.html">유기견 · 발견동물 제보</a>
+    <a href="about.html">PETNET KOREA 소개</a>
+    <a href="partner.html">업무협약 문의</a>
+</div>
+
 <div class="header">
 
     <img src="petnet-logo.png" class="logo" alt="펫넷 로고">
@@ -247,7 +299,7 @@ body{
 
     <div class="count">
         <h2>현재 등록된 반려견 수</h2>
-    <strong id="petCount">불러오는 중...</strong>  
+        <strong id="petCount">불러오는 중...</strong>  
     </div>
 
 </div>
@@ -255,6 +307,7 @@ body{
 <div class="footer">
     🔒 개인정보 노출 없이 반려견 발견자와 보호자를 연결합니다.
 </div>
+
 <script>
 function showCount(data){
     document.getElementById("petCount").innerText =
@@ -267,5 +320,18 @@ script.src =
 
 document.body.appendChild(script);
 </script>
+
+<script>
+function toggleMenu(){
+    var menu = document.getElementById("sideMenu");
+
+    if(menu.style.display === "block"){
+        menu.style.display = "none";
+    }else{
+        menu.style.display = "block";
+    }
+}
+</script>
+
 </body>
 </html>
