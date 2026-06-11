@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mans31910000-sys.github.io/petnet/sitemap.xml

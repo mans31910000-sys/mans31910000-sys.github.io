@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>QR 생성 완료 - 펫넷</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(180deg,#ffffff 0%,#f5f9ff 100%);
+    color:#0f2340;
+    text-align:center;
+}
+
+.wrap{
+    max-width:600px;
+    margin:0 auto;
+    padding:35px 20px;
+}
+
+.logo{
+    width:230px;
+    max-width:80%;
+    margin-bottom:20px;
+}
+
+.card{
+    background:white;
+    border-radius:22px;
+    padding:30px 20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+h1{
+    font-size:28px;
+    color:#005bd8;
+    margin-bottom:10px;
+}
+
+.desc{
+    font-size:17px;
+    line-height:1.7;
+    color:#4d5d73;
+    margin-bottom:25px;
+}
+
+.qr-box{
+    background:white;
+    border:2px solid #e4ecf7;
+    border-radius:18px;
+    padding:20px;
+    display:inline-block;
+    margin:15px 0 25px;
+}
+
+.qr-box img{
+    width:260px;
+    max-width:100%;
+}
+
+.info{
+    font-size:16px;
+    line-height:1.8;
+    color:#334;
+    margin-bottom:25px;
+}
+
+.btn{
+    display:block;
+    max-width:330px;
+    margin:12px auto;
+    padding:18px 15px;
+    border-radius:14px;
+    text-decoration:none;
+    font-size:19px;
+    font-weight:bold;
+    box-sizing:border-box;
+    border:none;
+    cursor:pointer;
+}
+
+.primary{
+    background:#005bd8;
+    color:white;
+}
+
+.secondary{
+    background:white;
+    color:#005bd8;
+    border:2px solid #005bd8;
+}
+
+.footer{
+    margin-top:25px;
+    color:#4d5d73;
+    font-size:14px;
+}
+
+@media print{
+    body{
+        background:white;
+    }
+
+    .logo,
+    h1,
+    .desc,
+    .info,
+    .btn,
+    .footer{
+        display:none;
+    }
+
+    .card{
+        box-shadow:none;
+        padding:0;
+    }
+
+    .qr-box{
+        border:none;
+        margin-top:40px;
+    }
+
+    .qr-box img{
+        width:320px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+    <img src="petnet-logo.png" class="logo" alt="펫넷 로고">
+
+    <div class="card">
+
+        <h1>QR 생성이 완료되었습니다</h1>
+
+        <div class="desc">
+            아래 QR을 저장하거나 출력해서<br>
+            반려견 목걸이, 인식표, 이동가방 등에 부착하세요.
+        </div>
+
+        <div class="qr-box">
+            <img id="qrImage" src="" alt="펫넷 QR 코드">
+        </div>
+
+        <div class="info">
+            📱 휴대폰 카메라로 QR을 스캔해보세요.<br>
+            💾 QR 이미지는 길게 누르거나 우클릭해서 저장할 수 있습니다.<br>
+            🖨️ 집에 프린터가 있다면 바로 출력할 수 있습니다.
+        </div>
+
+        <a id="saveBtn" class="btn primary" href="#" download="petnet-qr.png">
+            💾 QR 이미지 저장하기
+        </a>
+
+        <button class="btn secondary" onclick="window.print()">
+            🖨️ QR 출력하기
+        </button>
+
+        <a href="index.html" class="btn secondary">
+            홈으로 돌아가기
+        </a>
+
+    </div>
+
+    <div class="footer">
+        🔒 개인정보 노출 없이 발견자와 보호자를 연결합니다.
+    </div>
+
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+let qrData =
+    params.get("url") ||
+    params.get("link") ||
+    params.get("qr") ||
+    params.get("data");
+
+if(!qrData){
+    const petId = params.get("id") || params.get("petId") || params.get("petid");
+
+    if(petId){
+        qrData = window.location.origin + window.location.pathname.replace("success.html","contact.html") + "?id=" + encodeURIComponent(petId);
+    }else{
+        qrData = window.location.origin + window.location.pathname.replace("success.html","index.html");
+    }
+}
+
+const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=" + encodeURIComponent(qrData);
+
+document.getElementById("qrImage").src = qrUrl;
+document.getElementById("saveBtn").href = qrUrl;
+</script>
+
+</body>
+</html>

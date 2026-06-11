@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<meta name="google-site-verification" content="Ot_ryA3WRG5nXIdNoy3CpTExMA3PwmiFQNCPnFIN6-4" />
+
+<meta name="naver-site-verification" content="9a03f13f757c18839ada7816b8baacc669a1fab2" />
+
+<title>펫넷</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(180deg,#ffffff 0%,#f5f9ff 100%);
+    color:#0f2340;
+    text-align:center;
+}
+
+.header{
+    padding:35px 15px 10px;
+}
+
+.logo{
+    width:320px;
+    max-width:90%;
+}
+
+.hero{
+    padding:25px 20px 10px;
+}
+
+.hero h1{
+    font-size:34px;
+    line-height:1.45;
+    margin:25px 0 18px;
+    font-weight:800;
+}
+
+.hero h1 span{
+    color:#005bd8;
+}
+
+.hero p{
+    font-size:21px;
+    line-height:1.7;
+    color:#1f2f45;
+    margin:0 0 25px;
+}
+
+.small-text{
+    font-size:19px;
+    color:#005bd8;
+    font-weight:bold;
+    margin-bottom:35px;
+}
+
+.cards{
+    display:flex;
+    justify-content:center;
+    gap:24px;
+    flex-wrap:wrap;
+    max-width:950px;
+    margin:0 auto 35px;
+}
+
+.card{
+    background:white;
+    width:250px;
+    min-height:135px;
+    padding:28px 18px;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.icon{
+    font-size:34px;
+    margin-bottom:12px;
+}
+
+.card-title{
+    font-size:20px;
+    font-weight:bold;
+    line-height:1.5;
+    margin-bottom:10px;
+}
+
+.card-text{
+    font-size:15px;
+    color:#4d5d73;
+    line-height:1.5;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:24px;
+    flex-wrap:wrap;
+    margin:20px auto 45px;
+    max-width:900px;
+}
+
+.btn{
+    display:inline-block;
+    width:330px;
+    padding:20px 15px;
+    border-radius:15px;
+    text-decoration:none;
+    font-size:22px;
+    font-weight:bold;
+    box-sizing:border-box;
+}
+
+.primary{
+    background:#005bd8;
+    color:white;
+    box-shadow:0 10px 25px rgba(0,91,216,0.25);
+}
+
+.secondary{
+    background:white;
+    color:#005bd8;
+    border:2px solid #005bd8;
+}
+
+.count{
+    margin:35px 0 20px;
+}
+
+.count h2{
+    font-size:19px;
+    font-weight:500;
+    margin-bottom:8px;
+}
+
+.count strong{
+    font-size:54px;
+    color:#005bd8;
+    letter-spacing:1px;
+}
+
+.footer{
+    padding:25px 15px 45px;
+    color:#4d5d73;
+    font-size:17px;
+}
+
+@media(max-width:700px){
+    .header{
+        padding-top:30px;
+    }
+
+    .logo{
+        width:280px;
+    }
+
+    .hero h1{
+        font-size:26px;
+    }
+
+    .hero p{
+        font-size:18px;
+    }
+
+    .small-text{
+        font-size:17px;
+    }
+
+    .card{
+        width:75%;
+    }
+
+    .btn{
+        width:85%;
+        font-size:20px;
+    }
+
+    .count strong{
+        font-size:40px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <img src="petnet-logo.png" class="logo" alt="펫넷 로고">
+
+    <div style="margin-top:20px;">
+        <a href="register.html" class="btn primary">
+            🐾 초간단 무료 QR 생성하기
+        </a>
+    </div>
+
+</div>
+
+<div class="hero">
+
+    <h1>
+        반려견을 잃어버렸을 때,<br>
+        가장 필요한 것은 <span>빠른 연결</span>입니다.
+    </h1>
+
+    <p>
+        QR 스캔 한 번으로<br>
+        발견자와 보호자를 연결합니다.
+    </p>
+
+    <div class="small-text">
+        회원가입 없이, 약 30초 만에 QR 생성 가능
+    </div>
+
+    <div class="cards">
+        <div class="card">
+            <div class="icon">👤</div>
+            <div class="card-title">회원가입 없이<br>무료 생성</div>
+            <div class="card-text">복잡한 절차 없이<br>누구나 무료로 생성</div>
+        </div>
+
+        <div class="card">
+            <div class="icon">📱</div>
+            <div class="card-title">앱 설치 없이<br>바로 사용</div>
+            <div class="card-text">별도 앱 설치 없이<br>QR 스캔으로 즉시 연결</div>
+        </div>
+
+        <div class="card">
+            <div class="icon">🖨️</div>
+            <div class="card-title">출력 후<br>즉시 사용 가능</div>
+            <div class="card-text">출력하여 목걸이나<br>인식표에 부착하여 사용</div>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <a href="my.html" class="btn secondary">
+            📋 내 반려견 관리
+        </a>
+    </div>
+
+    <div class="count">
+        <h2>현재 등록된 반려견 수</h2>
+    <strong id="petCount">불러오는 중...</strong>  
+    </div>
+
+</div>
+
+<div class="footer">
+    🔒 개인정보 노출 없이 반려견 발견자와 보호자를 연결합니다.
+</div>
+<script>
+function showCount(data){
+    document.getElementById("petCount").innerText =
+        data.count.toLocaleString() + " 마리";
+}
+
+var script = document.createElement("script");
+script.src =
+"https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec?count=1&callback=showCount";
+
+document.body.appendChild(script);
+</script>
+</body>
+</html>
