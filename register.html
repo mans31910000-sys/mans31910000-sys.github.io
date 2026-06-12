@@ -172,18 +172,18 @@ textarea{
 
     <div class="card">
 
-        <h1>반려견 QR 등록</h1>
+        <h1>반려동물 QR 등록</h1>
 
         <div class="desc">
-            반려견 정보를 입력하면<br>
+            반려동물 정보를 입력하면<br>
             보호자와 연결되는 QR 안전태그가 생성됩니다.
         </div>
 
         <form id="registerForm" action="https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec" method="post">
 
-            <div class="section-title">반려견 정보</div>
+            <div class="section-title">반려동물 정보</div>
 
-            <input name="name" id="petName" type="text" placeholder="반려견 이름 *" required>
+            <input name="name" id="petName" type="text" placeholder=" 이름 *" required>
 
             <input name="breed" id="breed" type="text" placeholder="품종 *" required>
 
@@ -197,12 +197,19 @@ textarea{
 
             <textarea name="feature" id="feature" placeholder="특징 예: 겁이 많음, 흰색 털, 빨간 목줄 착용"></textarea>
 
-            <div class="section-title">반려견 사진</div>
+            <div class="section-title">반려동물 사진</div>
 
-            <div class="notice">
-                📷 사진 등록 기능은 준비중입니다.<br>
-                곧 휴대폰에서 사진을 바로 업로드할 수 있도록 추가할 예정입니다.
-            </div>
+<input type="file" id="petPhoto" accept="image/*">
+<input type="hidden" name="photoData" id="photoData">
+<input type="hidden" name="photoName" id="photoName">
+<br><br>
+
+<img id="preview"
+     style="max-width:100%;
+            max-height:250px;
+            display:none;
+            border-radius:12px;
+            border:1px solid #ddd;">
 
             <div class="section-title">보호자 연락 방법</div>
 
@@ -286,7 +293,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
     const kakao = kakaoInput.value.trim();
 
     if(petName === ""){
-        alert("반려견 이름을 입력해주세요.");
+        alert("반려동물 이름을 입력해주세요.");
         e.preventDefault();
         return;
     }
@@ -330,6 +337,27 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
         e.preventDefault();
         return;
     }
+});
+document.getElementById("petPhoto").addEventListener("change", function(event){
+
+    const file = event.target.files[0];
+
+    if(!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+        const preview = document.getElementById("preview");
+
+        preview.src = e.target.result;
+        preview.style.display = "block";
+document.getElementById("photoData").value = e.target.result;
+document.getElementById("photoName").value = file.name;
+    };
+
+    reader.readAsDataURL(file);
+
 });
 </script>
 
