@@ -2,7 +2,8 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>펫넷 QR 조회</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>펫넷 QR 출력</title>
 
 <style>
 body {
@@ -11,19 +12,6 @@ body {
   text-align: center;
   margin: 0;
   padding: 20px;
-}
-
-h1 { color: #333; }
-
-nav {
-  margin: 15px 0;
-}
-
-nav a {
-  margin: 0 8px;
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
 }
 
 .card {
@@ -35,74 +23,80 @@ nav a {
   box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 
-.qr-frame {
-  display: inline-block;
+h1 {
+  color: #005bd8;
+}
+
+select, button {
+  width: 85%;
+  max-width: 330px;
   padding: 14px;
-  border: 4px solid #222;
-  border-radius: 18px;
-  background: white;
-  margin: 15px 0;
-}
-
-.brand-text {
-  font-size: 13px;
-  font-weight: bold;
-  color: #222;
-  margin-bottom: 8px;
-  letter-spacing: 1px;
-}
-
-.qr-frame img {
-  width: 210px;
-  height: 210px;
+  margin: 10px auto;
+  font-size: 17px;
+  border-radius: 10px;
+  box-sizing: border-box;
 }
 
 button {
-  padding: 12px 18px;
   border: none;
-  border-radius: 10px;
-  background: #222;
+  background: #005bd8;
   color: white;
-  font-size: 15px;
+  font-weight: bold;
   cursor: pointer;
-  margin: 6px;
 }
 
-select {
-  padding: 10px;
-  border-radius: 8px;
-  margin: 10px;
+.home-btn {
+  display:block;
+  width:85%;
+  max-width:330px;
+  padding:14px;
+  margin:10px auto;
+  border-radius:10px;
+  text-decoration:none;
+  background:white;
+  color:#005bd8;
+  border:2px solid #005bd8;
+  font-weight:bold;
+  box-sizing:border-box;
 }
 
 .print-area {
   margin-top: 25px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 15px;
+  justify-content: center;
 }
 
 .print-qr {
   background: white;
-  padding: 10px;
   border: 2px solid #222;
   border-radius: 12px;
+  padding: 10px;
+  text-align: center;
 }
 
 .print-qr p {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: bold;
-  margin: 4px 0;
+  margin: 5px 0;
 }
 
 .print-qr img {
-  width: 110px;
-  height: 110px;
+  display:block;
+  margin:8px auto;
+}
+
+.notice {
+  font-size:14px;
+  color:#555;
+  line-height:1.6;
+  margin-top:15px;
 }
 
 @media print {
   @page {
     size: A4;
-    margin: 10mm;
+    margin: 8mm;
   }
 
   body {
@@ -111,35 +105,29 @@ select {
     margin: 0;
   }
 
-  h1, nav, hr, .card {
+  .card {
     display: none !important;
   }
 
   #printArea {
     display: grid !important;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
     width: 100%;
     margin: 0;
     padding: 0;
+    gap: 8mm;
+    justify-content: center;
+    align-items: start;
   }
 
   .print-qr {
     page-break-inside: avoid;
     break-inside: avoid;
-    padding: 8px;
-    border: 2px solid #222;
-    border-radius: 10px;
-  }
-
-  .print-qr img {
-    width: 95px;
-    height: 95px;
+    box-shadow: none;
   }
 
   .print-qr p {
-    font-size: 10px;
-    margin: 3px 0;
+    font-size: 10pt;
+    margin: 3mm 0;
   }
 }
 </style>
@@ -147,87 +135,81 @@ select {
 
 <body>
 
-<h1>🐶 펫넷</h1>
-
-<nav>
-  <a href="index.html">홈</a>
-  <a href="register.html">반려견 등록</a>
-  <a href="lost.html">분실 신고</a>
-</nav>
-
-<hr>
-
 <div class="card">
-  <h2>반려견 정보</h2>
+  <h1>🐶 펫넷 QR 출력</h1>
 
-  <p><strong>이름 :</strong> 콩이</p>
-  <p><strong>견종 :</strong> 말티즈</p>
-  <p><strong>특이사항 :</strong> 겁이 많아요</p>
+  <p>
+    출력할 QR 개수를 선택하세요.<br>
+    선택한 크기대로 A4에 출력됩니다.
+  </p>
 
-  <a href="contact.html">
-    <button>보호자에게 연락하기</button>
-  </a>
-
-  <hr>
-
-  <h3>펫넷 QR</h3>
-
-  <div class="qr-frame">
-    <div class="brand-text">PETNET · 대한민국 반려견 안전 네트워크</div>
-    <img id="mainQR" src="" alt="펫넷 QR">
-    <div class="brand-text">QR 스캔 시 보호자 연결</div>
-  </div>
-
-  <h3>출력 개수 선택</h3>
-
-  <select id="qrCount">
-    <option value="1">1장</option>
-    <option value="2">2장</option>
-    <option value="4">4장</option>
-    <option value="8">8장</option>
-    <option value="16">16장</option>
+  <select id="qrOption">
+    <option value="1|10">1장 - 10cm × 10cm</option>
+    <option value="2|7">2장 - 7cm × 7cm</option>
+    <option value="4|5">4장 - 5cm × 5cm</option>
+    <option value="8|3.5">8장 - 3.5cm × 3.5cm</option>
   </select>
 
-  <br>
-
-  <button onclick="makePrintQR()">선택한 개수 만들기</button>
+  <button onclick="makePrintQR()">선택한 크기로 만들기</button>
   <button onclick="printQR()">출력하기</button>
+
+  <a href="index.html" class="home-btn">홈으로 돌아가기</a>
+
+  <div class="notice">
+    인쇄 설정은 A4 / 배율 100%로 출력해주세요.<br>
+    QR 인식률을 위해 16장 출력은 제공하지 않습니다.
+  </div>
 </div>
 
 <div id="printArea" class="print-area"></div>
 
 <script>
-const qrLink = "https://mans31910000-sys.github.io/petnet/qr.html";
+const params = new URLSearchParams(window.location.search);
+const petId = params.get("id") || "PET000078";
+
+const petPageUrl =
+  "https://mans31910000-sys.github.io/pet.html?id=" + encodeURIComponent(petId);
 
 const qrImageUrl =
-  "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" +
-  encodeURIComponent(qrLink);
-
-document.getElementById("mainQR").src = qrImageUrl;
+  "https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=" +
+  encodeURIComponent(petPageUrl);
 
 function makePrintQR() {
-  const count = parseInt(document.getElementById("qrCount").value);
-  const printArea = document.getElementById("printArea");
+  const option = document.getElementById("qrOption").value.split("|");
+  const count = parseInt(option[0]);
+  const size = option[1];
 
+  const printArea = document.getElementById("printArea");
   printArea.innerHTML = "";
+
+  if(count === 1){
+    printArea.style.gridTemplateColumns = "1fr";
+  }else if(count === 2){
+    printArea.style.gridTemplateColumns = "repeat(2, auto)";
+  }else if(count === 4){
+    printArea.style.gridTemplateColumns = "repeat(2, auto)";
+  }else{
+    printArea.style.gridTemplateColumns = "repeat(4, auto)";
+  }
 
   for (let i = 0; i < count; i++) {
     const box = document.createElement("div");
     box.className = "print-qr";
 
-    box.innerHTML = `
-      <p>PETNET</p>
-      <p>대한민국 반려견 안전 네트워크</p>
-      <img src="${qrImageUrl}" alt="펫넷 QR">
-      <p>QR 스캔 시 보호자 연결</p>
-    `;
+    box.innerHTML =
+      '<p>' + petId + '</p>' +
+      '<img src="' + qrImageUrl + '" style="width:' + size + 'cm; height:' + size + 'cm;">' +
+      '<p>PETNET KOREA</p>';
 
     printArea.appendChild(box);
   }
 }
+
 function printQR() {
-  alert("휴대폰에서는 브라우저 메뉴의 공유/인쇄 기능을 이용해주세요. PC에서는 바로 인쇄창이 열립니다.");
+  alert("인쇄 설정에서 용지 A4, 배율 100%로 출력해주세요.");
   window.print();
+}
+
 makePrintQR();
 </script>
 
