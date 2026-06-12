@@ -65,15 +65,47 @@ function findPet() {
     return;
   }
 
+  document.getElementById("result").innerHTML = "<p>조회 중입니다...</p>";
+
+  var oldScript = document.getElementById("petSearchScript");
+  if(oldScript){
+    oldScript.remove();
+  }
+
+  var script = document.createElement("script");
+  script.id = "petSearchScript";
+  script.src =
+    "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec" +
+    "?petid=" + encodeURIComponent(petId) +
+    "&phone=" + encodeURIComponent(phone) +
+    "&callback=showResult";
+
+  document.body.appendChild(script);
+}
+
+function showResult(data){
+  if(!data.success){
+    document.getElementById("result").innerHTML =
+      '<hr>' +
+      '<h2 style="color:#cc3333;">조회 결과 없음</h2>' +
+      '<p style="font-size:16px; line-height:1.6;">' +
+      'PET번호 또는 보호자 연락처가 일치하지 않습니다.<br>' +
+      '입력 정보를 다시 확인해주세요.' +
+      '</p>';
+    return;
+  }
+
   document.getElementById("result").innerHTML =
     '<hr>' +
-    '<h2 style="color:#0066cc;">조회 기능 준비중</h2>' +
-    '<p style="font-size:16px; line-height:1.6;">' +
-    '입력 형식은 정상입니다.<br>' +
-    '다음 단계에서 실제 등록된 PET번호와<br>' +
-    '보호자 연락처가 일치할 때만<br>' +
-    '반려견 정보를 보여주도록 연결하겠습니다.' +
-    '</p>';
+    '<h2 style="color:#0066cc;">' + data.petNumber + '</h2>' +
+    '<p><strong>이름 :</strong> ' + data.name + '</p>' +
+    '<p><strong>품종 :</strong> ' + data.breed + '</p>' +
+    '<p><strong>성별 :</strong> ' + data.gender + '</p>' +
+    '<p><strong>특징 :</strong> ' + data.feature + '</p>' +
+    '<br>' +
+    '<a href="pet.html?id=' + data.petNumber + '">' +
+    '<button style="width:80%; height:50px; font-size:18px; background-color:#66cc66; color:white; border:none; border-radius:10px;">반려견 정보 보기</button>' +
+    '</a>';
 }
 </script>
 
