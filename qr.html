@@ -100,23 +100,46 @@ select {
 }
 
 @media print {
-  body * {
-    visibility: hidden;
+  @page {
+    size: A4;
+    margin: 10mm;
   }
 
-  #printArea, #printArea * {
-    visibility: visible;
+  body {
+    background: white;
+    padding: 0;
+    margin: 0;
+  }
+
+  h1, nav, hr, .card {
+    display: none !important;
   }
 
   #printArea {
-    position: absolute;
-    left: 0;
-    top: 0;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
     width: 100%;
+    margin: 0;
+    padding: 0;
   }
 
-  .print-area {
-    grid-template-columns: repeat(4, 1fr);
+  .print-qr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    padding: 8px;
+    border: 2px solid #222;
+    border-radius: 10px;
+  }
+
+  .print-qr img {
+    width: 95px;
+    height: 95px;
+  }
+
+  .print-qr p {
+    font-size: 10px;
+    margin: 3px 0;
   }
 }
 </style>
@@ -168,7 +191,7 @@ select {
   <br>
 
   <button onclick="makePrintQR()">선택한 개수 만들기</button>
-  <button onclick="window.print()">출력하기</button>
+  <button onclick="printQR()">출력하기</button>
 </div>
 
 <div id="printArea" class="print-area"></div>
@@ -202,7 +225,9 @@ function makePrintQR() {
     printArea.appendChild(box);
   }
 }
-
+function printQR() {
+  alert("휴대폰에서는 브라우저 메뉴의 공유/인쇄 기능을 이용해주세요. PC에서는 바로 인쇄창이 열립니다.");
+  window.print();
 makePrintQR();
 </script>
 

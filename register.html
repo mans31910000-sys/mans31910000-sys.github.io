@@ -51,7 +51,6 @@ h1{
     font-size:18px;
     font-weight:bold;
     margin:28px 0 12px;
-    color:#0f2340;
 }
 
 input, select, textarea{
@@ -177,18 +176,18 @@ textarea{
 
         <div class="desc">
             반려견 정보를 입력하면<br>
-            보호자와 연결되는 QR 신분증이 생성됩니다.
+            보호자와 연결되는 QR 안전태그가 생성됩니다.
         </div>
 
-        <form action="https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec" method="post">
+        <form id="registerForm" action="https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec" method="post">
 
             <div class="section-title">반려견 정보</div>
 
-            <input name="name" type="text" placeholder="반려견 이름 *" required>
+            <input name="name" id="petName" type="text" placeholder="반려견 이름 *" required>
 
-            <input name="breed" type="text" placeholder="품종">
+            <input name="breed" id="breed" type="text" placeholder="품종 *" required>
 
-            <select name="gender">
+            <select name="gender" id="gender">
                 <option value="">성별 선택</option>
                 <option value="수컷">수컷</option>
                 <option value="암컷">암컷</option>
@@ -196,7 +195,7 @@ textarea{
                 <option value="중성화 암컷">중성화 암컷</option>
             </select>
 
-            <textarea name="feature" placeholder="특징 예: 겁이 많음, 흰색 털, 빨간 목줄 착용"></textarea>
+            <textarea name="feature" id="feature" placeholder="특징 예: 겁이 많음, 흰색 털, 빨간 목줄 착용"></textarea>
 
             <div class="section-title">반려견 사진</div>
 
@@ -212,7 +211,7 @@ textarea{
                 <label for="usePhone">전화번호로 연락받기</label>
             </div>
 
-            <input name="phone" id="phoneInput" type="tel" inputmode="tel" placeholder="전화번호 예: 01012345678">
+            <input name="phone" id="phoneInput" type="tel" inputmode="numeric" placeholder="전화번호 예: 01012345678">
 
             <div class="check-row">
                 <input type="checkbox" id="useKakao">
@@ -271,22 +270,59 @@ useKakao.addEventListener("change", function(){
     }
 });
 
+phoneInput.addEventListener("input", function(){
+    this.value = this.value.replace(/[^0-9]/g, "");
+});
+
 function toggleHelp(){
     const helpBox = document.getElementById("helpBox");
     helpBox.style.display = helpBox.style.display === "block" ? "none" : "block";
 }
 
-document.querySelector("form").addEventListener("submit", function(e){
-    if(usePhone.checked && phoneInput.value.trim() === ""){
-        alert("전화번호를 입력하거나 전화번호 선택을 해제해주세요.");
+document.getElementById("registerForm").addEventListener("submit", function(e){
+    const petName = document.getElementById("petName").value.trim();
+    const breed = document.getElementById("breed").value.trim();
+    const phone = phoneInput.value.trim();
+    const kakao = kakaoInput.value.trim();
+
+    if(petName === ""){
+        alert("반려견 이름을 입력해주세요.");
         e.preventDefault();
         return;
     }
 
-    if(useKakao.checked && kakaoInput.value.trim() === ""){
-        alert("카카오톡 오픈채팅 링크를 입력하거나 카카오톡 선택을 해제해주세요.");
+    if(breed === ""){
+        alert("품종을 입력해주세요.");
         e.preventDefault();
         return;
+    }
+
+    if(usePhone.checked){
+        if(phone === ""){
+            alert("전화번호를 입력하거나 전화번호 선택을 해제해주세요.");
+            e.preventDefault();
+            return;
+        }
+
+        if(!/^[0-9]{10,11}$/.test(phone)){
+            alert("전화번호는 숫자만 입력하고 10~11자리로 입력해주세요. 예: 01012345678");
+            e.preventDefault();
+            return;
+        }
+    }
+
+    if(useKakao.checked){
+        if(kakao === ""){
+            alert("카카오톡 오픈채팅 링크를 입력하거나 카카오톡 선택을 해제해주세요.");
+            e.preventDefault();
+            return;
+        }
+
+        if(!kakao.startsWith("https://open.kakao.com/")){
+            alert("카카오톡 오픈채팅 링크는 https://open.kakao.com/ 로 시작해야 합니다.");
+            e.preventDefault();
+            return;
+        }
     }
 
     if(!usePhone.checked && !useKakao.checked){
