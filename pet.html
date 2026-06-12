@@ -151,6 +151,13 @@ h1{
      border-radius:15px;
      margin-bottom:15px;
      display:none;">
+     <img id="petPhoto"
+     style="width:100%;
+            max-height:300px;
+            object-fit:cover;
+            border-radius:15px;
+            margin-bottom:15px;
+            display:none;">
                 <p id="name"></p>
                 <p id="breed"></p>
                 <p id="gender"></p>
@@ -312,6 +319,10 @@ function showPet(data) {
     document.getElementById("content").style.display = "block";
 
     renderPetInfo();
+    if(data.photo){
+    document.getElementById("petPhoto").src = data.photo;
+    document.getElementById("petPhoto").style.display = "block";
+}
 if (data.photo) {
     document.getElementById("petPhoto").src = data.photo;
     document.getElementById("petPhoto").style.display = "block";
