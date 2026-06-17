@@ -7,224 +7,318 @@
 <meta name="naver-site-verification" content="9a03f13f757c18839ada7816b8baacc669a1fab2" />
 
 <title>펫넷(PETNET KOREA) - 대한민국 반려견 안전 네트워크</title>
-
+<meta property="og:type" content="website">
+<meta property="og:title" content="펫넷 코리아 | 반려견 무료 QR 연결 서비스">
+<meta property="og:description" content="펫넷 코리아는 앱 설치와 회원가입 없이 사용할 수 있는 반려견 무료 QR 연결 서비스입니다. QR 스캔 한 번으로 발견자와 보호자를 빠르게 연결합니다.">
+<meta property="og:url" content="https://mans31910000-sys.github.io/">
+<meta property="og:image" content="https://mans31910000-sys.github.io/petnet_logo.png">
+<meta property="og:image:alt" content="펫넷 코리아 로고">
 <meta name="description" content="반려견 분실 무료 QR 서비스. 앱 설치와 회원가입 없이 전국민 누구나 간편하게 QR을 생성하고 바로 사용할 수 있습니다. QR 스캔 한 번으로 발견자와 보호자를 빠르게 연결합니다.">
-
-<meta name="keywords" content="펫넷, 펫넷코리아, PETNET KOREA, 반려견, 강아지, 반려동물, 반려견 QR, 강아지 QR, 반려동물 QR, 반려견 안전태그, 강아지 안전태그, 반려동물 안전태그, QR 안전태그, 반려견 분실, 강아지 분실, 반려동물 분실, 유기견, 유기동물, 실종견, 실종동물, 잃어버린 강아지, 잃어버린 반려견, 보호자 찾기, 반려견 찾기, 강아지 찾기, 무료 QR, 반려견 등록, 강아지 등록, 반려동물 등록, 분실신고, 반려동물 안전망, 반려견 안전, 반려동물 보호, 펫 아이디, PET ID">
-
 <meta name="robots" content="index,follow">
 
 <style>
+*{box-sizing:border-box;}
+
 body{
     margin:0;
     font-family:Arial, sans-serif;
-    background:linear-gradient(180deg,#ffffff 0%,#f5f9ff 100%);
-    color:#0f2340;
+    color:#0d1833;
+    background:#fff;
     text-align:center;
+    overflow-x:hidden;
+}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    padding:28px 36px 0;
+}
+
+.logo{
+    width:260px;
+    max-width:50vw;
 }
 
 .menu-btn{
-    position:fixed;
-    top:15px;
-    right:15px;
-    font-size:42px;
-    background:white;
+    font-size:48px;
+    background:none;
     border:none;
-    border-radius:14px;
-    padding:14px 20px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.15);
     cursor:pointer;
-    z-index:1000;
+    color:#0d1833;
+    padding:0;
+    line-height:1;
 }
 
 .side-menu{
     display:none;
     position:fixed;
-    top:65px;
-    right:15px;
-    width:360px;
+    top:85px;
+    right:24px;
+    width:330px;
     background:white;
-    border-radius:15px;
-    box-shadow:0 4px 20px rgba(0,0,0,0.15);
+    border-radius:18px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.18);
     overflow:hidden;
-    z-index:999;
+    z-index:1000;
 }
 
 .side-menu a{
     display:block;
-    padding:28px;
-    text-decoration:none;
-    color:#333;
+    padding:17px 22px;
     border-bottom:1px solid #eee;
-    font-size:24px;
+    text-decoration:none;
+    color:#222;
+    font-size:19px;
     font-weight:bold;
-}
-
-.side-menu a:hover{
-    background:#f5f9ff;
-    color:#005bd8;
-}
-
-.header{
-    padding:35px 15px 10px;
-}
-
-.logo{
-    width:320px;
-    max-width:90%;
+    text-align:left;
 }
 
 .hero{
-    padding:25px 20px 10px;
+    margin-top:48px;
 }
 
 .hero h1{
-    font-size:34px;
-    line-height:1.45;
-    margin:25px 0 18px;
-    font-weight:800;
+    font-size:44px;
+    line-height:1.32;
+    margin:0;
+    font-weight:900;
+    letter-spacing:-1.5px;
 }
 
 .hero h1 span{
-    color:#005bd8;
+    color:#0066e8;
 }
 
-.hero p{
-    font-size:21px;
-    line-height:1.7;
-    color:#1f2f45;
-    margin:0 0 25px;
-}
-
-.small-text{
-    font-size:19px;
-    color:#005bd8;
-    font-weight:bold;
-    margin-bottom:35px;
-}
-
-.cards{
+.cta-wrap{
+    margin-top:30px;
     display:flex;
     justify-content:center;
-    gap:24px;
-    flex-wrap:wrap;
-    max-width:950px;
-    margin:0 auto 35px;
+    align-items:center;
+    gap:14px;
 }
 
-.card{
-    background:white;
-    width:250px;
-    min-height:135px;
-    padding:28px 18px;
-    border-radius:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
-
-.icon{
-    font-size:34px;
-    margin-bottom:12px;
-}
-
-.card-title{
-    font-size:20px;
-    font-weight:bold;
-    line-height:1.5;
-    margin-bottom:10px;
-}
-
-.card-text{
-    font-size:15px;
-    color:#4d5d73;
-    line-height:1.5;
-}
-
-.buttons{
-    display:flex;
+.cta{
+    display:inline-flex;
     justify-content:center;
-    gap:24px;
-    flex-wrap:wrap;
-    margin:20px auto 45px;
-    max-width:900px;
-}
-
-.btn{
-    display:inline-block;
-    width:420px;
-    padding:26px 20px;
-    border-radius:15px;
-    text-decoration:none;
-    font-size:28px;
-    font-weight:bold;
-    box-sizing:border-box;
-}
-
-.primary{
-    background:#005bd8;
+    align-items:center;
+    width:460px;
+    max-width:72vw;
+    min-height:76px;
+    padding:20px 30px;
+    border-radius:999px;
+    background:linear-gradient(180deg,#0b76ff 0%,#005ee8 100%);
     color:white;
-    box-shadow:0 10px 25px rgba(0,91,216,0.25);
+    text-decoration:none;
+    font-size:32px;
+    font-weight:900;
+    line-height:1;
+    box-shadow:0 8px 0 #0049b8, 0 12px 24px rgba(0,91,216,0.25);
 }
 
-.secondary{
+.finger{
+    font-size:62px;
+    display:inline-block;
+    animation:fingerMove .8s infinite alternate;
+}
+
+@keyframes fingerMove{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-12px); }
+}
+
+.badges{
+    margin-top:34px;
+    display:flex;
+    justify-content:center;
+    gap:22px;
+    flex-wrap:wrap;
+}
+
+.badge{
     background:white;
-    color:#005bd8;
-    border:2px solid #005bd8;
+    border:1px solid #eee;
+    border-radius:24px;
+    padding:13px 30px;
+    font-size:22px;
+    font-weight:bold;
+    box-shadow:0 5px 16px rgba(0,0,0,0.08);
 }
 
-.count{
-    margin:35px 0 20px;
+.stories{
+    max-width:980px;
+    margin:42px auto 0;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:18px;
+    padding:0 30px;
 }
 
-.count h2{
+.story-img{
+    width:100%;
+    height:auto;
+    border-radius:20px;
+    display:block;
+    box-shadow:0 6px 22px rgba(0,0,0,0.08);
+}
+
+.stats{
+    margin:28px auto 0;
+    font-size:30px;
+    font-weight:900;
+    line-height:1.35;
+}
+
+.stats strong{
+    color:#0066e8;
+    font-size:38px;
+}
+
+.stats-sub{
     font-size:19px;
-    font-weight:500;
-    margin-bottom:8px;
+    color:#555;
+    font-weight:bold;
+    margin-top:3px;
 }
 
-.count strong{
-    font-size:54px;
-    color:#005bd8;
-    letter-spacing:1px;
+.cases{
+    max-width:930px;
+    margin:10px auto 0;
+    padding:0 30px;
+    text-align:left;
+}
+
+.cases-img{
+    width:100%;
+    height:auto;
+    transform:scale(1.08);
+    border-radius:16px;
+    display:block;
+}
+
+.dog-strip-wrap{
+    width:100% !important;
+    height:330px !important;
+    margin-top:20px !important;
+    overflow:hidden !important;
+}
+
+.dog-strip{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    object-position:center bottom !important;
+    display:block !important;
 }
 
 .footer{
-    padding:25px 15px 45px;
-    color:#4d5d73;
-    font-size:17px;
+    padding:16px 15px 30px;
+    color:#555;
+    font-size:15px;
 }
 
-@media(max-width:700px){
-    .header{
-        padding-top:30px;
+@media(min-width:761px) and (max-width:1400px){
+    .logo{width:230px;}
+    .hero{margin-top:34px;}
+    .hero h1{font-size:38px;}
+    .cta{width:420px; min-height:68px; font-size:28px;}
+    .finger{font-size:54px;}
+    .badge{font-size:19px; padding:11px 24px;}
+    .stories{max-width:900px; margin-top:34px;}
+    .stats{font-size:26px;}
+    .stats strong{font-size:34px;}
+    .cases{max-width:880px;}
+}
+
+@media(max-width:760px){
+    .top{
+        padding:24px 22px 0;
     }
 
     .logo{
-        width:280px;
+        width:230px;
+        max-width:62vw;
+    }
+
+    .menu-btn{
+        font-size:42px;
+    }
+
+    .hero{
+        margin-top:44px;
     }
 
     .hero h1{
-        font-size:26px;
+        font-size:34px;
+        line-height:1.32;
     }
 
-    .hero p{
+    .cta-wrap{
+        margin-top:26px;
+        gap:10px;
+    }
+
+    .cta{
+        width:430px;
+        max-width:72vw;
+        min-height:68px;
+        font-size:28px;
+        padding:18px 24px;
+    }
+
+    .finger{
+        font-size:54px;
+    }
+
+    .badges{
+        margin-top:30px;
+        gap:14px;
+    }
+
+    .badge{
         font-size:18px;
+        padding:11px 20px;
     }
 
-    .small-text{
-        font-size:17px;
+    .stories{
+        grid-template-columns:1fr;
+        max-width:92vw;
+        margin-top:38px;
+        gap:18px;
+        padding:0 22px;
     }
 
-    .card{
-        width:75%;
+    .stats{
+        margin-top:24px;
+        font-size:24px;
     }
 
-    .btn{
-        width:85%;
-        font-size:20px;
+    .stats strong{
+        font-size:32px;
     }
 
-    .count strong{
-        font-size:40px;
+    .stats-sub{
+        font-size:15px;
+    }
+
+    .cases{
+        max-width:92vw;
+        margin-top:28px;
+        padding:0 22px;
+    }
+
+    .dog-strip-wrap{
+        margin-top:30px;
+    }
+
+    .side-menu{
+        width:300px;
+        right:12px;
+    }
+
+    .side-menu a{
+        font-size:18px;
+        padding:16px 20px;
     }
 }
 </style>
@@ -232,87 +326,66 @@ body{
 
 <body>
 
-<button class="menu-btn" onclick="toggleMenu()">☰</button>
+<div class="top">
+    <img src="petnet-logo-crop.png" class="logo" alt="PETNET KOREA 로고">
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+</div>
 
 <div id="sideMenu" class="side-menu">
-    <a href="login.html">회원가입 / 로그인</a>
-
+    <a href="index_new.html">홈</a>
+    <a href="signup.html">회원가입</a>
+    <a href="login.html">로그인</a>
+    <a href="my.html">내 반려견 관리</a>
     <a href="lost.html">분실 신고</a>
-    <a href="stories.html">후기 · 사례 게시판</a>
     <a href="found.html">유기견 · 발견동물 제보</a>
-    <a href="about.html">PETNET KOREA 소개</a>
+    <a href="stories.html">❤️ 실제 보호자 연결 사례</a>
+    <a href="reviews.html">📝 후기게시판</a>
+    <a href="brag.html">🐶 우리 강아지 자랑하기</a>
+    <a href="stats.html">📊 펫넷 현황</a>
     <a href="partner.html">업무협약 문의</a>
+    <a href="about.html">펫넷 소개</a>
 </div>
 
-<div class="header">
-
-    <img src="petnet-logo.png" class="logo" alt="펫넷 로고">
-
-    <div style="margin-top:20px;">
-        <a href="register.html" class="btn primary">
-            🐾 초간단 무료 QR 생성하기
-        </a>
-    </div>
-
-</div>
-
-<div class="hero">
-
+<section class="hero">
     <h1>
-        반려견을 잃어버렸을 때,<br>
-        가장 필요한 것은 <span>빠른 연결</span>입니다.
+        반려견을 잃어버렸을 때<br>
+        가장 필요한 것은 <span>빠른 연결</span>입니다
     </h1>
 
-    <p>
-        QR 스캔 한 번으로<br>
-        발견자와 보호자를 연결합니다.
-    </p>
-
-    <div class="small-text">
-        회원가입 없이, 약 30초 만에 QR 생성 가능
+    <div class="cta-wrap">
+        <a href="register.html" class="cta">무료 QR 생성하기</a>
+        <span class="finger">👈</span>
     </div>
 
-    <div class="cards">
-        <div class="card">
-            <div class="icon">👤</div>
-            <div class="card-title">회원가입 없이<br>무료 생성</div>
-            <div class="card-text">복잡한 절차 없이<br>누구나 무료로 생성</div>
-        </div>
-
-        <div class="card">
-            <div class="icon">📱</div>
-            <div class="card-title">앱 설치 없이<br>바로 사용</div>
-            <div class="card-text">별도 앱 설치 없이<br>QR 스캔으로 즉시 연결</div>
-        </div>
-
-        <div class="card">
-            <div class="icon">🖨️</div>
-            <div class="card-title">출력 후<br>즉시 사용 가능</div>
-            <div class="card-text">출력하여 목걸이나<br>인식표에 부착하여 사용</div>
-        </div>
+    <div class="badges">
+        <div class="badge">👤 회원가입 X</div>
+        <div class="badge">📱 앱 설치 X</div>
+        <div class="badge">✅ 즉시 사용 O</div>
     </div>
+</section>
 
-    <div class="buttons">
-        <a href="my.html" class="btn secondary">
-            📋 내 반려견 관리
-        </a>
+<section class="stories">
+    <img src="petnet-story1.png" class="story-img" alt="QR 태그 부착">
+    <img src="petnet-story2.png" class="story-img" alt="발견자가 QR 스캔">
+    <img src="petnet-story3.png" class="story-img" alt="빠르게 보호자에게 연결">
+</section>
+
+<section class="stats">
+    🐶 현재 등록된 반려견 <strong id="petCount" style="color:#e60023;">99</strong>마리와 함께하고 있어요!
+    <div class="stats-sub">
     </div>
+</section>
 
-    <div class="count">
-        <h2>전국 반려견 등록 수</h2>
-        <strong id="petCount">불러오는 중...</strong>  
-    </div>
+<section class="cases">
+    <img src="petnet-cases.png" class="cases-img" alt="실제 보호자 연결 사례">
+</section>
 
-</div>
 
-<div class="footer">
-    🔒 개인정보 노출 없이 반려견 발견자와 보호자를 연결합니다.
-</div>
 
 <script>
 function showCount(data){
     document.getElementById("petCount").innerText =
-        data.count.toLocaleString() + " 마리";
+        data.count.toLocaleString();
 }
 
 var script = document.createElement("script");
@@ -325,14 +398,219 @@ document.body.appendChild(script);
 <script>
 function toggleMenu(){
     var menu = document.getElementById("sideMenu");
-
-    if(menu.style.display === "block"){
-        menu.style.display = "none";
-    }else{
-        menu.style.display = "block";
-    }
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
 </script>
+<section class="promo-slider-section">
+  <div class="promo-slider" id="promoSlider">
 
+    <div class="promo-slide active">
+      <div class="promo-text">
+        <h2>회원가입 없이<br>바로 QR 생성</h2>
+        <p>간단한 정보 입력만으로<br>QR 태그를 만들고 바로 사용하세요.</p>
+      </div>
+      <div class="promo-emoji">🐶</div>
+    </div>
+
+    <div class="promo-slide">
+      <div class="promo-text">
+        <h2>앱 설치 없이<br>QR 스캔만으로 확인</h2>
+        <p>발견자는 별도 앱 없이<br>보호자 연결 화면을 볼 수 있어요.</p>
+      </div>
+      <div class="promo-emoji">📱</div>
+    </div>
+
+    <div class="promo-slide">
+      <div class="promo-text">
+        <h2>전화 또는 카톡으로<br>빠른 보호자 연결</h2>
+        <p>보호자가 선택한 연락 방식으로<br>바로 연결됩니다.</p>
+      </div>
+      <div class="promo-emoji">☎️</div>
+    </div>
+
+    <div class="promo-slide">
+      <div class="promo-text">
+        <h2>강아지와 고양이<br>모두 사용 가능</h2>
+        <p>반려동물의 안전을 위해<br>누구나 무료로 사용할 수 있어요.</p>
+      </div>
+      <div class="promo-emoji">🐾</div>
+    </div>
+
+    <div class="promo-slide">
+      <div class="promo-text">
+        <h2>펫넷 코리아와 함께<br>안전한 귀가</h2>
+        <p>QR 하나로 발견자와 보호자를<br>빠르게 연결합니다.</p>
+      </div>
+      <div class="promo-emoji">🏠</div>
+    </div>
+
+    <button class="promo-arrow left" onclick="prevPromo()">‹</button>
+    <button class="promo-arrow right" onclick="nextPromo()">›</button>
+  </div>
+
+  <div class="promo-dots">
+    <span class="promo-dot active"></span>
+    <span class="promo-dot"></span>
+    <span class="promo-dot"></span>
+    <span class="promo-dot"></span>
+    <span class="promo-dot"></span>
+  </div>
+</section>
+
+<style>
+.promo-slider-section{
+  width:92%;
+  max-width:1180px;
+  margin:48px auto 40px;
+  text-align:center;
+}
+
+.promo-slider{
+  position:relative;
+  height:310px;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 12px 30px rgba(0,0,0,0.12);
+  background:linear-gradient(135deg,#6fa83a,#d8f2b3);
+}
+
+.promo-slide{
+  display:none;
+  width:100%;
+  height:100%;
+  align-items:center;
+  justify-content:space-between;
+  padding:45px 90px;
+  box-sizing:border-box;
+  color:white;
+  background:linear-gradient(135deg,rgba(59,117,28,0.95),rgba(126,178,65,0.75));
+}
+
+.promo-slide.active{
+  display:flex;
+}
+
+.promo-text{
+  text-align:left;
+}
+
+.promo-text h2{
+  font-size:38px;
+  line-height:1.25;
+  margin:0 0 22px;
+  font-weight:900;
+}
+
+.promo-text p{
+  font-size:22px;
+  line-height:1.5;
+  margin:0;
+  font-weight:600;
+}
+
+.promo-emoji{
+  font-size:120px;
+  filter:drop-shadow(0 8px 12px rgba(0,0,0,0.18));
+}
+
+.promo-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  border:0;
+  background:rgba(255,255,255,0.2);
+  color:white;
+  font-size:60px;
+  width:60px;
+  height:80px;
+  border-radius:18px;
+  cursor:pointer;
+}
+
+.promo-arrow.left{
+  left:18px;
+}
+
+.promo-arrow.right{
+  right:18px;
+}
+
+.promo-dots{
+  margin-top:18px;
+}
+
+.promo-dot{
+  display:inline-block;
+  width:12px;
+  height:12px;
+  margin:0 6px;
+  border-radius:50%;
+  background:#c9c9c9;
+}
+
+.promo-dot.active{
+  background:#0b6eff;
+}
+
+@media(max-width:768px){
+  .promo-slider-section{
+    width:94%;
+    margin:36px auto 30px;
+  }
+
+  .promo-slider{
+    height:260px;
+    border-radius:20px;
+  }
+
+  .promo-slide{
+    padding:32px 54px;
+  }
+
+  .promo-text h2{
+    font-size:28px;
+  }
+
+  .promo-text p{
+    font-size:17px;
+  }
+
+  .promo-emoji{
+    font-size:74px;
+  }
+
+  .promo-arrow{
+    font-size:46px;
+    width:44px;
+    height:62px;
+  }
+}
+</style>
+
+<script>
+let promoIndex = 0;
+const promoSlides = document.querySelectorAll(".promo-slide");
+const promoDots = document.querySelectorAll(".promo-dot");
+
+function showPromo(index){
+  promoSlides.forEach(slide => slide.classList.remove("active"));
+  promoDots.forEach(dot => dot.classList.remove("active"));
+
+  promoSlides[index].classList.add("active");
+  promoDots[index].classList.add("active");
+}
+
+function nextPromo(){
+  promoIndex = (promoIndex + 1) % promoSlides.length;
+  showPromo(promoIndex);
+}
+
+function prevPromo(){
+  promoIndex = (promoIndex - 1 + promoSlides.length) % promoSlides.length;
+  showPromo(promoIndex);
+}
+
+setInterval(nextPromo, 3500);
+</script>
 </body>
 </html>
