@@ -319,19 +319,18 @@ function showPet(data) {
     document.getElementById("content").style.display = "block";
 
     renderPetInfo();
-    if(data.photo){
-    document.getElementById("petPhoto").src = data.photo;
-    document.getElementById("petPhoto").style.display = "block";
-}
-if (data.photo) {
-    document.getElementById("petPhoto").src = data.photo;
-    document.getElementById("petPhoto").style.display = "block";
-}
-    if (data.phone) {
-        document.getElementById("phoneLink").href = "tel:" + data.phone;
-        document.getElementById("phoneLink").style.display = "block";
-    }
 
+var photo = data.photoUrl || data.photo || data.image || "";
+
+if(photo && photo.trim() !== ""){
+  document.getElementById("petPhoto").src = photo;
+  document.getElementById("petPhoto").style.display = "block";
+}
+
+if (data.phone) {
+  document.getElementById("phoneLink").href = "tel:" + data.phone;
+  document.getElementById("phoneLink").style.display = "block";
+}
     if (data.kakao) {
         document.getElementById("kakaoLink").href = data.kakao;
         document.getElementById("kakaoLink").style.display = "block";
