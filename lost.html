@@ -236,7 +236,11 @@ textarea.input-box{
 function submitLostReport(){
     var dogName = document.getElementById("dogName").value.trim();
     var breed = document.getElementById("breed").value.trim();
+    var age = document.getElementById("age").value.trim();
+    var color = document.getElementById("color").value.trim();
+    var feature = document.getElementById("feature").value.trim();
     var lostPlace = document.getElementById("lostPlace").value.trim();
+    var lostDate = document.getElementById("lostDate").value;
     var phone = document.getElementById("phone").value.trim().replace(/[^0-9]/g, "");
 
     if(dogName === "" || breed === "" || lostPlace === "" || phone === ""){
@@ -249,7 +253,45 @@ function submitLostReport(){
         return;
     }
 
-    alert("분실 신고 내용이 확인되었습니다. 다음 단계에서 저장 기능을 연결하겠습니다.");
+    var reportBtn = document.querySelector(".report-btn");
+    reportBtn.disabled = true;
+    reportBtn.innerText = "신고 저장 중...";
+
+    var formData = new FormData();
+    formData.append("action", "lost");
+    formData.append("dogName", dogName);
+    formData.append("breed", breed);
+    formData.append("age", age);
+    formData.append("color", color);
+    formData.append("feature", feature);
+    formData.append("lostPlace", lostPlace);
+    formData.append("lostDate", lostDate);
+    formData.append("phone", phone);
+
+    fetch("https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec", {
+        method: "POST",
+        body: formData
+    })
+    .then(function(response){
+        return response.text();
+    })
+    .then(function(result){
+        result = String(result).trim();
+
+        if(result === "lost_success"){
+            alert("분실 신고가 저장되었습니다.");
+            window.location.href = "lost_success.html";
+        }else{
+            alert("분실 신고 저장 실패: " + result);
+            reportBtn.disabled = false;
+            reportBtn.innerText = "분실 신고하기";
+        }
+    })
+    .catch(function(error){
+        alert("분실 신고 중 오류가 발생했습니다: " + error.message);
+        reportBtn.disabled = false;
+        reportBtn.innerText = "분실 신고하기";
+    });
 }
 </script>
 
