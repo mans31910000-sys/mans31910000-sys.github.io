@@ -2,36 +2,184 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>분실신고 완료</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>분실 신고 완료 | PETNET KOREA</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f5f9ff;
+    color:#0d1833;
+    text-align:center;
+    padding:18px;
+}
+
+.card{
+    background:white;
+    width:100%;
+    max-width:430px;
+    margin:0 auto;
+    padding:30px 22px 34px;
+    border-radius:24px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.logo{
+    width:170px;
+    max-width:70%;
+    margin:4px auto 22px;
+    display:block;
+}
+
+.icon{
+    font-size:58px;
+    margin-bottom:10px;
+}
+
+h1{
+    margin:0;
+    font-size:32px;
+    color:#e60023;
+    font-weight:900;
+}
+
+.desc{
+    font-size:17px;
+    line-height:1.7;
+    margin:22px 0;
+    color:#333;
+}
+
+.notice{
+    background:#fff7f7;
+    border:1px solid #ffd0d0;
+    border-radius:18px;
+    padding:18px 15px;
+    margin:22px 0;
+    font-size:15px;
+    line-height:1.7;
+    color:#444;
+    text-align:left;
+}
+
+.btn{
+    display:block;
+    width:100%;
+    height:56px;
+    line-height:56px;
+    margin-top:14px;
+    font-size:19px;
+    font-weight:900;
+    text-decoration:none;
+    border-radius:16px;
+}
+
+.main-btn{
+    background:#0066cc;
+    color:white;
+}
+
+.lost-btn{
+    background:#fff;
+    color:#e60023;
+    border:2px solid #e60023;
+}
+
+.home-btn{
+    background:#f0f0f0;
+    color:#111;
+}
+
+.tip{
+    margin-top:18px;
+    font-size:13px;
+    line-height:1.5;
+    color:#777;
+}
+
+@media(max-width:480px){
+    body{
+        padding:14px;
+    }
+
+    .card{
+        padding:28px 18px 32px;
+        border-radius:22px;
+    }
+
+    .logo{
+        width:155px;
+    }
+
+    .icon{
+        font-size:54px;
+    }
+
+    h1{
+        font-size:30px;
+    }
+
+    .desc{
+        font-size:16px;
+    }
+
+    .notice{
+        font-size:14px;
+    }
+
+    .btn{
+        height:54px;
+        line-height:54px;
+        font-size:18px;
+    }
+}
+</style>
 </head>
 
-<body style="text-align:center; font-family:Arial;">
+<body>
 
-<h1>🐶 펫넷</h1>
-<hr>
+<div class="card">
 
-<a href="index.html">홈</a> |
+    <img src="petnet-logo-crop.png" class="logo" alt="PETNET KOREA 로고">
 
-<a href="register.html">반려견 등록</a> |
+    <div class="icon">🚨</div>
 
-<a href="lost.html">분실 신고</a>
+    <h1>분실 신고 접수 완료</h1>
 
-<hr>
-<h2>분실 신고 접수 완료</h2>
+    <p class="desc">
+        분실 신고가 정상적으로 접수되었습니다.<br>
+        입력한 신고 내용은 펫넷에 저장되었습니다.
+    </p>
 
-<p>
-분실 신고가 접수되었습니다.
-</p>
+    <div class="notice">
+        ✅ 보호자 연락처와 분실 정보를 기준으로 신고 내용이 저장되었습니다.<br>
+        ✅ 발견자가 QR을 스캔하거나 신고 정보를 확인하면 보호자와 연결될 수 있습니다.<br>
+        ✅ 추가 신고가 필요하면 아래 버튼을 눌러 다시 작성할 수 있습니다.
+    </div>
 
-<p>
-발견자가 QR을 스캔하거나
-신고 정보를 확인하면
-보호자와 연결될 수 있습니다.
-</p>
+    <a class="btn main-btn" href="index.html">
+        메인으로 돌아가기
+    </a>
 
-<a href="index.html">
-<button>메인으로 돌아가기</button>
-</a>
+    <a class="btn lost-btn" href="lost.html">
+        분실 신고 다시 하기
+    </a>
+
+    <a class="btn home-btn" href="register.html">
+        반려견 QR 등록하기
+    </a>
+
+    <div class="tip">
+        펫넷은 반려견을 잃어버렸을 때<br>
+        발견자와 보호자를 빠르게 연결하기 위한 무료 QR 서비스입니다.
+    </div>
+
+</div>
 
 </body>
 </html>
