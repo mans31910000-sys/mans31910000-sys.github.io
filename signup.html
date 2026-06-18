@@ -3,88 +3,226 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>무료 회원가입</title>
+<title>무료 회원가입 | PETNET KOREA</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f5f9ff;
+    color:#0d1833;
+    text-align:center;
+    padding:18px;
+}
+
+.signup-card{
+    background:white;
+    width:100%;
+    max-width:430px;
+    margin:0 auto;
+    padding:24px 22px 28px;
+    border-radius:24px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.logo{
+    width:170px;
+    max-width:70%;
+    margin:4px auto 18px;
+    display:block;
+}
+
+h1{
+    margin:0;
+    font-size:32px;
+    color:#0066cc;
+    font-weight:900;
+}
+
+.desc{
+    font-size:17px;
+    line-height:1.45;
+    margin:16px 0 18px;
+    color:#111;
+}
+
+.benefit-box{
+    background:#f5f9ff;
+    padding:18px 16px;
+    border-radius:18px;
+    margin-bottom:22px;
+    text-align:left;
+}
+
+.benefit-box p{
+    margin:10px 0;
+    font-size:17px;
+    font-weight:700;
+}
+
+.input-box{
+    width:100%;
+    height:54px;
+    margin-bottom:14px;
+    padding:0 16px;
+    font-size:17px;
+    border:1px solid #d5dce8;
+    border-radius:14px;
+    outline:none;
+    background:#fff;
+}
+
+.input-box:focus{
+    border-color:#0066cc;
+    box-shadow:0 0 0 3px rgba(0,102,204,0.12);
+}
+
+.join-btn{
+    width:100%;
+    height:58px;
+    margin-top:8px;
+    font-size:21px;
+    font-weight:900;
+    background:#0066cc;
+    color:white;
+    border:none;
+    border-radius:16px;
+    cursor:pointer;
+}
+
+.home-btn{
+    width:100%;
+    height:54px;
+    margin-top:14px;
+    font-size:19px;
+    font-weight:800;
+    background:#f0f0f0;
+    color:#111;
+    border:none;
+    border-radius:16px;
+    cursor:pointer;
+}
+
+.note{
+    margin-top:14px;
+    font-size:13px;
+    color:#777;
+    line-height:1.45;
+}
+
+@media(max-width:480px){
+    body{
+        padding:14px;
+    }
+
+    .signup-card{
+        padding:22px 18px 26px;
+        border-radius:22px;
+    }
+
+    .logo{
+        width:155px;
+        margin-bottom:16px;
+    }
+
+    h1{
+        font-size:29px;
+    }
+
+    .desc{
+        font-size:16px;
+        margin:14px 0 16px;
+    }
+
+    .benefit-box{
+        padding:15px 14px;
+        margin-bottom:20px;
+    }
+
+    .benefit-box p{
+        font-size:15px;
+        margin:9px 0;
+    }
+
+    .input-box{
+        height:52px;
+        font-size:16px;
+        margin-bottom:12px;
+    }
+
+    .join-btn{
+        height:56px;
+        font-size:20px;
+    }
+
+    .home-btn{
+        height:52px;
+        font-size:18px;
+    }
+}
+</style>
 </head>
 
-<body style="text-align:center; font-family:Arial; background-color:#f5f9ff; padding:20px;">
+<body>
 
-<div style="background:white; padding:25px; border-radius:15px; max-width:420px; margin:auto; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+<div class="signup-card">
 
-<h1 style="color:#0066cc;">👤 무료 회원가입</h1>
+    <img src="petnet-logo-crop.png" class="logo" alt="PETNET KOREA 로고">
 
-<p style="font-size:16px;">
-회원가입 후 다양한 기능을 무료로 이용할 수 있습니다.
-</p>
+    <h1>👤 무료 회원가입</h1>
 
-<div style="background:#f5f9ff; padding:15px; border-radius:10px; margin-bottom:20px;">
-    <p>✅ QR 정보 수정</p>
-    <p>✅ 여러 마리 반려견 관리</p>
-    <p>✅ 분실 알림 서비스</p>
-    <p>✅ 커뮤니티 이용</p>
-    <p>✅ 향후 추가 기능 무료 제공</p>
-</div>
+    <p class="desc">
+        회원가입 후 다양한 기능을<br>
+        무료로 이용할 수 있습니다.
+    </p>
 
-<input id="name" type="text" placeholder="이름"
-style="width:80%; height:45px; font-size:18px;">
+    <div class="benefit-box">
+        <p>✅ QR 정보 수정</p>
+        <p>✅ 여러 마리 반려견 관리</p>
+        <p>✅ 분실 알림 서비스</p>
+        <p>✅ 커뮤니티 이용</p>
+        <p>✅ 향후 추가 기능 무료 제공</p>
+    </div>
 
-<br><br>
+    <input id="name" class="input-box" type="text" placeholder="이름">
 
-<input id="email" type="email" placeholder="이메일"
-style="width:80%; height:45px; font-size:18px;">
+    <input id="email" class="input-box" type="email" placeholder="이메일">
 
-<br><br>
+    <input id="password" class="input-box" type="password" placeholder="비밀번호">
 
-<input id="password" type="password" placeholder="비밀번호"
-style="width:80%; height:45px; font-size:18px;">
+    <input id="passwordCheck" class="input-box" type="password" placeholder="비밀번호 확인">
 
-<br><br>
+    <input id="phone" class="input-box" type="tel" placeholder="휴대전화번호">
 
-<input id="passwordCheck" type="password" placeholder="비밀번호 확인"
-style="width:80%; height:45px; font-size:18px;">
+    <button id="joinBtn" onclick="joinMember()" class="join-btn">
+        회원가입
+    </button>
 
-<br><br>
+    <a href="index.html">
+        <button class="home-btn">
+            🏠 홈으로 돌아가기
+        </button>
+    </a>
 
-<input id="phone" type="tel" placeholder="휴대전화번호"
-style="width:80%; height:45px; font-size:18px;">
-
-<br><br>
-
-<button onclick="joinMember()" style="
-width:80%;
-height:55px;
-font-size:20px;
-background-color:#0066cc;
-color:white;
-border:none;
-border-radius:10px;
-">
-회원가입
-</button>
-
-<br><br>
-
-<a href="index.html">
-<button style="
-width:80%;
-height:50px;
-font-size:18px;
-border:none;
-border-radius:10px;
-">
-🏠 홈으로 돌아가기
-</button>
-</a>
+    <div class="note">
+        회원가입은 무료이며, 기본 QR 생성은 회원가입 없이도 이용할 수 있습니다.
+    </div>
 
 </div>
 
 <script>
 function joinMember(){
 
-    var name = document.getElementById("name").value;
-    var email = document.getElementById("email").value;
+    var name = document.getElementById("name").value.trim();
+    var email = document.getElementById("email").value.trim();
     var password = document.getElementById("password").value;
     var passwordCheck = document.getElementById("passwordCheck").value;
-    var phone = document.getElementById("phone").value;
+    var phone = document.getElementById("phone").value.trim();
+    var joinBtn = document.getElementById("joinBtn");
 
     if(name === "" || email === "" || password === "" || passwordCheck === "" || phone === ""){
         alert("모든 항목을 입력해주세요.");
@@ -95,6 +233,9 @@ function joinMember(){
         alert("비밀번호가 서로 다릅니다.");
         return;
     }
+
+    joinBtn.disabled = true;
+    joinBtn.innerText = "가입 처리 중...";
 
     fetch("https://script.google.com/macros/s/AKfycbyLGnYtQjGZswPnuMesVh5O8YcWdZozgugZRTSJ9_VYk9uREVGQCPfWqweNj7yPlaU/exec", {
         method: "POST",
@@ -114,6 +255,8 @@ function joinMember(){
     })
     .catch(function(error){
         alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
+        joinBtn.disabled = false;
+        joinBtn.innerText = "회원가입";
     });
 }
 </script>
