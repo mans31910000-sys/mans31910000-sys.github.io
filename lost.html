@@ -2,79 +2,256 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>분실 신고</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>분실 신고 | PETNET KOREA</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f5f9ff;
+    color:#0d1833;
+    text-align:center;
+    padding:18px;
+}
+
+.card{
+    background:white;
+    width:100%;
+    max-width:430px;
+    margin:0 auto;
+    padding:26px 22px 30px;
+    border-radius:24px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.logo{
+    width:170px;
+    max-width:70%;
+    margin:4px auto 18px;
+    display:block;
+}
+
+h1{
+    margin:0;
+    font-size:34px;
+    color:#e60023;
+    font-weight:900;
+}
+
+.desc{
+    font-size:16px;
+    line-height:1.55;
+    margin:16px 0 20px;
+    color:#333;
+}
+
+.notice{
+    background:#fff7f7;
+    border:1px solid #ffd0d0;
+    border-radius:18px;
+    padding:16px 14px;
+    margin-bottom:22px;
+    font-size:14px;
+    line-height:1.6;
+    color:#444;
+    text-align:left;
+}
+
+label{
+    display:block;
+    text-align:left;
+    font-size:15px;
+    font-weight:800;
+    margin:14px 0 7px;
+    color:#222;
+}
+
+.input-box{
+    width:100%;
+    height:52px;
+    padding:0 16px;
+    font-size:16px;
+    border:1px solid #d5dce8;
+    border-radius:14px;
+    outline:none;
+    background:#fff;
+}
+
+.input-box:focus{
+    border-color:#e60023;
+    box-shadow:0 0 0 3px rgba(230,0,35,0.12);
+}
+
+textarea.input-box{
+    height:92px;
+    padding:14px 16px;
+    resize:none;
+    font-family:Arial, sans-serif;
+}
+
+.report-btn{
+    width:100%;
+    height:60px;
+    margin-top:22px;
+    font-size:22px;
+    font-weight:900;
+    background:#e60023;
+    color:white;
+    border:none;
+    border-radius:16px;
+    cursor:pointer;
+}
+
+.home-btn{
+    display:block;
+    width:100%;
+    height:52px;
+    line-height:52px;
+    margin-top:14px;
+    font-size:18px;
+    font-weight:800;
+    background:#f0f0f0;
+    color:#111;
+    text-decoration:none;
+    border-radius:16px;
+}
+
+.tip{
+    margin-top:16px;
+    font-size:13px;
+    color:#777;
+    line-height:1.5;
+}
+
+@media(max-width:480px){
+    body{
+        padding:14px;
+    }
+
+    .card{
+        padding:24px 18px 28px;
+        border-radius:22px;
+    }
+
+    .logo{
+        width:155px;
+        margin-bottom:16px;
+    }
+
+    h1{
+        font-size:32px;
+    }
+
+    .desc{
+        font-size:15px;
+    }
+
+    .input-box{
+        height:50px;
+        font-size:15px;
+    }
+
+    textarea.input-box{
+        height:86px;
+    }
+
+    .report-btn{
+        height:58px;
+        font-size:21px;
+    }
+
+    .home-btn{
+        height:50px;
+        line-height:50px;
+        font-size:17px;
+    }
+}
+</style>
 </head>
 
-<body style="
-font-family:Arial;
-background:#f5f5f5;
-text-align:center;
-padding:20px;">
+<body>
 
-<div style="background:#0066cc; padding:10px;">
+<div class="card">
 
-<a href="index.html" style="color:white;">홈</a> |
+    <img src="petnet-logo-crop.png" class="logo" alt="PETNET KOREA 로고">
 
-<a href="register.html" style="color:white;">반려견 등록</a> |
+    <h1>🚨 분실 신고</h1>
 
-<a href="lost.html" style="color:white;">분실 신고</a>
+    <p class="desc">
+        반려견을 잃어버렸다면<br>
+        아래 정보를 입력해 신고 내용을 정리할 수 있습니다.
+    </p>
 
-</div>
+    <div class="notice">
+        ✅ 가능한 자세히 입력할수록 찾는 데 도움이 됩니다.<br>
+        ✅ 보호자 연락처는 발견자가 연락할 수 있는 번호로 입력해주세요.<br>
+        ✅ 다음 단계에서 신고 내용 저장 기능을 연결할 예정입니다.
+    </div>
 
-<br>
+    <label for="dogName">강아지 이름</label>
+    <input id="dogName" class="input-box" type="text" placeholder="예: 콩이">
 
-<div style="
-max-width:450px;
-margin:auto;
-background:white;
-padding:20px;
-border-radius:20px;
-box-shadow:0 0 15px rgba(0,0,0,0.1);">
+    <label for="breed">견종</label>
+    <input id="breed" class="input-box" type="text" placeholder="예: 말티즈">
 
-<h2>🚨 분실 신고</h2>
+    <label for="age">나이</label>
+    <input id="age" class="input-box" type="text" placeholder="예: 3살">
 
-<p>강아지 이름</p>
-<input type="text" style="width:90%; padding:10px;">
+    <label for="color">털 색상</label>
+    <input id="color" class="input-box" type="text" placeholder="예: 흰색">
 
-<p>견종</p>
-<input type="text" style="width:90%; padding:10px;">
+    <label for="feature">특징</label>
+    <textarea id="feature" class="input-box" placeholder="예: 빨간 목줄 착용, 사람을 잘 따름"></textarea>
 
-<p>나이</p>
-<input type="text" style="width:90%; padding:10px;">
+    <label for="lostPlace">분실 장소</label>
+    <input id="lostPlace" class="input-box" type="text" placeholder="예: 의정부역 근처">
 
-<p>털 색상</p>
-<input type="text" style="width:90%; padding:10px;">
+    <label for="lostDate">분실 날짜</label>
+    <input id="lostDate" class="input-box" type="date">
 
-<p>특징</p>
-<input type="text" style="width:90%; padding:10px;">
+    <label for="phone">보호자 연락처</label>
+    <input id="phone" class="input-box" type="tel" placeholder="예: 01012345678">
 
-<p>분실 장소</p>
-<input type="text" style="width:90%; padding:10px;">
+    <button class="report-btn" onclick="submitLostReport()">
+        분실 신고하기
+    </button>
 
-<p>분실 날짜</p>
-<input type="date" style="width:90%; padding:10px;">
+    <a class="home-btn" href="index.html">
+        🏠 홈으로 돌아가기
+    </a>
 
-<p>보호자 연락처</p>
-<input type="text" style="width:90%; padding:10px;">
-
-<br><br>
-
-<a href="lost_success.html">
-<button style="
-width:200px;
-height:50px;
-background:#ff6666;
-color:white;
-border:none;
-border-radius:10px;
-font-size:18px;">
-
-신고하기
-
-</button>
-</a>
+    <div class="tip">
+        현재는 신고 화면 정리 단계입니다.  
+        다음 단계에서 신고 내용을 저장하고 목록으로 보여주는 기능을 연결합니다.
+    </div>
 
 </div>
+
+<script>
+function submitLostReport(){
+    var dogName = document.getElementById("dogName").value.trim();
+    var breed = document.getElementById("breed").value.trim();
+    var lostPlace = document.getElementById("lostPlace").value.trim();
+    var phone = document.getElementById("phone").value.trim().replace(/[^0-9]/g, "");
+
+    if(dogName === "" || breed === "" || lostPlace === "" || phone === ""){
+        alert("강아지 이름, 견종, 분실 장소, 보호자 연락처는 꼭 입력해주세요.");
+        return;
+    }
+
+    if(!/^[0-9]{10,11}$/.test(phone)){
+        alert("연락처는 숫자만 입력하고 10~11자리로 입력해주세요.");
+        return;
+    }
+
+    alert("분실 신고 내용이 확인되었습니다. 다음 단계에서 저장 기능을 연결하겠습니다.");
+}
+</script>
 
 </body>
 </html>
