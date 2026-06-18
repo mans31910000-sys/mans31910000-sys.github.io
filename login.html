@@ -233,7 +233,7 @@ function loginMember(){
             alert("로그인 성공 🐶");
             window.location.href = "my.html";
         }else{
-            alert("이메일 또는 비밀번호가 일치하지 않습니다.");
+            alert("로그인 실패: " + result);
             loginBtn.disabled = false;
             loginBtn.innerText = "로그인";
         }
