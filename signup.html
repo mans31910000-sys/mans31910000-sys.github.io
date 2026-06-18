@@ -250,9 +250,25 @@ function joinMember(){
     return response.text();
 })
     .then(function(result){
+    result = String(result).trim();
+
+    if(result === "signup_success"){
         alert("회원가입이 완료되었습니다 🐶");
         window.location.href = "login.html";
-    })
+    }else if(result === "already_exists"){
+        alert("이미 가입된 이메일입니다.");
+        joinBtn.disabled = false;
+        joinBtn.innerText = "회원가입";
+    }else if(result === "missing"){
+        alert("입력값이 빠져 있습니다.");
+        joinBtn.disabled = false;
+        joinBtn.innerText = "회원가입";
+    }else{
+        alert("회원가입 저장 실패: " + result);
+        joinBtn.disabled = false;
+        joinBtn.innerText = "회원가입";
+    }
+})
     .catch(function(error){
         alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
         joinBtn.disabled = false;
