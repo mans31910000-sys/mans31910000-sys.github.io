@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.69">
+<meta name="viewport" content="width=device-width, initial-scale=0.68">
 <meta name="google-site-verification" content="Ot_ryA3WRG5nXIdNoy3CpTExMA3PwmiFQNCPnFIN6-4" />
 <meta name="naver-site-verification" content="9a03f13f757c18839ada7816b8baacc669a1fab2" />
 
@@ -12,7 +12,9 @@
 <meta name="robots" content="index,follow">
 
 <style>
-*{box-sizing:border-box;}
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
@@ -118,8 +120,12 @@ body{
 }
 
 @keyframes fingerMove{
-    from{ transform:translateX(0); }
-    to{ transform:translateX(-12px); }
+    from{
+        transform:translateX(0);
+    }
+    to{
+        transform:translateX(-12px);
+    }
 }
 
 .badges{
@@ -165,7 +171,7 @@ body{
 }
 
 .stats strong{
-    color:#0066e8;
+    color:#e60023;
     font-size:38px;
 }
 
@@ -176,34 +182,197 @@ body{
     margin-top:3px;
 }
 
-.cases{
-    max-width:930px;
-    margin:10px auto 0;
-    padding:0 30px;
+/* 유기견 · 발견동물 제보 메인 영역 */
+.found-main-section{
+    max-width:1100px;
+    margin:30px auto 34px;
+    padding:0 20px;
+}
+
+.found-main-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    margin-bottom:18px;
+}
+
+.found-main-head h2{
+    font-size:34px;
+    font-weight:900;
+    color:#111;
+    margin:0;
+}
+
+.found-main-head a{
+    font-size:17px;
+    font-weight:900;
+    color:#0066cc;
+    text-decoration:none;
+    white-space:nowrap;
+}
+
+.main-found-list{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:18px;
+}
+
+.main-found-card{
+    background:white;
+    border-radius:18px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    overflow:hidden;
+    min-height:210px;
+}
+
+.main-found-photo{
+    width:100%;
+    height:145px;
+    background:#eef3f8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#999;
+    font-size:17px;
+    font-weight:900;
+}
+
+.main-found-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.main-found-info{
+    padding:12px 13px 14px;
     text-align:left;
 }
 
-.cases-img{
+.main-found-type{
+    font-size:18px;
+    font-weight:900;
+    color:#111;
+    margin-bottom:6px;
+}
+
+.main-found-place{
+    font-size:14px;
+    font-weight:700;
+    color:#0066cc;
+    line-height:1.4;
+}
+
+.main-found-feature{
+    font-size:13px;
+    color:#555;
+    line-height:1.4;
+    margin-top:4px;
+}
+
+.main-found-card.empty{
+    height:210px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#999;
+    font-size:17px;
+    font-weight:900;
+    background:#eef3f8;
+}
+
+/* 하단 홍보 슬라이드 */
+.promo-slider-section{
+    width:92%;
+    max-width:1180px;
+    margin:48px auto 40px;
+    text-align:center;
+}
+
+.promo-slider{
+    position:relative;
+    height:310px;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 12px 30px rgba(0,0,0,0.12);
+    background:linear-gradient(135deg,#6fa83a,#d8f2b3);
+}
+
+.promo-slide{
+    display:none;
     width:100%;
-    height:auto;
-    transform:scale(1.08);
-    border-radius:16px;
-    display:block;
+    height:100%;
+    align-items:center;
+    justify-content:space-between;
+    padding:45px 90px;
+    color:white;
+    background:linear-gradient(135deg,rgba(59,117,28,0.95),rgba(126,178,65,0.75));
 }
 
-.dog-strip-wrap{
-    width:100% !important;
-    height:330px !important;
-    margin-top:20px !important;
-    overflow:hidden !important;
+.promo-slide.active{
+    display:flex;
 }
 
-.dog-strip{
-    width:100% !important;
-    height:100% !important;
-    object-fit:cover !important;
-    object-position:center bottom !important;
-    display:block !important;
+.promo-text{
+    text-align:left;
+}
+
+.promo-text h2{
+    font-size:38px;
+    line-height:1.25;
+    margin:0 0 22px;
+    font-weight:900;
+}
+
+.promo-text p{
+    font-size:22px;
+    line-height:1.5;
+    margin:0;
+    font-weight:600;
+}
+
+.promo-emoji{
+    font-size:120px;
+    filter:drop-shadow(0 8px 12px rgba(0,0,0,0.18));
+}
+
+.promo-arrow{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    border:0;
+    background:rgba(255,255,255,0.2);
+    color:white;
+    font-size:60px;
+    width:60px;
+    height:80px;
+    border-radius:18px;
+    cursor:pointer;
+}
+
+.promo-arrow.left{
+    left:18px;
+}
+
+.promo-arrow.right{
+    right:18px;
+}
+
+.promo-dots{
+    margin-top:18px;
+}
+
+.promo-dot{
+    display:inline-block;
+    width:12px;
+    height:12px;
+    margin:0 6px;
+    border-radius:50%;
+    background:#c9c9c9;
+}
+
+.promo-dot.active{
+    background:#0b6eff;
 }
 
 .footer{
@@ -213,131 +382,215 @@ body{
 }
 
 @media(min-width:761px) and (max-width:1400px){
-    .logo{width:230px;}
-    .hero{margin-top:34px;}
-    .hero h1{font-size:38px;}
-    .cta{width:420px; min-height:68px; font-size:28px;}
-    .finger{font-size:54px;}
-    .badge{font-size:19px; padding:11px 24px;}
-    .stories{max-width:900px; margin-top:34px;}
-    .stats{font-size:26px;}
-    .stats strong{font-size:34px;}
-    .cases{max-width:880px;}
+    .logo{
+        width:230px;
+    }
+
+    .hero{
+        margin-top:34px;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .cta{
+        width:420px;
+        min-height:68px;
+        font-size:28px;
+    }
+
+    .finger{
+        font-size:54px;
+    }
+
+    .badge{
+        font-size:19px;
+        padding:11px 24px;
+    }
+
+    .stories{
+        max-width:900px;
+        margin-top:34px;
+    }
+
+    .stats{
+        font-size:26px;
+    }
+
+    .stats strong{
+        font-size:34px;
+    }
 }
 
 @media(max-width:760px){
     .top{
-        padding:18px 18px 0;
-        align-items:flex-start;
+        padding:24px 22px 0;
     }
 
     .logo{
-        width:170px;
-        max-width:55vw;
+        width:230px;
+        max-width:62vw;
     }
 
     .menu-btn{
-        font-size:40px;
+        font-size:42px;
     }
 
     .hero{
-        margin-top:28px;
-        padding:0 14px;
+        margin-top:44px;
     }
 
     .hero h1{
-        font-size:28px;
+        font-size:34px;
         line-height:1.32;
-        letter-spacing:-1px;
     }
 
     .cta-wrap{
-    margin-top:22px;
-    gap:0;
-    position:relative;
-}
+        margin-top:26px;
+        gap:10px;
+    }
+
     .cta{
-        width:330px;
-        max-width:78vw;
-        min-height:58px;
-        font-size:23px;
-        padding:16px 20px;
+        width:430px;
+        max-width:72vw;
+        min-height:68px;
+        font-size:28px;
+        padding:18px 24px;
     }
 
     .finger{
-    font-size:40px;
-    position:absolute;
-    right:10px;
-}
+        font-size:54px;
+    }
 
     .badges{
-        margin-top:24px;
-        gap:8px;
-        flex-wrap:nowrap;
-        padding:0 10px;
+        margin-top:30px;
+        gap:14px;
     }
 
     .badge{
-        font-size:14px;
-        padding:9px 11px;
-        white-space:nowrap;
+        font-size:18px;
+        padding:11px 20px;
     }
 
-    .stories{
-        grid-template-columns:repeat(3, 1fr);
-        max-width:100vw;
-        margin-top:28px;
-        gap:7px;
-        padding:0 10px;
-    }
-
-    .story-img{
-        border-radius:13px;
-    }
+   .stories{
+    grid-template-columns:repeat(3, 1fr);
+    max-width:96vw;
+    margin-top:38px;
+    gap:8px;
+    padding:0 14px;
+}
 
     .stats{
-        margin-top:22px;
-        font-size:22px;
-        line-height:1.35;
-        padding:0 12px;
+        margin-top:24px;
+        font-size:24px;
     }
 
     .stats strong{
-        font-size:30px;
+        font-size:32px;
     }
 
     .stats-sub{
-        font-size:14px;
-    }
-
-    .cases{
-        max-width:100vw;
-        margin-top:22px;
-        padding:0 12px;
-    }
-
-    .cases-img{
-    transform:scale(1.12);
-    transform-origin:center;
-    border-radius:14px;
-}
-
-    .dog-strip-wrap{
-        margin-top:24px;
-        height:260px !important;
+        font-size:15px;
     }
 
     .side-menu{
-    width:260px;
-    max-width:68vw;
-    right:10px;
-    top:72px;
-}
+        width:300px;
+        right:12px;
+    }
 
-.side-menu a{
-    font-size:17px;
-    padding:14px 18px;
-}
+    .side-menu a{
+        font-size:18px;
+        padding:16px 20px;
+    }
+
+    .found-main-section{
+        margin:24px auto 28px;
+        padding:0 14px;
+    }
+
+    .found-main-head{
+        margin-bottom:12px;
+    }
+
+    .found-main-head h2{
+        font-size:24px;
+    }
+
+    .found-main-head a{
+        font-size:14px;
+    }
+
+    .main-found-list{
+        grid-template-columns:repeat(3, 1fr);
+        gap:8px;
+    }
+
+    .main-found-card{
+        border-radius:12px;
+        min-height:145px;
+    }
+
+    .main-found-photo{
+        height:82px;
+        font-size:12px;
+    }
+
+    .main-found-info{
+        padding:8px 7px 9px;
+    }
+
+    .main-found-type{
+        font-size:13px;
+        margin-bottom:3px;
+    }
+
+    .main-found-place{
+        font-size:11px;
+        line-height:1.25;
+    }
+
+    .main-found-feature{
+        display:none;
+    }
+
+    .main-found-card.empty{
+        height:145px;
+        font-size:12px;
+        border-radius:12px;
+    }
+
+    .promo-slider-section{
+        width:94%;
+        margin:36px auto 30px;
+    }
+
+    .promo-slider{
+        height:260px;
+        border-radius:20px;
+    }
+
+    .promo-slide{
+        padding:32px 54px;
+    }
+
+    .promo-text h2{
+        font-size:28px;
+    }
+
+    .promo-text p{
+        font-size:17px;
+    }
+
+    .promo-emoji{
+        font-size:74px;
+    }
+
+    .promo-arrow{
+        font-size:46px;
+        width:44px;
+        height:62px;
+    }
 }
 </style>
 </head>
@@ -350,6 +603,7 @@ body{
 </div>
 
 <div id="sideMenu" class="side-menu">
+    <a href="index.html">홈</a>
     <a href="signup.html">회원가입</a>
     <a href="login.html">로그인</a>
     <a href="my.html">내 반려견 조회</a>
@@ -388,41 +642,163 @@ body{
 </section>
 
 <section class="stats">
-    🐶 현재 등록된 반려견 <strong id="petCount" style="color:#e60023;">99</strong>마리와 함께하고 있어요!
-    <div class="stats-sub">
+    🐶 현재 등록된 반려견 <strong id="petCount">99</strong>마리와 함께하고 있어요!
+    <div class="stats-sub"></div>
+</section>
+
+<section class="found-main-section">
+    <div class="found-main-head">
+        <h2>🐾 유기견 · 발견동물 제보</h2>
+        <a href="found_list.html">전체 보기</a>
+    </div>
+
+    <div id="mainFoundList" class="main-found-list">
+        <div class="main-found-card empty">제보를 불러오는 중...</div>
+        <div class="main-found-card empty">제보를 불러오는 중...</div>
+        <div class="main-found-card empty">제보를 불러오는 중...</div>
     </div>
 </section>
 
-<section class="cases" style="max-width:1100px; margin:30px auto;">
-    <h2 style="font-size:34px; font-weight:900; color:#111; margin:0 0 22px; text-align:left;">
-        🐾 유기견 · 발견동물 제보
-    </h2>
+<section class="promo-slider-section">
+    <div class="promo-slider" id="promoSlider">
 
-    <div style="display:flex; gap:18px; width:100%;">
-        <div style="flex:1; height:160px; background:#eef3f8; border-radius:18px; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#999; box-shadow:0 6px 18px rgba(0,0,0,0.08);">
-            제보 사진
+        <div class="promo-slide active">
+            <div class="promo-text">
+                <h2>회원가입 없이<br>바로 QR 생성</h2>
+                <p>간단한 정보 입력만으로<br>QR 태그를 만들고 바로 사용하세요.</p>
+            </div>
+            <div class="promo-emoji">🐶</div>
         </div>
 
-        <div style="flex:1; height:160px; background:#eef3f8; border-radius:18px; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#999; box-shadow:0 6px 18px rgba(0,0,0,0.08);">
-            제보 사진
+        <div class="promo-slide">
+            <div class="promo-text">
+                <h2>앱 설치 없이<br>QR 스캔만으로 확인</h2>
+                <p>발견자는 별도 앱 없이<br>보호자 연결 화면을 볼 수 있어요.</p>
+            </div>
+            <div class="promo-emoji">📱</div>
         </div>
 
-        <div style="flex:1; height:160px; background:#eef3f8; border-radius:18px; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#999; box-shadow:0 6px 18px rgba(0,0,0,0.08);">
-            제보 사진
+        <div class="promo-slide">
+            <div class="promo-text">
+                <h2>전화 또는 카톡으로<br>빠른 보호자 연결</h2>
+                <p>보호자가 선택한 연락 방식으로<br>바로 연결됩니다.</p>
+            </div>
+            <div class="promo-emoji">☎️</div>
         </div>
+
+        <div class="promo-slide">
+            <div class="promo-text">
+                <h2>강아지와 고양이<br>모두 사용 가능</h2>
+                <p>반려동물의 안전을 위해<br>누구나 무료로 사용할 수 있어요.</p>
+            </div>
+            <div class="promo-emoji">🐾</div>
+        </div>
+
+        <div class="promo-slide">
+            <div class="promo-text">
+                <h2>펫넷 코리아와 함께<br>안전한 귀가</h2>
+                <p>QR 하나로 발견자와 보호자를<br>빠르게 연결합니다.</p>
+            </div>
+            <div class="promo-emoji">🏠</div>
+        </div>
+
+        <button class="promo-arrow left" onclick="prevPromo()">‹</button>
+        <button class="promo-arrow right" onclick="nextPromo()">›</button>
+    </div>
+
+    <div class="promo-dots">
+        <span class="promo-dot active"></span>
+        <span class="promo-dot"></span>
+        <span class="promo-dot"></span>
+        <span class="promo-dot"></span>
+        <span class="promo-dot"></span>
     </div>
 </section>
+
 <script>
 function showCount(data){
     document.getElementById("petCount").innerText =
         data.count.toLocaleString();
 }
 
-var script = document.createElement("script");
-script.src =
+var countScript = document.createElement("script");
+countScript.src =
 "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec?count=1&callback=showCount";
 
-document.body.appendChild(script);
+document.body.appendChild(countScript);
+</script>
+
+<script>
+var FOUND_API_URL = "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
+
+function mainFoundPhoto(photoUrl){
+    if(!photoUrl || photoUrl.trim() === ""){
+        return '<div class="main-found-photo">사진 준비중</div>';
+    }
+
+    var url = photoUrl.trim();
+
+    if(url.indexOf("drive.google.com/uc?export=view&id=") !== -1){
+        var id = url.split("id=")[1];
+        url = "https://drive.google.com/thumbnail?id=" + id + "&sz=w1000";
+    }
+
+    return '<div class="main-found-photo"><img src="' + url + '" alt="제보 사진"></div>';
+}
+
+function loadMainFoundList(){
+    var box = document.getElementById("mainFoundList");
+
+    if(!box){
+        return;
+    }
+
+    fetch(FOUND_API_URL + "?action=foundList")
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(data){
+        box.innerHTML = "";
+
+        if(!data || data.length === 0){
+            box.innerHTML =
+                '<div class="main-found-card empty">아직 제보 없음</div>' +
+                '<div class="main-found-card empty">아직 제보 없음</div>' +
+                '<div class="main-found-card empty">아직 제보 없음</div>';
+            return;
+        }
+
+        data.reverse().slice(0, 3).forEach(function(item){
+            var card = document.createElement("div");
+            card.className = "main-found-card";
+
+            card.innerHTML =
+                mainFoundPhoto(item.photoUrl || "") +
+                '<div class="main-found-info">' +
+                    '<div class="main-found-type">🐾 ' + (item.animalType || "발견동물") + '</div>' +
+                    '<div class="main-found-place">' + (item.foundPlace || "장소 미입력") + '</div>' +
+                    '<div class="main-found-feature">' + (item.feature || "") + '</div>' +
+                '</div>';
+
+            box.appendChild(card);
+        });
+
+        while(box.children.length < 3){
+            var empty = document.createElement("div");
+            empty.className = "main-found-card empty";
+            empty.innerText = "제보 대기중";
+            box.appendChild(empty);
+        }
+    })
+    .catch(function(){
+        box.innerHTML =
+            '<div class="main-found-card empty">제보 불러오기 실패</div>' +
+            '<div class="main-found-card empty">제보 불러오기 실패</div>' +
+            '<div class="main-found-card empty">제보 불러오기 실패</div>';
+    });
+}
+
+loadMainFoundList();
 </script>
 
 <script>
@@ -431,191 +807,6 @@ function toggleMenu(){
     menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
 </script>
-<section class="promo-slider-section">
-  <div class="promo-slider" id="promoSlider">
-
-    <div class="promo-slide active">
-      <div class="promo-text">
-        <h2>회원가입 없이<br>바로 QR 생성</h2>
-        <p>간단한 정보 입력만으로<br>QR 태그를 만들고 바로 사용하세요.</p>
-      </div>
-      <div class="promo-emoji">🐶</div>
-    </div>
-
-    <div class="promo-slide">
-      <div class="promo-text">
-        <h2>앱 설치 없이<br>QR 스캔만으로 확인</h2>
-        <p>발견자는 별도 앱 없이<br>보호자 연결 화면을 볼 수 있어요.</p>
-      </div>
-      <div class="promo-emoji">📱</div>
-    </div>
-
-    <div class="promo-slide">
-      <div class="promo-text">
-        <h2>전화 또는 카톡으로<br>빠른 보호자 연결</h2>
-        <p>보호자가 선택한 연락 방식으로<br>바로 연결됩니다.</p>
-      </div>
-      <div class="promo-emoji">☎️</div>
-    </div>
-
-    <div class="promo-slide">
-      <div class="promo-text">
-        <h2>강아지와 고양이<br>모두 사용 가능</h2>
-        <p>반려동물의 안전을 위해<br>누구나 무료로 사용할 수 있어요.</p>
-      </div>
-      <div class="promo-emoji">🐾</div>
-    </div>
-
-    <div class="promo-slide">
-      <div class="promo-text">
-        <h2>펫넷 코리아와 함께<br>안전한 귀가</h2>
-        <p>QR 하나로 발견자와 보호자를<br>빠르게 연결합니다.</p>
-      </div>
-      <div class="promo-emoji">🏠</div>
-    </div>
-
-    <button class="promo-arrow left" onclick="prevPromo()">‹</button>
-    <button class="promo-arrow right" onclick="nextPromo()">›</button>
-  </div>
-
-  <div class="promo-dots">
-    <span class="promo-dot active"></span>
-    <span class="promo-dot"></span>
-    <span class="promo-dot"></span>
-    <span class="promo-dot"></span>
-    <span class="promo-dot"></span>
-  </div>
-</section>
-
-<style>
-.promo-slider-section{
-  width:92%;
-  max-width:1180px;
-  margin:48px auto 40px;
-  text-align:center;
-}
-
-.promo-slider{
-  position:relative;
-  height:310px;
-  border-radius:24px;
-  overflow:hidden;
-  box-shadow:0 12px 30px rgba(0,0,0,0.12);
-  background:linear-gradient(135deg,#6fa83a,#d8f2b3);
-}
-
-.promo-slide{
-  display:none;
-  width:100%;
-  height:100%;
-  align-items:center;
-  justify-content:space-between;
-  padding:45px 90px;
-  box-sizing:border-box;
-  color:white;
-  background:linear-gradient(135deg,rgba(59,117,28,0.95),rgba(126,178,65,0.75));
-}
-
-.promo-slide.active{
-  display:flex;
-}
-
-.promo-text{
-  text-align:left;
-}
-
-.promo-text h2{
-  font-size:38px;
-  line-height:1.25;
-  margin:0 0 22px;
-  font-weight:900;
-}
-
-.promo-text p{
-  font-size:22px;
-  line-height:1.5;
-  margin:0;
-  font-weight:600;
-}
-
-.promo-emoji{
-  font-size:120px;
-  filter:drop-shadow(0 8px 12px rgba(0,0,0,0.18));
-}
-
-.promo-arrow{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  border:0;
-  background:rgba(255,255,255,0.2);
-  color:white;
-  font-size:60px;
-  width:60px;
-  height:80px;
-  border-radius:18px;
-  cursor:pointer;
-}
-
-.promo-arrow.left{
-  left:18px;
-}
-
-.promo-arrow.right{
-  right:18px;
-}
-
-.promo-dots{
-  margin-top:18px;
-}
-
-.promo-dot{
-  display:inline-block;
-  width:12px;
-  height:12px;
-  margin:0 6px;
-  border-radius:50%;
-  background:#c9c9c9;
-}
-
-.promo-dot.active{
-  background:#0b6eff;
-}
-
-@media(max-width:768px){
-  .promo-slider-section{
-    width:90%;
-    margin:28px auto 24px;
-  }
-
-  .promo-slider{
-    height:210px;
-    border-radius:18px;
-  }
-
-  .promo-slide{
-    padding:24px 46px;
-  }
-
-  .promo-text h2{
-    font-size:23px;
-  }
-
-  .promo-text p{
-    font-size:14px;
-  }
-
-  .promo-emoji{
-    font-size:58px;
-  }
-
-  .promo-arrow{
-    font-size:38px;
-    width:38px;
-    height:54px;
-  }
-}
-</style>
 
 <script>
 let promoIndex = 0;
@@ -623,24 +814,30 @@ const promoSlides = document.querySelectorAll(".promo-slide");
 const promoDots = document.querySelectorAll(".promo-dot");
 
 function showPromo(index){
-  promoSlides.forEach(slide => slide.classList.remove("active"));
-  promoDots.forEach(dot => dot.classList.remove("active"));
+    promoSlides.forEach(function(slide){
+        slide.classList.remove("active");
+    });
 
-  promoSlides[index].classList.add("active");
-  promoDots[index].classList.add("active");
+    promoDots.forEach(function(dot){
+        dot.classList.remove("active");
+    });
+
+    promoSlides[index].classList.add("active");
+    promoDots[index].classList.add("active");
 }
 
 function nextPromo(){
-  promoIndex = (promoIndex + 1) % promoSlides.length;
-  showPromo(promoIndex);
+    promoIndex = (promoIndex + 1) % promoSlides.length;
+    showPromo(promoIndex);
 }
 
 function prevPromo(){
-  promoIndex = (promoIndex - 1 + promoSlides.length) % promoSlides.length;
-  showPromo(promoIndex);
+    promoIndex = (promoIndex - 1 + promoSlides.length) % promoSlides.length;
+    showPromo(promoIndex);
 }
 
 setInterval(nextPromo, 3500);
 </script>
+
 </body>
 </html>
