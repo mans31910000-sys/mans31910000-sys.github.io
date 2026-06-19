@@ -225,40 +225,41 @@ function submitFoundReport(){
     submitBtn.disabled = true;
     submitBtn.innerText = "제보 저장 중...";
 
-    var formData = new FormData();
-    formData.append("action", "found");
-    formData.append("animalType", animalType);
-    formData.append("foundPlace", foundPlace);
-    formData.append("foundDate", foundDate);
-    formData.append("color", color);
-    formData.append("feature", feature);
-    formData.append("photoUrl", photoUrl);
-    formData.append("phone", phone);
+    var iframe = document.createElement("iframe");
+    iframe.name = "hiddenFrame";
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
 
-    fetch("https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec", {
-        method: "POST",
-        body: formData
-    })
-    .then(function(response){
-        return response.text();
-    })
-    .then(function(result){
-        result = String(result).trim();
+    var form = document.createElement("form");
+    form.method = "POST";
+    form.action = "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
+    form.target = "hiddenFrame";
+    form.style.display = "none";
 
-        if(result === "found_success"){
-            alert("발견동물 제보가 저장되었습니다.");
-            window.location.href = "found.html";
-        }else{
-            alert("제보 저장 실패: " + result);
-            submitBtn.disabled = false;
-            submitBtn.innerText = "제보 등록하기";
-        }
-    })
-    .catch(function(error){
-        alert("제보 저장 중 오류가 발생했습니다: " + error.message);
-        submitBtn.disabled = false;
-        submitBtn.innerText = "제보 등록하기";
-    });
+    function addInput(name, value){
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = name;
+        input.value = value;
+        form.appendChild(input);
+    }
+
+    addInput("action", "found");
+    addInput("animalType", animalType);
+    addInput("foundPlace", foundPlace);
+    addInput("foundDate", foundDate);
+    addInput("color", color);
+    addInput("feature", feature);
+    addInput("photoUrl", photoUrl);
+    addInput("phone", phone);
+
+    document.body.appendChild(form);
+    form.submit();
+
+    setTimeout(function(){
+        alert("발견동물 제보가 저장되었습니다.");
+        window.location.href = "found.html";
+    }, 1500);
 }
 </script>
 
