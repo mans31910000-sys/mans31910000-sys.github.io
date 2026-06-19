@@ -179,17 +179,16 @@ select:focus{
     <label>특징</label>
     <textarea id="feature" placeholder="예: 빨간 목줄 착용, 겁이 많음, 다리를 절뚝임"></textarea>
 
-    <label>사진 URL</label>
-    <input type="text" id="photoUrl" placeholder="사진 링크를 입력해주세요">
+    
 
     <label>제보자 연락처</label>
     <input type="tel" id="phone" placeholder="숫자만 입력해주세요">
 
     <div class="notice">
-        ✅ 발견 장소와 특징은 자세히 적을수록 좋습니다.<br>
-        ✅ 사진은 추후 목록 화면에 표시됩니다.<br>
-        ✅ 연락처 공개 방식은 다음 단계에서 조정할 수 있습니다.
-    </div>
+    ✅ 발견 장소와 특징은 자세히 적을수록 좋습니다.<br>
+    ✅ 사진 등록 기능은 다음 단계에서 추가될 예정입니다.<br>
+    ✅ 연락처 공개 방식은 추후 조정할 수 있습니다.
+</div>
 
     <button class="submit-btn" onclick="submitFoundReport()">
         제보 등록하기
@@ -208,7 +207,7 @@ function submitFoundReport(){
     var foundDate = document.getElementById("foundDate").value;
     var color = document.getElementById("color").value.trim();
     var feature = document.getElementById("feature").value.trim();
-    var photoUrl = document.getElementById("photoUrl").value.trim();
+    var photoUrl = "";
     var phone = document.getElementById("phone").value.trim().replace(/[^0-9]/g, "");
 
     if(animalType === "" || foundPlace === "" || phone === ""){
