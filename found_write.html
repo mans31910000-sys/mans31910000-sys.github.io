@@ -13,16 +13,20 @@
 body{
     margin:0;
     font-family:Arial, sans-serif;
-    background:#f5f9ff;
+    background:
+        radial-gradient(circle at top left, rgba(0,102,204,0.12), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(76,175,80,0.16), transparent 35%),
+        linear-gradient(180deg, #f5f9ff 0%, #eef6f1 100%);
     color:#111;
     padding:18px;
+    min-height:100vh;
 }
 
 .card{
     background:white;
     width:100%;
     max-width:430px;
-    margin:0 auto;
+    margin:28px auto 0;
     padding:28px 20px 32px;
     border-radius:24px;
     box-shadow:0 8px 25px rgba(0,0,0,0.08);
@@ -79,6 +83,28 @@ input:focus,
 textarea:focus,
 select:focus{
     border-color:#0066cc;
+}
+
+.photo-preview{
+    width:100%;
+    height:190px;
+    border-radius:18px;
+    background:#eef3f8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#999;
+    font-size:17px;
+    font-weight:900;
+    margin-top:10px;
+    overflow:hidden;
+    text-align:center;
+}
+
+.photo-preview img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
 .notice{
@@ -142,6 +168,10 @@ select:focus{
     select{
         font-size:16px;
     }
+
+    .photo-preview{
+        height:165px;
+    }
 }
 </style>
 </head>
@@ -179,16 +209,21 @@ select:focus{
     <label>특징</label>
     <textarea id="feature" placeholder="예: 빨간 목줄 착용, 겁이 많음, 다리를 절뚝임"></textarea>
 
-    
+    <label>사진 선택</label>
+    <input type="file" id="photoFile" accept="image/*" onchange="previewPhoto()">
+
+    <div id="photoPreview" class="photo-preview">
+        사진을 선택하면 여기에 표시됩니다
+    </div>
 
     <label>제보자 연락처</label>
     <input type="tel" id="phone" placeholder="숫자만 입력해주세요">
 
     <div class="notice">
-    ✅ 발견 장소와 특징은 자세히 적을수록 좋습니다.<br>
-    ✅ 사진 등록 기능은 다음 단계에서 추가될 예정입니다.<br>
-    ✅ 연락처 공개 방식은 추후 조정할 수 있습니다.
-</div>
+        ✅ 발견 장소와 특징은 자세히 적을수록 좋습니다.<br>
+        ✅ 사진은 자동으로 저장되어 제보 목록에 표시됩니다.<br>
+        ✅ 연락처 공개 방식은 추후 조정할 수 있습니다.
+    </div>
 
     <button class="submit-btn" onclick="submitFoundReport()">
         제보 등록하기
@@ -201,13 +236,69 @@ select:focus{
 </div>
 
 <script>
+var resizedPhotoData = "";
+var resizedPhotoName = "";
+var resizedPhotoType = "";
+
+function previewPhoto(){
+    var fileInput = document.getElementById("photoFile");
+    var file = fileInput.files[0];
+
+    if(!file){
+        return;
+    }
+
+    resizedPhotoName = file.name;
+    resizedPhotoType = "image/jpeg";
+
+    var reader = new FileReader();
+
+    reader.onload = function(e){
+        var img = new Image();
+
+        img.onload = function(){
+            var canvas = document.createElement("canvas");
+            var maxWidth = 900;
+            var maxHeight = 900;
+            var width = img.width;
+            var height = img.height;
+
+            if(width > height){
+                if(width > maxWidth){
+                    height = height * (maxWidth / width);
+                    width = maxWidth;
+                }
+            }else{
+                if(height > maxHeight){
+                    width = width * (maxHeight / height);
+                    height = maxHeight;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            resizedPhotoData = canvas.toDataURL("image/jpeg", 0.75);
+
+            document.getElementById("photoPreview").innerHTML =
+                '<img src="' + resizedPhotoData + '" alt="선택한 사진">';
+        };
+
+        img.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+}
+
 function submitFoundReport(){
     var animalType = document.getElementById("animalType").value.trim();
     var foundPlace = document.getElementById("foundPlace").value.trim();
     var foundDate = document.getElementById("foundDate").value;
     var color = document.getElementById("color").value.trim();
     var feature = document.getElementById("feature").value.trim();
-    var photoUrl = "";
     var phone = document.getElementById("phone").value.trim().replace(/[^0-9]/g, "");
 
     if(animalType === "" || foundPlace === "" || phone === ""){
@@ -249,8 +340,10 @@ function submitFoundReport(){
     addInput("foundDate", foundDate);
     addInput("color", color);
     addInput("feature", feature);
-    addInput("photoUrl", photoUrl);
     addInput("phone", phone);
+    addInput("photoData", resizedPhotoData);
+    addInput("photoName", resizedPhotoName);
+    addInput("photoType", resizedPhotoType);
 
     document.body.appendChild(form);
     form.submit();
@@ -258,7 +351,7 @@ function submitFoundReport(){
     setTimeout(function(){
         alert("발견동물 제보가 저장되었습니다.");
         window.location.href = "found.html";
-    }, 1500);
+    }, 3000);
 }
 </script>
 
