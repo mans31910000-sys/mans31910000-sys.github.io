@@ -65,10 +65,32 @@ h1{
 
 .report-card{
     background:white;
-    border-radius:20px;
-    padding:20px 18px;
-    margin-bottom:14px;
+    border-radius:22px;
+    padding:16px;
+    margin-bottom:16px;
     box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    overflow:hidden;
+}
+
+.photo-box{
+    width:100%;
+    height:150px;
+    border-radius:18px;
+    background:#eef3f8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#999;
+    font-size:18px;
+    font-weight:900;
+    margin-bottom:16px;
+}
+
+.photo-box img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:18px;
 }
 
 .report-top{
@@ -88,6 +110,7 @@ h1{
 .date{
     font-size:13px;
     color:#777;
+    white-space:nowrap;
 }
 
 .info{
@@ -100,7 +123,8 @@ h1{
     color:#0066cc;
 }
 
-.empty{
+.empty,
+.loading{
     background:white;
     border-radius:20px;
     padding:28px 18px;
@@ -138,16 +162,6 @@ h1{
     border:2px solid #ddd;
 }
 
-.loading{
-    background:white;
-    border-radius:20px;
-    padding:28px 18px;
-    text-align:center;
-    color:#555;
-    font-size:17px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.08);
-}
-
 @media(max-width:480px){
     body{
         padding:14px;
@@ -159,7 +173,12 @@ h1{
     }
 
     h1{
-        font-size:28px;
+        font-size:24px;
+    }
+
+    .photo-box{
+        height:135px;
+        font-size:16px;
     }
 
     .type{
@@ -206,6 +225,32 @@ h1{
 <script>
 var API_URL = "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
 
+function formatDateOnly(value){
+    if(!value){
+        return "-";
+    }
+
+    var date = new Date(value);
+
+    if(isNaN(date.getTime())){
+        return value;
+    }
+
+    var year = date.getFullYear();
+    var month = String(date.getMonth() + 1).padStart(2, "0");
+    var day = String(date.getDate()).padStart(2, "0");
+
+    return year + "." + month + "." + day;
+}
+
+function makePhotoBox(photoUrl){
+    if(photoUrl && photoUrl.trim() !== ""){
+        return '<div class="photo-box"><img src="' + photoUrl + '" alt="제보 사진"></div>';
+    }
+
+    return '<div class="photo-box">사진 준비중</div>';
+}
+
 function loadFoundList(){
     fetch(API_URL + "?action=foundList")
     .then(function(response){
@@ -225,6 +270,7 @@ function loadFoundList(){
             card.className = "report-card";
 
             card.innerHTML =
+                makePhotoBox(item.photoUrl || "") +
                 '<div class="report-top">' +
                     '<div class="type">🐾 ' + (item.animalType || "발견동물") + '</div>' +
                     '<div class="date">' + (item.reportDate || "") + '</div>' +
@@ -244,23 +290,7 @@ function loadFoundList(){
             '<div class="empty">제보 목록을 불러오지 못했습니다.</div>';
     });
 }
-function formatDateOnly(value){
-    if(!value){
-        return "-";
-    }
 
-    var date = new Date(value);
-
-    if(isNaN(date.getTime())){
-        return value;
-    }
-
-    var year = date.getFullYear();
-    var month = String(date.getMonth() + 1).padStart(2, "0");
-    var day = String(date.getDate()).padStart(2, "0");
-
-    return year + "." + month + "." + day;
-}
 loadFoundList();
 </script>
 
