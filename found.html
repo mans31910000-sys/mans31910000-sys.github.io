@@ -2,54 +2,146 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>유기견 · 발견동물 제보</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>유기견 · 발견동물 제보 | PETNET KOREA</title>
 
 <style>
+*{
+    box-sizing:border-box;
+}
+
 body{
-    font-family: Arial, sans-serif;
-    background:#f5f7fa;
-    text-align:center;
     margin:0;
-    padding:30px;
+    font-family:Arial, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(0,102,204,0.12), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(76,175,80,0.16), transparent 35%),
+        linear-gradient(180deg, #f5f9ff 0%, #eef6f1 100%);
+    color:#0d1833;
+    text-align:center;
+    padding:18px;
+    min-height:100vh;
 }
 
 .card{
     background:white;
-    max-width:520px;
-    margin:40px auto;
-    padding:35px 25px;
-    border-radius:18px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+    width:100%;
+    max-width:430px;
+    margin:42px auto 0;
+    padding:30px 22px 34px;
+    border-radius:24px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.logo{
+    width:170px;
+    max-width:70%;
+    margin:4px auto 22px;
+    display:block;
+}
+
+.icon{
+    font-size:56px;
+    margin-bottom:10px;
 }
 
 h1{
-    color:#1f4fbf;
+    margin:0;
     font-size:30px;
+    color:#0066cc;
+    font-weight:900;
+    line-height:1.3;
 }
 
-p{
-    font-size:18px;
+.desc{
+    font-size:17px;
     line-height:1.7;
+    margin:22px 0;
     color:#333;
 }
 
 .notice{
+    background:#f5f9ff;
+    border:1px solid #dce8f7;
+    border-radius:18px;
+    padding:18px 15px;
+    margin:22px 0;
     font-size:15px;
-    color:#666;
-    margin-top:10px;
+    line-height:1.7;
+    color:#444;
+    text-align:left;
 }
 
-a.btn{
+.btn{
     display:block;
+    width:100%;
+    height:56px;
+    line-height:56px;
+    margin-top:14px;
+    font-size:19px;
+    font-weight:900;
     text-decoration:none;
-    background:#1f4fbf;
+    border-radius:16px;
+}
+
+.write-btn{
+    background:#0066cc;
     color:white;
-    padding:15px;
-    border-radius:10px;
-    margin:18px auto;
-    max-width:320px;
-    font-size:18px;
-    font-weight:bold;
+}
+
+.list-btn{
+    background:#fff;
+    color:#0066cc;
+    border:2px solid #0066cc;
+}
+
+.home-btn{
+    background:#f0f0f0;
+    color:#111;
+}
+
+.tip{
+    margin-top:18px;
+    font-size:13px;
+    line-height:1.5;
+    color:#777;
+}
+
+@media(max-width:480px){
+    body{
+        padding:14px;
+    }
+
+    .card{
+        padding:28px 18px 32px;
+        border-radius:22px;
+    }
+
+    .logo{
+        width:155px;
+    }
+
+    .icon{
+        font-size:52px;
+    }
+
+    h1{
+        font-size:28px;
+    }
+
+    .desc{
+        font-size:16px;
+    }
+
+    .notice{
+        font-size:14px;
+    }
+
+    .btn{
+        height:54px;
+        line-height:54px;
+        font-size:18px;
+    }
 }
 </style>
 </head>
@@ -57,22 +149,41 @@ a.btn{
 <body>
 
 <div class="card">
-    <h1>🐶 유기견 · 발견동물 제보</h1>
 
-    <p>
+    <img src="petnet-logo-crop.png" class="logo" alt="PETNET KOREA 로고">
+
+    <div class="icon">🐾</div>
+
+    <h1>유기견 · 발견동물 제보</h1>
+
+    <p class="desc">
         길에서 발견한 동물이 있나요?<br>
         사진, 위치, 시간, 특징을 남기면<br>
         보호자를 찾는 데 도움이 됩니다.
     </p>
 
-    <p class="notice">
-        등록된 제보는 향후 분실신고와 연결되어<br>
-        보호자 찾기 기능으로 확장될 예정입니다.
-    </p>
+    <div class="notice">
+        ✅ 발견 장소와 시간을 자세히 남겨주세요.<br>
+        ✅ 특징이나 착용한 목줄, 옷, 인식표가 있다면 함께 적어주세요.<br>
+        ✅ 등록된 제보는 향후 분실 신고와 연결해 보호자 찾기 기능으로 확장할 예정입니다.
+    </div>
 
-    <a class="btn" href="found_write.html">발견동물 제보하기</a>
-    <a class="btn" href="found_list.html">제보 목록 보기</a>
-    <a class="btn" href="index.html">홈으로 돌아가기</a>
+    <a class="btn write-btn" href="found_write.html">
+        발견동물 제보하기
+    </a>
+
+    <a class="btn list-btn" href="found_list.html">
+        제보 목록 보기
+    </a>
+
+    <a class="btn home-btn" href="index.html">
+        🏠 홈으로 돌아가기
+    </a>
+
+    <div class="tip">
+        작은 제보 하나가 반려동물의 안전한 귀가로 이어질 수 있습니다.
+    </div>
+
 </div>
 
 </body>
