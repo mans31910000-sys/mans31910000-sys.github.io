@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>발견동물 제보하기 | PETNET KOREA</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f5f9ff;
+    color:#111;
+    padding:18px;
+}
+
+.card{
+    background:white;
+    width:100%;
+    max-width:430px;
+    margin:0 auto;
+    padding:28px 20px 32px;
+    border-radius:24px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.logo{
+    width:160px;
+    max-width:70%;
+    margin:4px auto 20px;
+    display:block;
+}
+
+h1{
+    text-align:center;
+    font-size:30px;
+    margin:0 0 10px;
+    color:#0066cc;
+    font-weight:900;
+}
+
+.sub{
+    text-align:center;
+    font-size:15px;
+    line-height:1.6;
+    color:#555;
+    margin-bottom:24px;
+}
+
+label{
+    display:block;
+    font-size:17px;
+    font-weight:900;
+    margin:18px 0 8px;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    border:2px solid #dce4ef;
+    border-radius:14px;
+    padding:15px;
+    font-size:17px;
+    outline:none;
+    font-family:Arial, sans-serif;
+}
+
+textarea{
+    min-height:110px;
+    resize:none;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#0066cc;
+}
+
+.notice{
+    background:#f5f9ff;
+    border:1px solid #dce8f7;
+    border-radius:16px;
+    padding:15px;
+    margin:20px 0;
+    font-size:14px;
+    line-height:1.6;
+    color:#444;
+}
+
+.submit-btn{
+    width:100%;
+    height:58px;
+    border:0;
+    border-radius:18px;
+    background:#0066cc;
+    color:white;
+    font-size:20px;
+    font-weight:900;
+    margin-top:10px;
+    cursor:pointer;
+}
+
+.home-btn{
+    display:block;
+    width:100%;
+    height:54px;
+    line-height:54px;
+    margin-top:14px;
+    text-align:center;
+    background:#f0f0f0;
+    color:#111;
+    font-size:18px;
+    font-weight:900;
+    text-decoration:none;
+    border-radius:16px;
+}
+
+@media(max-width:480px){
+    body{
+        padding:14px;
+    }
+
+    .card{
+        padding:26px 18px 30px;
+    }
+
+    .logo{
+        width:150px;
+    }
+
+    h1{
+        font-size:28px;
+    }
+
+    input,
+    textarea,
+    select{
+        font-size:16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <img src="petnet-logo-crop.png" class="logo" alt="PETNET KOREA 로고">
+
+    <h1>발견동물 제보하기</h1>
+
+    <p class="sub">
+        길에서 발견한 반려동물의 정보를 남겨주세요.<br>
+        작은 제보가 보호자를 찾는 데 도움이 됩니다.
+    </p>
+
+    <label>동물 종류</label>
+    <select id="animalType">
+        <option value="">선택해주세요</option>
+        <option value="강아지">강아지</option>
+        <option value="고양이">고양이</option>
+        <option value="기타">기타</option>
+    </select>
+
+    <label>발견 장소</label>
+    <input type="text" id="foundPlace" placeholder="예: 서울 강남구 ○○공원 근처">
+
+    <label>발견 날짜</label>
+    <input type="date" id="foundDate">
+
+    <label>털 색상</label>
+    <input type="text" id="color" placeholder="예: 흰색, 갈색, 검정색">
+
+    <label>특징</label>
+    <textarea id="feature" placeholder="예: 빨간 목줄 착용, 겁이 많음, 다리를 절뚝임"></textarea>
+
+    <label>사진 URL</label>
+    <input type="text" id="photoUrl" placeholder="사진 링크를 입력해주세요">
+
+    <label>제보자 연락처</label>
+    <input type="tel" id="phone" placeholder="숫자만 입력해주세요">
+
+    <div class="notice">
+        ✅ 발견 장소와 특징은 자세히 적을수록 좋습니다.<br>
+        ✅ 사진은 추후 목록 화면에 표시됩니다.<br>
+        ✅ 연락처 공개 방식은 다음 단계에서 조정할 수 있습니다.
+    </div>
+
+    <button class="submit-btn" onclick="submitFoundReport()">
+        제보 등록하기
+    </button>
+
+    <a class="home-btn" href="found.html">
+        이전 화면으로 돌아가기
+    </a>
+
+</div>
+
+<script>
+function submitFoundReport(){
+    var animalType = document.getElementById("animalType").value.trim();
+    var foundPlace = document.getElementById("foundPlace").value.trim();
+    var foundDate = document.getElementById("foundDate").value;
+    var color = document.getElementById("color").value.trim();
+    var feature = document.getElementById("feature").value.trim();
+    var photoUrl = document.getElementById("photoUrl").value.trim();
+    var phone = document.getElementById("phone").value.trim().replace(/[^0-9]/g, "");
+
+    if(animalType === "" || foundPlace === "" || phone === ""){
+        alert("동물 종류, 발견 장소, 제보자 연락처는 꼭 입력해주세요.");
+        return;
+    }
+
+    if(!/^[0-9]{10,11}$/.test(phone)){
+        alert("연락처는 숫자만 입력하고 10~11자리로 입력해주세요.");
+        return;
+    }
+
+    alert("제보 내용이 확인되었습니다. 다음 단계에서 저장 기능을 연결하겠습니다.");
+}
+</script>
+
+</body>
+</html>
