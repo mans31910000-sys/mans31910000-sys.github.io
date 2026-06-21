@@ -140,6 +140,132 @@ h1{
     line-height:1.7;
     color:#333;
     white-space:pre-line;
+    margin-bottom:18px;
+}
+
+.comment-section{
+    border-top:1px solid #e5eaf1;
+    padding-top:14px;
+    margin-top:12px;
+}
+
+.comment-title{
+    font-size:17px;
+    font-weight:900;
+    margin-bottom:10px;
+    color:#111;
+}
+
+.comment-form{
+    background:#f7faff;
+    border:1px solid #dce8f7;
+    border-radius:16px;
+    padding:12px;
+    margin-bottom:14px;
+}
+
+.comment-form input,
+.comment-form textarea{
+    width:100%;
+    border:1px solid #d4deea;
+    border-radius:12px;
+    padding:11px;
+    font-size:14px;
+    margin-bottom:8px;
+    font-family:Arial, sans-serif;
+}
+
+.comment-form textarea{
+    min-height:70px;
+    resize:none;
+}
+
+.comment-btn{
+    width:100%;
+    border:0;
+    border-radius:12px;
+    background:#0066cc;
+    color:white;
+    font-size:15px;
+    font-weight:900;
+    padding:12px;
+    cursor:pointer;
+}
+
+.comment-item{
+    background:#f7f7f7;
+    border-radius:14px;
+    padding:12px;
+    margin-bottom:10px;
+}
+
+.reply-item{
+    background:#eef6ff;
+    border-left:4px solid #0066cc;
+    margin-left:18px;
+}
+
+.comment-meta{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    font-size:13px;
+    color:#666;
+    margin-bottom:6px;
+}
+
+.comment-name{
+    font-weight:900;
+    color:#111;
+}
+
+.comment-text{
+    font-size:14px;
+    line-height:1.5;
+    color:#333;
+    white-space:pre-line;
+}
+
+.reply-btn{
+    margin-top:8px;
+    border:0;
+    background:transparent;
+    color:#0066cc;
+    font-weight:900;
+    font-size:13px;
+    cursor:pointer;
+    padding:0;
+}
+
+.reply-form{
+    display:none;
+    margin-top:10px;
+    background:white;
+    border:1px solid #dce8f7;
+    border-radius:14px;
+    padding:10px;
+}
+
+.reply-form input,
+.reply-form textarea{
+    width:100%;
+    border:1px solid #d4deea;
+    border-radius:10px;
+    padding:10px;
+    font-size:13px;
+    margin-bottom:7px;
+    font-family:Arial, sans-serif;
+}
+
+.reply-form textarea{
+    min-height:60px;
+    resize:none;
+}
+
+.empty-comment{
+    color:#888;
+    font-size:14px;
+    padding:10px 0;
 }
 
 .empty,
@@ -226,7 +352,7 @@ h1{
 
         <p class="sub">
             펫넷 사용 후기와 보호자 연결 사례를 확인할 수 있습니다.<br>
-            승인된 후기만 공개됩니다.
+            댓글과 답글을 남길 수 있습니다.
         </p>
     </div>
 
@@ -243,6 +369,16 @@ h1{
 
 <script>
 var API_URL = "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
+var allComments = [];
+
+function escapeHtml(text){
+    return String(text || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
 function makePhotoBox(photoUrl){
     if(!photoUrl || photoUrl.trim() === ""){
@@ -259,36 +395,201 @@ function makePhotoBox(photoUrl){
     return '<div class="photo-box"><img src="' + url + '" alt="후기 사진"></div>';
 }
 
+function getCommentsByTitle(reviewTitle){
+    return allComments.filter(function(comment){
+        return comment.reviewTitle === reviewTitle && comment.commentType === "comment";
+    });
+}
+
+function getReplies(parentCommentNumber){
+    return allComments.filter(function(comment){
+        return comment.commentType === "reply" && comment.parentCommentNumber === parentCommentNumber;
+    });
+}
+
+function makeCommentHtml(comment, reviewTitle){
+    var replies = getReplies(comment.commentNumber);
+    var html = "";
+
+    html += '<div class="comment-item">';
+    html += '<div class="comment-meta">';
+    html += '<span class="comment-name">' + escapeHtml(comment.writerName || "익명") + '</span>';
+    html += '<span>' + escapeHtml(comment.commentDate || "") + '</span>';
+    html += '</div>';
+    html += '<div class="comment-text">' + escapeHtml(comment.commentText || "") + '</div>';
+
+    html += '<button class="reply-btn" onclick="toggleReplyForm(\'' + escapeHtml(comment.commentNumber) + '\')">답글 달기</button>';
+
+    html += '<div id="replyForm_' + escapeHtml(comment.commentNumber) + '" class="reply-form">';
+    html += '<input type="text" id="replyName_' + escapeHtml(comment.commentNumber) + '" placeholder="이름 또는 별명">';
+    html += '<textarea id="replyText_' + escapeHtml(comment.commentNumber) + '" placeholder="답글을 입력해주세요"></textarea>';
+    html += '<button class="comment-btn" onclick="submitReply(\'' + escapeHtml(reviewTitle) + '\', \'' + escapeHtml(comment.commentNumber) + '\')">답글 등록</button>';
+    html += '</div>';
+
+    replies.forEach(function(reply){
+        html += '<div class="comment-item reply-item">';
+        html += '<div class="comment-meta">';
+        html += '<span class="comment-name">↳ ' + escapeHtml(reply.writerName || "익명") + '</span>';
+        html += '<span>' + escapeHtml(reply.commentDate || "") + '</span>';
+        html += '</div>';
+        html += '<div class="comment-text">' + escapeHtml(reply.commentText || "") + '</div>';
+        html += '</div>';
+    });
+
+    html += '</div>';
+
+    return html;
+}
+
+function makeCommentSection(reviewTitle){
+    var comments = getCommentsByTitle(reviewTitle);
+    var safeTitle = escapeHtml(reviewTitle);
+
+    var html = "";
+    html += '<div class="comment-section">';
+    html += '<div class="comment-title">댓글</div>';
+
+    html += '<div class="comment-form">';
+    html += '<input type="text" id="commentName_' + safeTitle + '" placeholder="이름 또는 별명">';
+    html += '<textarea id="commentText_' + safeTitle + '" placeholder="댓글을 입력해주세요"></textarea>';
+    html += '<button class="comment-btn" onclick="submitComment(\'' + safeTitle + '\')">댓글 등록</button>';
+    html += '</div>';
+
+    if(comments.length === 0){
+        html += '<div class="empty-comment">아직 댓글이 없습니다.</div>';
+    }else{
+        comments.forEach(function(comment){
+            html += makeCommentHtml(comment, reviewTitle);
+        });
+    }
+
+    html += '</div>';
+
+    return html;
+}
+
+function submitHiddenForm(data){
+    var iframe = document.createElement("iframe");
+    iframe.name = "hiddenCommentFrame_" + new Date().getTime();
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+
+    var form = document.createElement("form");
+    form.method = "POST";
+    form.action = API_URL;
+    form.target = iframe.name;
+    form.style.display = "none";
+
+    Object.keys(data).forEach(function(key){
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = data[key];
+        form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
+
+    setTimeout(function(){
+        location.reload();
+    }, 1800);
+}
+
+function submitComment(reviewTitle){
+    var nameInput = document.getElementById("commentName_" + reviewTitle);
+    var textInput = document.getElementById("commentText_" + reviewTitle);
+
+    var writerName = nameInput.value.trim();
+    var commentText = textInput.value.trim();
+
+    if(writerName === "" || commentText === ""){
+        alert("이름과 댓글 내용을 입력해주세요.");
+        return;
+    }
+
+    submitHiddenForm({
+        action: "reviewComment",
+        reviewTitle: reviewTitle,
+        commentType: "comment",
+        writerName: writerName,
+        commentText: commentText,
+        parentCommentNumber: ""
+    });
+}
+
+function toggleReplyForm(commentNumber){
+    var box = document.getElementById("replyForm_" + commentNumber);
+
+    if(!box){
+        return;
+    }
+
+    if(box.style.display === "block"){
+        box.style.display = "none";
+    }else{
+        box.style.display = "block";
+    }
+}
+
+function submitReply(reviewTitle, parentCommentNumber){
+    var nameInput = document.getElementById("replyName_" + parentCommentNumber);
+    var textInput = document.getElementById("replyText_" + parentCommentNumber);
+
+    var writerName = nameInput.value.trim();
+    var commentText = textInput.value.trim();
+
+    if(writerName === "" || commentText === ""){
+        alert("이름과 답글 내용을 입력해주세요.");
+        return;
+    }
+
+    submitHiddenForm({
+        action: "reviewComment",
+        reviewTitle: reviewTitle,
+        commentType: "reply",
+        writerName: writerName,
+        commentText: commentText,
+        parentCommentNumber: parentCommentNumber
+    });
+}
+
 function loadReviewList(){
-    fetch(API_URL + "?action=reviewList")
-    .then(function(response){
-        return response.json();
-    })
-    .then(function(data){
+    Promise.all([
+        fetch(API_URL + "?action=reviewList").then(function(response){ return response.json(); }),
+        fetch(API_URL + "?action=reviewComments").then(function(response){ return response.json(); })
+    ])
+    .then(function(results){
+        var reviews = results[0];
+        allComments = results[1] || [];
+
         var list = document.getElementById("list");
         list.innerHTML = "";
 
-        if(!data || data.length === 0){
+        if(!reviews || reviews.length === 0){
             list.innerHTML =
                 '<div class="empty">아직 공개된 후기가 없습니다.<br>관리자 승인 후 후기가 표시됩니다.</div>';
             return;
         }
 
-        data.reverse().forEach(function(item){
+        reviews.reverse().forEach(function(item){
             var card = document.createElement("div");
             card.className = "review-card";
+
+            var reviewTitle = item.title || "제목 없음";
 
             card.innerHTML =
                 makePhotoBox(item.photoUrl || "") +
                 '<div class="review-top">' +
                     '<div>' +
-                        '<div class="review-type">' + (item.reviewType || "후기") + '</div>' +
-                        '<div class="title">' + (item.title || "제목 없음") + '</div>' +
+                        '<div class="review-type">' + escapeHtml(item.reviewType || "후기") + '</div>' +
+                        '<div class="title">' + escapeHtml(reviewTitle) + '</div>' +
                     '</div>' +
-                    '<div class="date">' + (item.reviewDate || "") + '</div>' +
+                    '<div class="date">' + escapeHtml(item.reviewDate || "") + '</div>' +
                 '</div>' +
-                '<div class="writer">작성자: ' + (item.writerName || "익명") + '</div>' +
-                '<div class="content">' + (item.content || "") + '</div>';
+                '<div class="writer">작성자: ' + escapeHtml(item.writerName || "익명") + '</div>' +
+                '<div class="content">' + escapeHtml(item.content || "") + '</div>' +
+                makeCommentSection(reviewTitle);
 
             list.appendChild(card);
         });
