@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>후기게시판 | PETNET KOREA</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(0,102,204,0.12), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(76,175,80,0.16), transparent 35%),
+        linear-gradient(180deg, #f5f9ff 0%, #eef6f1 100%);
+    color:#111;
+    padding:18px;
+    min-height:100vh;
+}
+
+.card{
+    background:white;
+    width:100%;
+    max-width:430px;
+    margin:28px auto 0;
+    padding:30px 20px 34px;
+    border-radius:24px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+    text-align:center;
+}
+
+.logo{
+    width:160px;
+    max-width:70%;
+    margin:4px auto 20px;
+    display:block;
+}
+
+.icon{
+    font-size:54px;
+    margin-bottom:8px;
+}
+
+h1{
+    margin:0;
+    font-size:30px;
+    color:#0066cc;
+    font-weight:900;
+}
+
+.desc{
+    font-size:16px;
+    line-height:1.7;
+    color:#444;
+    margin:20px 0;
+}
+
+.notice{
+    background:#f5f9ff;
+    border:1px solid #dce8f7;
+    border-radius:18px;
+    padding:16px 14px;
+    margin:20px 0;
+    text-align:left;
+    font-size:14px;
+    line-height:1.7;
+    color:#444;
+}
+
+.btn{
+    display:block;
+    width:100%;
+    height:56px;
+    line-height:56px;
+    border-radius:16px;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:900;
+    margin-top:14px;
+}
+
+.write-btn{
+    background:#0066cc;
+    color:white;
+}
+
+.list-btn{
+    background:#fff;
+    color:#0066cc;
+    border:2px solid #0066cc;
+}
+
+.home-btn{
+    background:#f0f0f0;
+    color:#111;
+}
+
+.tip{
+    margin-top:18px;
+    font-size:13px;
+    line-height:1.5;
+    color:#777;
+}
+
+@media(max-width:480px){
+    body{
+        padding:14px;
+    }
+
+    .card{
+        padding:28px 18px 32px;
+    }
+
+    h1{
+        font-size:28px;
+    }
+
+    .desc{
+        font-size:15px;
+    }
+
+    .btn{
+        height:54px;
+        line-height:54px;
+        font-size:17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <img src="petnet-logo-crop.png" class="logo" alt="PETNET KOREA 로고">
+
+    <div class="icon">📝</div>
+
+    <h1>후기게시판</h1>
+
+    <p class="desc">
+        펫넷을 사용한 후기와<br>
+        반려견 QR 사용 경험을 남겨주세요.
+    </p>
+
+    <div class="notice">
+        ✅ QR 사용 후기<br>
+        ✅ 보호자 연결 사례<br>
+        ✅ 반려견 재회 후기<br>
+        ✅ 서비스 개선 의견<br>
+        ✅ 사진 후기 등록 예정
+    </div>
+
+    <a class="btn write-btn" href="review_write.html">
+        후기 작성하기
+    </a>
+
+    <a class="btn list-btn" href="review_list.html">
+        후기 목록 보기
+    </a>
+
+    <a class="btn home-btn" href="index.html">
+        홈으로 돌아가기
+    </a>
+
+    <div class="tip">
+        실제 사용 후기는 펫넷을 더 신뢰할 수 있는 서비스로 만드는 데 도움이 됩니다.
+    </div>
+
+</div>
+
+</body>
+</html>
