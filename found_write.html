@@ -107,6 +107,33 @@ select:focus{
     object-fit:cover;
 }
 
+.contact-box{
+    background:#f5f9ff;
+    border:1px solid #dce8f7;
+    border-radius:16px;
+    padding:15px;
+    margin-top:10px;
+}
+
+.contact-option{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:10px 0;
+    font-size:16px;
+    font-weight:800;
+}
+
+.contact-option input{
+    width:auto;
+    transform:scale(1.2);
+}
+
+#phoneBox,
+#kakaoBox{
+    display:none;
+}
+
 .notice{
     background:#f5f9ff;
     border:1px solid #dce8f7;
@@ -216,13 +243,38 @@ select:focus{
         사진을 선택하면 여기에 표시됩니다
     </div>
 
-    <label>제보자 연락처</label>
-    <input type="tel" id="phone" placeholder="숫자만 입력해주세요">
+    <label>연락 방식 선택</label>
+    <div class="contact-box">
+        <label class="contact-option">
+            <input type="radio" name="contactType" value="phone" onchange="changeContactType()">
+            전화번호 공개
+        </label>
+
+        <label class="contact-option">
+            <input type="radio" name="contactType" value="kakao" onchange="changeContactType()">
+            카톡으로 연락 가능
+        </label>
+
+        <label class="contact-option">
+            <input type="radio" name="contactType" value="private" onchange="changeContactType()">
+            연락처 비공개
+        </label>
+    </div>
+
+    <div id="phoneBox">
+        <label>제보자 연락처</label>
+        <input type="tel" id="phone" placeholder="숫자만 입력해주세요">
+    </div>
+
+    <div id="kakaoBox">
+        <label>카카오 오픈채팅 링크</label>
+        <input type="text" id="kakaoLink" placeholder="https://open.kakao.com/o/...">
+    </div>
 
     <div class="notice">
         ✅ 발견 장소와 특징은 자세히 적을수록 좋습니다.<br>
         ✅ 사진은 자동으로 저장되어 제보 목록에 표시됩니다.<br>
-        ✅ 연락처 공개 방식은 추후 조정할 수 있습니다.
+        ✅ 연락 방식은 제보자가 직접 선택할 수 있습니다.
     </div>
 
     <button class="submit-btn" onclick="submitFoundReport()">
@@ -239,6 +291,27 @@ select:focus{
 var resizedPhotoData = "";
 var resizedPhotoName = "";
 var resizedPhotoType = "";
+
+function changeContactType(){
+    var selected = document.querySelector('input[name="contactType"]:checked');
+    var phoneBox = document.getElementById("phoneBox");
+    var kakaoBox = document.getElementById("kakaoBox");
+
+    phoneBox.style.display = "none";
+    kakaoBox.style.display = "none";
+
+    if(!selected){
+        return;
+    }
+
+    if(selected.value === "phone"){
+        phoneBox.style.display = "block";
+    }
+
+    if(selected.value === "kakao"){
+        kakaoBox.style.display = "block";
+    }
+}
 
 function previewPhoto(){
     var fileInput = document.getElementById("photoFile");
@@ -293,6 +366,16 @@ function previewPhoto(){
     reader.readAsDataURL(file);
 }
 
+function getContactType(){
+    var selected = document.querySelector('input[name="contactType"]:checked');
+
+    if(!selected){
+        return "";
+    }
+
+    return selected.value;
+}
+
 function submitFoundReport(){
     var animalType = document.getElementById("animalType").value.trim();
     var foundPlace = document.getElementById("foundPlace").value.trim();
@@ -300,15 +383,36 @@ function submitFoundReport(){
     var color = document.getElementById("color").value.trim();
     var feature = document.getElementById("feature").value.trim();
     var phone = document.getElementById("phone").value.trim().replace(/[^0-9]/g, "");
+    var contactType = getContactType();
+    var kakaoLink = document.getElementById("kakaoLink").value.trim();
 
-    if(animalType === "" || foundPlace === "" || phone === ""){
-        alert("동물 종류, 발견 장소, 제보자 연락처는 꼭 입력해주세요.");
+    if(animalType === "" || foundPlace === ""){
+        alert("동물 종류와 발견 장소는 꼭 입력해주세요.");
         return;
     }
 
-    if(!/^[0-9]{10,11}$/.test(phone)){
-        alert("연락처는 숫자만 입력하고 10~11자리로 입력해주세요.");
+    if(contactType === ""){
+        alert("연락 방식을 선택해주세요.");
         return;
+    }
+
+    if(contactType === "phone"){
+        if(!/^[0-9]{10,11}$/.test(phone)){
+            alert("연락처는 숫자만 입력하고 10~11자리로 입력해주세요.");
+            return;
+        }
+    }
+
+    if(contactType === "kakao"){
+        if(kakaoLink === ""){
+            alert("카카오 오픈채팅 링크를 입력해주세요.");
+            return;
+        }
+
+        if(kakaoLink.indexOf("open.kakao.com") === -1){
+            alert("카카오 오픈채팅 링크를 입력해주세요.");
+            return;
+        }
     }
 
     var submitBtn = document.querySelector(".submit-btn");
@@ -341,6 +445,8 @@ function submitFoundReport(){
     addInput("color", color);
     addInput("feature", feature);
     addInput("phone", phone);
+    addInput("contactType", contactType);
+    addInput("kakaoLink", kakaoLink);
     addInput("photoData", resizedPhotoData);
     addInput("photoName", resizedPhotoName);
     addInput("photoType", resizedPhotoType);

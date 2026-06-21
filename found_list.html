@@ -84,6 +84,7 @@ h1{
     font-size:18px;
     font-weight:900;
     margin-bottom:16px;
+    overflow:hidden;
 }
 
 .photo-box img{
@@ -121,6 +122,45 @@ h1{
 
 .info strong{
     color:#0066cc;
+}
+
+.contact-area{
+    margin-top:16px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.contact-btn{
+    display:block;
+    width:100%;
+    text-align:center;
+    text-decoration:none;
+    border-radius:14px;
+    padding:14px 12px;
+    font-size:17px;
+    font-weight:900;
+}
+
+.phone-btn{
+    background:#0066cc;
+    color:white;
+}
+
+.kakao-btn{
+    background:#ffe812;
+    color:#111;
+}
+
+.private-label{
+    width:100%;
+    border-radius:14px;
+    padding:14px 12px;
+    background:#f1f1f1;
+    color:#666;
+    text-align:center;
+    font-size:16px;
+    font-weight:900;
 }
 
 .empty,
@@ -189,7 +229,8 @@ h1{
         font-size:15px;
     }
 
-    .btn{
+    .btn,
+    .contact-btn{
         font-size:15px;
     }
 }
@@ -258,6 +299,34 @@ function makePhotoBox(photoUrl){
     return '<div class="photo-box"><img src="' + url + '" alt="제보 사진"></div>';
 }
 
+function makeContactArea(item){
+    var contactType = item.contactType || "";
+    var phone = String(item.phone || "").replace(/[^0-9]/g, "");
+    var kakaoLink = item.kakaoLink || "";
+
+    if(contactType === "phone" && phone !== ""){
+        return '<div class="contact-area">' +
+            '<a class="contact-btn phone-btn" href="tel:' + phone + '">전화하기</a>' +
+        '</div>';
+    }
+
+    if(contactType === "kakao" && kakaoLink !== ""){
+        return '<div class="contact-area">' +
+            '<a class="contact-btn kakao-btn" href="' + kakaoLink + '" target="_blank">카톡으로 연락하기</a>' +
+        '</div>';
+    }
+
+    if(contactType === "private"){
+        return '<div class="contact-area">' +
+            '<div class="private-label">연락처 비공개</div>' +
+        '</div>';
+    }
+
+    return '<div class="contact-area">' +
+        '<div class="private-label">연락 방식 미선택</div>' +
+    '</div>';
+}
+
 function loadFoundList(){
     fetch(API_URL + "?action=foundList")
     .then(function(response){
@@ -287,7 +356,8 @@ function loadFoundList(){
                     '<div><strong>발견 날짜</strong> : ' + formatDateOnly(item.foundDate) + '</div>' +
                     '<div><strong>털 색상</strong> : ' + (item.color || "-") + '</div>' +
                     '<div><strong>특징</strong> : ' + (item.feature || "-") + '</div>' +
-                '</div>';
+                '</div>' +
+                makeContactArea(item);
 
             list.appendChild(card);
         });
