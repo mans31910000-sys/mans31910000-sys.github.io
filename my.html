@@ -405,6 +405,9 @@ function showMyPets(data){
       '<p><strong>품종 :</strong> ' + pet.breed + '</p>' +
       '<p><strong>상태 :</strong> ' + pet.status + '</p>' +
       '<a class="pet-view-btn" href="pet.html?id=' + pet.petNumber + '">QR / 반려견 정보 보기</a>' +
+      '<a class="pet-view-btn" style="background:#0066cc; margin-top:12px;" href="edit_pet.html?id=' + pet.petNumber + '">' +
+'✏️ 정보 수정하기' +
+'</a>' +
       '<button class="pet-view-btn" style="border:none; background:#cc3333; margin-top:12px;" onclick="reportLost(\'' + pet.petNumber + '\')">🔴 분실 신고하기</button>' +
       '<button class="pet-view-btn" style="border:none; background:#36b36b; margin-top:12px;" onclick="reportFound(\'' + pet.petNumber + '\')">🟢 찾았어요 / 분실 해제</button>' +
       '</div>';

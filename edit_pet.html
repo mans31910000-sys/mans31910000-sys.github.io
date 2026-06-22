@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>반려견 정보 수정 | PETNET KOREA</title>
+
+<style>
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f5f9ff;
+  color:#0d1833;
+  text-align:center;
+  padding:18px;
+}
+.card{
+  background:white;
+  width:100%;
+  max-width:430px;
+  margin:0 auto;
+  padding:26px 22px 30px;
+  border-radius:24px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+.logo{
+  width:170px;
+  max-width:70%;
+  margin:4px auto 18px;
+  display:block;
+}
+h1{
+  margin:0 0 18px;
+  font-size:32px;
+  color:#0066cc;
+  font-weight:900;
+}
+.input-box, select, textarea{
+  width:100%;
+  margin-bottom:14px;
+  padding:15px;
+  font-size:17px;
+  border:1px solid #d5dce8;
+  border-radius:14px;
+  outline:none;
+}
+textarea{
+  min-height:90px;
+  resize:none;
+}
+.preview{
+  width:100%;
+  max-height:280px;
+  object-fit:cover;
+  border-radius:18px;
+  margin:12px 0 16px;
+  background:#eee;
+}
+.save-btn{
+  width:100%;
+  height:60px;
+  margin-top:8px;
+  font-size:22px;
+  font-weight:900;
+  background:#0066cc;
+  color:white;
+  border:none;
+  border-radius:16px;
+}
+.back-btn{
+  display:block;
+  width:100%;
+  height:52px;
+  line-height:52px;
+  margin-top:16px;
+  font-size:18px;
+  font-weight:800;
+  background:#f0f0f0;
+  color:#111;
+  text-decoration:none;
+  border-radius:16px;
+}
+.notice{
+  background:#f5f9ff;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:20px;
+  font-size:15px;
+  line-height:1.6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <img src="petnet-logo-crop.png" class="logo" alt="PETNET KOREA 로고">
+
+  <h1>🐶 반려견 정보 수정</h1>
+
+  <div class="notice">
+    이름, 품종, 특징, 연락처, 카카오 링크, 사진을 수정할 수 있습니다.
+  </div>
+
+  <input type="hidden" id="petId">
+
+  <input id="name" class="input-box" type="text" placeholder="이름">
+
+  <input id="breed" class="input-box" type="text" placeholder="품종">
+
+  <select id="gender">
+    <option value="">성별 선택</option>
+    <option value="수컷">수컷</option>
+    <option value="암컷">암컷</option>
+    <option value="중성화 수컷">중성화 수컷</option>
+    <option value="중성화 암컷">중성화 암컷</option>
+  </select>
+
+  <textarea id="feature" placeholder="특징"></textarea>
+
+  <input id="phone" class="input-box" type="tel" placeholder="보호자 연락처 예: 01012345678">
+
+  <input id="kakao" class="input-box" type="text" placeholder="카카오 오픈채팅 링크 선택">
+
+  <img id="preview" class="preview" src="petnet-logo-crop.png" alt="반려견 사진">
+
+  <input id="photo" class="input-box" type="file" accept="image/*">
+
+  <button class="save-btn" onclick="savePetInfo()">정보 저장하기</button>
+
+  <a class="back-btn" href="my.html">내 반려견 관리로 돌아가기</a>
+</div>
+
+<script>
+var API_URL = "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
+var currentPhoto = "";
+
+function getPetId(){
+  var params = new URLSearchParams(window.location.search);
+  return params.get("id") || "";
+}
+
+window.onload = function(){
+  var petId = getPetId();
+  document.getElementById("petId").value = petId;
+
+  if(!petId){
+    alert("PET번호가 없습니다.");
+    location.href = "my.html";
+    return;
+  }
+
+  var script = document.createElement("script");
+  script.src = API_URL + "?id=" + encodeURIComponent(petId) + "&callback=loadPetInfo";
+  document.body.appendChild(script);
+};
+
+function loadPetInfo(data){
+  if(data.error){
+    alert("반려견 정보를 불러오지 못했습니다.");
+    location.href = "my.html";
+    return;
+  }
+
+  document.getElementById("name").value = data.name || "";
+  document.getElementById("breed").value = data.breed || "";
+  document.getElementById("gender").value = data.gender || "";
+  document.getElementById("feature").value = data.feature || "";
+  document.getElementById("phone").value = data.phone || "";
+  document.getElementById("kakao").value = data.kakao || "";
+
+  currentPhoto = data.photo || "";
+  if(currentPhoto){
+    document.getElementById("preview").src = currentPhoto;
+  }
+}
+
+document.getElementById("photo").addEventListener("change", function(){
+  var file = this.files[0];
+  if(!file) return;
+
+  var reader = new FileReader();
+  reader.onload = function(e){
+    document.getElementById("preview").src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+function savePetInfo(){
+  var petId = document.getElementById("petId").value;
+  var phone = document.getElementById("phone").value.replace(/[^0-9]/g, "");
+  var file = document.getElementById("photo").files[0];
+
+  if(!document.getElementById("name").value.trim()){
+    alert("이름을 입력해주세요.");
+    return;
+  }
+
+  if(!phone || phone.length < 10){
+    alert("보호자 연락처를 확인해주세요.");
+    return;
+  }
+
+  if(file){
+    var reader = new FileReader();
+    reader.onload = function(e){
+      sendUpdate(e.target.result, file.name);
+    };
+    reader.readAsDataURL(file);
+  }else{
+    sendUpdate("", "");
+  }
+}
+
+function sendUpdate(photoData, photoName){
+  var formData = new FormData();
+
+  formData.append("action", "updatePetInfo");
+  formData.append("petId", document.getElementById("petId").value);
+  formData.append("name", document.getElementById("name").value.trim());
+  formData.append("breed", document.getElementById("breed").value.trim());
+  formData.append("gender", document.getElementById("gender").value);
+  formData.append("feature", document.getElementById("feature").value.trim());
+  formData.append("phone", document.getElementById("phone").value.replace(/[^0-9]/g, ""));
+  formData.append("kakao", document.getElementById("kakao").value.trim());
+
+  if(photoData){
+    formData.append("photoData", photoData);
+    formData.append("photoName", photoName);
+  }
+
+  fetch(API_URL, {
+    method:"POST",
+    body:formData
+  })
+  .then(function(response){
+    return response.text();
+  })
+  .then(function(result){
+    if(result === "update_success"){
+      alert("반려견 정보가 수정되었습니다.");
+      location.href = "my.html";
+    }else{
+      alert("수정 중 문제가 발생했습니다.");
+    }
+  })
+  .catch(function(){
+    alert("연결 오류가 발생했습니다.");
+  });
+}
+</script>
+
+</body>
+</html>
