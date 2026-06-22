@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>현재 분실된 반려견 | PETNET KOREA</title>
+
+<style>
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f5f9ff;
+  color:#111;
+  padding:18px;
+}
+
+.wrap{
+  max-width:760px;
+  margin:0 auto;
+}
+
+.header{
+  text-align:center;
+  background:white;
+  border-radius:24px;
+  padding:26px 18px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+  margin-bottom:18px;
+}
+
+.logo{
+  width:160px;
+  max-width:70%;
+  margin-bottom:14px;
+}
+
+h1{
+  margin:0;
+  font-size:32px;
+  color:#cc2222;
+  font-weight:900;
+}
+
+.desc{
+  font-size:16px;
+  line-height:1.6;
+  color:#333;
+  margin:14px 0 0;
+}
+
+.lost-card{
+  background:white;
+  border-radius:22px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 8px 22px rgba(0,0,0,0.08);
+  border:2px solid #ffd2d2;
+}
+
+.pet-photo{
+  width:100%;
+  max-height:330px;
+  object-fit:cover;
+  border-radius:18px;
+  background:#eee;
+  margin-bottom:14px;
+}
+
+.lost-badge{
+  display:inline-block;
+  background:#cc2222;
+  color:white;
+  font-weight:900;
+  padding:8px 12px;
+  border-radius:999px;
+  margin-bottom:10px;
+}
+
+.pet-name{
+  font-size:28px;
+  font-weight:900;
+  color:#cc2222;
+  margin:6px 0 12px;
+}
+
+.info{
+  font-size:17px;
+  line-height:1.7;
+  color:#222;
+}
+
+.call-btn{
+  display:block;
+  width:100%;
+  height:56px;
+  line-height:56px;
+  margin-top:16px;
+  background:#cc2222;
+  color:white;
+  text-align:center;
+  text-decoration:none;
+  border-radius:16px;
+  font-size:20px;
+  font-weight:900;
+}
+
+.home-btn{
+  display:block;
+  height:52px;
+  line-height:52px;
+  margin:20px auto 0;
+  background:#eee;
+  color:#111;
+  text-align:center;
+  text-decoration:none;
+  border-radius:16px;
+  font-size:18px;
+  font-weight:900;
+}
+
+.empty{
+  background:white;
+  border-radius:22px;
+  padding:30px 18px;
+  text-align:center;
+  color:#555;
+  font-size:18px;
+  line-height:1.6;
+  box-shadow:0 8px 22px rgba(0,0,0,0.08);
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <img src="petnet-logo-crop.png" class="logo" alt="PETNET KOREA 로고">
+    <h1>🔴 현재 분실된 반려견</h1>
+    <p class="desc">
+      우리 주변에서 보호자를 기다리는 반려견입니다.<br>
+      비슷한 반려견을 발견하셨다면 보호자에게 연락해주세요.
+    </p>
+  </div>
+
+  <div id="lostList">
+    <div class="empty">분실 반려견 정보를 불러오는 중입니다...</div>
+  </div>
+
+  <a class="home-btn" href="index.html">🏠 홈으로 돌아가기</a>
+
+</div>
+
+<script>
+var script = document.createElement("script");
+script.src =
+  "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec" +
+  "?action=lostPetList&callback=showLostPets";
+document.body.appendChild(script);
+
+function showLostPets(data){
+  var box = document.getElementById("lostList");
+
+  if(!data || data.length === 0){
+    box.innerHTML =
+      '<div class="empty">' +
+      '현재 등록된 분실 반려견이 없습니다.<br>' +
+      '모든 반려견이 안전하게 보호자 곁에 있기를 바랍니다.' +
+      '</div>';
+    return;
+  }
+
+  var html = "";
+
+  data.reverse().forEach(function(pet){
+    var photo = pet.photo || "petnet-logo-crop.png";
+    var phone = String(pet.phone || "").replace(/[^0-9]/g, "");
+
+    html +=
+      '<div class="lost-card">' +
+      '<img class="pet-photo" src="' + photo + '" alt="분실 반려견 사진">' +
+      '<div class="lost-badge">분실 신고 중</div>' +
+      '<div class="pet-name">' + (pet.name || "이름 미등록") + '</div>' +
+      '<div class="info">' +
+      '<strong>품종 :</strong> ' + (pet.breed || "-") + '<br>' +
+      '<strong>성별 :</strong> ' + (pet.gender || "-") + '<br>' +
+      '<strong>특징 :</strong> ' + (pet.feature || "-") +
+      '</div>';
+
+    if(phone){
+      html += '<a class="call-btn" href="tel:' + phone + '">📞 보호자에게 연락하기</a>';
+    }
+
+    html += '</div>';
+  });
+
+  box.innerHTML = html;
+}
+</script>
+
+</body>
+</html>
