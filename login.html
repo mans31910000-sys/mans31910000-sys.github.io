@@ -231,8 +231,9 @@ function loginMember(){
         result = String(result).trim();
 
         if(result === "login_success"){
-            alert("로그인 성공 🐶");
-            window.location.href = "my.html";
+           alert("로그인 성공 🐶");
+localStorage.setItem("petnetEmail", document.getElementById("email").value.trim());
+window.location.href = "my.html";
         }else{
             alert("로그인 실패: " + result);
             loginBtn.disabled = false;

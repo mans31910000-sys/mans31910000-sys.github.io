@@ -180,6 +180,7 @@ textarea{
         </div>
 
         <form id="registerForm" action="https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec" method="post">
+            <input type="hidden" name="memberEmail" id="memberEmail">
 
             <div class="section-title">반려동물 정보</div>
 
@@ -360,6 +361,9 @@ document.getElementById("photoName").value = file.name;
 
 });
 </script>
-
+<script>
+document.getElementById("memberEmail").value =
+localStorage.getItem("petnetEmail") || "";
+</script>
 </body>
 </html>
