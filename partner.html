@@ -2,63 +2,145 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>업무협약 문의</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>업무협약 문의 | PETNET KOREA</title>
 
 <style>
+*{box-sizing:border-box;}
+
 body{
-    font-family: Arial, sans-serif;
-    background:#f5f7fa;
-    text-align:center;
     margin:0;
-    padding:30px;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(180deg,#ffffff 0%,#f5f9ff 100%);
+    color:#071833;
+    text-align:center;
+    padding:18px;
 }
 
 .card{
     background:white;
-    max-width:560px;
-    margin:40px auto;
-    padding:35px 25px;
-    border-radius:18px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+    width:100%;
+    max-width:620px;
+    margin:0 auto;
+    padding:30px 22px 34px;
+    border-radius:28px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.logo{
+    width:230px;
+    max-width:82%;
+    margin:5px auto 24px;
+    display:block;
 }
 
 h1{
-    color:#1f4fbf;
-    font-size:30px;
+    margin:0;
+    font-size:38px;
+    color:#005bd8;
+    font-weight:900;
 }
 
-p{
+.hero{
+    margin:20px 0 24px;
+    font-size:25px;
+    line-height:1.45;
+    font-weight:900;
+}
+
+.hero .red{
+    color:#e51b35;
+}
+
+.desc{
     font-size:18px;
-    line-height:1.8;
-    color:#333;
+    line-height:1.75;
+    color:#222;
+    margin:0 0 24px;
 }
 
 .box{
-    background:#f5f7fa;
-    border-radius:14px;
-    padding:18px;
-    margin:22px 0;
+    background:#f5f9ff;
+    border-radius:22px;
+    padding:22px 18px;
+    margin:20px 0;
     font-size:17px;
-    line-height:1.7;
-    color:#333;
+    line-height:1.75;
+    color:#222;
+}
+
+.partner-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin:22px 0;
+}
+
+.partner-item{
+    background:white;
+    border:1px solid #dfe8f5;
+    border-radius:18px;
+    padding:18px 10px;
+    font-size:17px;
+    font-weight:900;
+    box-shadow:0 5px 14px rgba(0,0,0,0.05);
 }
 
 .highlight{
-    font-weight:bold;
-    color:#1f4fbf;
+    color:#005bd8;
+    font-weight:900;
 }
 
-a.btn{
+.btn{
     display:block;
+    width:100%;
+    max-width:390px;
+    margin:14px auto;
+    padding:19px 14px;
+    border-radius:18px;
     text-decoration:none;
-    background:#1f4fbf;
+    font-size:21px;
+    font-weight:900;
+}
+
+.mail-btn{
+    background:#005bd8;
     color:white;
-    padding:15px;
-    border-radius:10px;
-    margin:18px auto;
-    max-width:320px;
-    font-size:18px;
-    font-weight:bold;
+}
+
+.home-btn{
+    background:#f0f0f0;
+    color:#111;
+}
+
+.note{
+    margin-top:18px;
+    font-size:14px;
+    color:#666;
+    line-height:1.6;
+}
+
+@media(max-width:480px){
+    .card{
+        padding:28px 18px 32px;
+        border-radius:26px;
+    }
+
+    .logo{
+        width:210px;
+    }
+
+    h1{
+        font-size:35px;
+    }
+
+    .hero{
+        font-size:23px;
+    }
+
+    .partner-grid{
+        grid-template-columns:1fr;
+    }
 }
 </style>
 </head>
@@ -66,27 +148,53 @@ a.btn{
 <body>
 
 <div class="card">
+
+    <img src="petnet-logo-crop.png" class="logo" alt="PETNET KOREA 로고">
+
     <h1>🤝 업무협약 문의</h1>
 
-    <p>
-        펫넷(PETNET KOREA)은<br>
-        대한민국 반려견 안전 네트워크를 함께 만들어갈<br>
-        협력 파트너를 기다리고 있습니다.
-    </p>
+   
+
+    <div class="box" style="font-size:24px; font-weight:900; line-height:1.6; border:2px solid #d8e7ff;">
+    펫넷(PETNET KOREA)은<br>
+    <span class="highlight">대한민국 반려견 안전 네트워크</span>를<br>
+    함께 만들어갈<br>
+    협력 기관과 업체를 찾고 있습니다.
+</div>
 
     <div class="box">
-        지자체 · 동물병원 · 펫샵 · 보호소 · 반려동물 관련 기업 등<br>
-        반려견 안전과 보호자 연결에 관심 있는 기관 및 업체와<br>
+        펫넷은 QR 스캔 한 번으로<br>
+        발견자와 보호자를 빠르게 연결하는<br>
+        <span class="highlight">반려견 분실 무료 QR 서비스</span>입니다.
+    </div>
+
+    <div class="partner-grid">
+        <div class="partner-item">🏛️ 지자체</div>
+        <div class="partner-item">🏥 동물병원</div>
+        <div class="partner-item">🏠 보호소</div>
+        <div class="partner-item">🐾 펫샵</div>
+        <div class="partner-item">🏢 반려동물 기업</div>
+        <div class="partner-item">🤲 봉사단체</div>
+    </div>
+
+    <div class="box">
+        반려견 안전, 분실 예방, 보호자 연결,<br>
+        유기견·발견동물 제보 활성화를 위한<br>
         다양한 협업을 검토합니다.
     </div>
 
-    <p>
-        <span class="highlight">반려견 분실 예방</span>과<br>
-        <span class="highlight">보호자 빠른 연결</span>을 위한 협력 문의를 환영합니다.
-    </p>
+    <a class="btn mail-btn" href="mailto:mans31910000@gmail.com">
+        📩 이메일 문의하기
+    </a>
 
-    <a class="btn" href="mailto:mans31910000@gmail.com">이메일 문의하기</a>
-    <a class="btn" href="index.html">홈으로 돌아가기</a>
+    <a class="btn home-btn" href="index.html">
+        🏠 홈으로 돌아가기
+    </a>
+
+    <div class="note">
+        PETNET KOREA · 대한민국 반려견 안전 네트워크
+    </div>
+
 </div>
 
 </body>
