@@ -373,6 +373,51 @@ function reportFound(petNumber){
     updatePetStatus(petNumber, "정상");
   }
 }
+window.onload = function(){
+  var email = localStorage.getItem("petnetEmail") || "";
+
+  if(email !== ""){
+    loadMyPets(email);
+  }
+};
+
+function loadMyPets(email){
+  document.getElementById("result").innerHTML =
+    '<p style="font-size:17px; color:#666;">내 반려견 목록을 불러오는 중입니다...</p>';
+
+  var script = document.createElement("script");
+  script.src =
+    "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec" +
+    "?action=myPets&memberEmail=" + encodeURIComponent(email) +
+    "&callback=showMyPets";
+
+  document.body.appendChild(script);
+}
+
+function showMyPets(data){
+  if(!data || data.length === 0){
+    document.getElementById("result").innerHTML =
+      '<div class="error-card"><h2>등록된 반려견 없음</h2><p>현재 로그인 계정으로 등록된 반려견이 없습니다.</p></div>';
+    return;
+  }
+
+  var html = "";
+
+  data.reverse().forEach(function(pet){
+    html +=
+      '<div class="result-card" style="margin-bottom:18px;">' +
+      '<h2>' + pet.petNumber + '</h2>' +
+      '<p><strong>이름 :</strong> ' + pet.name + '</p>' +
+      '<p><strong>품종 :</strong> ' + pet.breed + '</p>' +
+      '<p><strong>상태 :</strong> ' + pet.status + '</p>' +
+      '<a class="pet-view-btn" href="pet.html?id=' + pet.petNumber + '">QR / 반려견 정보 보기</a>' +
+      '<button class="pet-view-btn" style="border:none; background:#cc3333; margin-top:12px;" onclick="reportLost(\'' + pet.petNumber + '\')">🔴 분실 신고하기</button>' +
+      '<button class="pet-view-btn" style="border:none; background:#36b36b; margin-top:12px;" onclick="reportFound(\'' + pet.petNumber + '\')">🟢 찾았어요 / 분실 해제</button>' +
+      '</div>';
+  });
+
+  document.getElementById("result").innerHTML = html;
+}
 </script>
 
 </body>
