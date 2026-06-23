@@ -567,9 +567,9 @@ function loadReviewList(){
         list.innerHTML = "";
 
         if(!reviews || reviews.length === 0){
-            list.innerHTML =
-               <div class="empty">아직 등록된 후기가 없습니다.</div>
-            return;
+           list.innerHTML =
+   '<div class="empty">아직 등록된 후기가 없습니다.</div>';
+return;
         }
 
         reviews.reverse().forEach(function(item){
