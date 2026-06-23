@@ -13,6 +13,99 @@
 <meta name="robots" content="index,follow">
 
 <style>
+ .qr-main-btn{
+    position:relative;
+    overflow:hidden;
+    width:90%;
+    max-width:720px;
+    margin:20px auto;
+    padding:22px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:22px;
+    background:linear-gradient(100deg,#1e7bff 0%,#356dff 45%,#9852ff 100%);
+    border-radius:32px;
+    text-decoration:none;
+    color:white;
+    box-shadow:0 10px 24px rgba(50,80,180,0.28);
+}
+
+.qr-main-btn::before{
+    content:"🐾";
+    position:absolute;
+    right:auto;
+    left:20px;
+    top:16px;
+    font-size:76px;
+    opacity:0.32;
+}
+
+.qr-main-btn::after{
+    content:"🐾";
+    position:absolute;
+    right:190px;
+    bottom:18px;
+    font-size:66px;
+    opacity:0.28;
+}
+
+.qr-scan-icon{
+    width:76px;
+    height:76px;
+    border:4px solid rgba(255,255,255,0.95);
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:2;
+}
+
+.qr-box{
+    width:42px;
+    height:42px;
+    background:
+        linear-gradient(90deg,#fff 10px,transparent 10px 16px,#fff 16px 26px,transparent 26px 32px,#fff 32px),
+        linear-gradient(#fff 10px,transparent 10px 16px,#fff 16px 26px,transparent 26px 32px,#fff 32px);
+    opacity:0.95;
+}
+
+.qr-text{
+    flex:1;
+    text-align:center;
+    z-index:2;
+    min-width:0;
+    padding-left:60px;
+}
+
+.qr-title{
+    font-size:36px;
+    font-weight:800;
+    line-height:1.1;
+    white-space:nowrap;
+}
+
+.qr-sub{
+    font-size:17px;
+    margin-top:8px;
+    opacity:0.95;
+    white-space:nowrap;
+}
+
+.qr-arrow{
+    width:66px;
+    height:66px;
+    min-width:66px;
+    border-radius:50%;
+    background:white;
+    color:#222;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:34px;
+    font-weight:bold;
+    z-index:2;
+}
     .blink-red{
 animation:blink 1s infinite;
 }
@@ -631,9 +724,17 @@ body{
     </h1>
 
     <div class="cta-wrap">
-        <a href="register.html" class="cta">무료 QR 생성하기</a>
-        <span class="finger">👈</span>
-    </div>
+    <a href="register.html" class="qr-main-btn">
+
+
+        <div class="qr-text">
+            <div class="qr-title">무료 QR 생성하기</div>
+            <div class="qr-sub">우리 강아지를 더 안전하게 지켜주세요!</div>
+        </div>
+
+        <div class="qr-arrow">➜</div>
+    </a>
+</div>
 
     <div class="badges">
         <div class="badge">👤 회원가입 X</div>
