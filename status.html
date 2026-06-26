@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>펫넷 현황 | PETNET KOREA</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f5f7fa;
+  color:#222;
+  text-align:center;
+}
+
+.header{
+  padding:35px 20px 20px;
+}
+
+.header h1{
+  font-size:34px;
+  margin:0;
+  color:#1f3b57;
+}
+
+.header p{
+  font-size:18px;
+  color:#555;
+}
+
+.status-wrap{
+  max-width:720px;
+  margin:0 auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  border-radius:22px;
+  padding:25px 20px;
+  margin:16px 0;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+.card .icon{
+  font-size:34px;
+}
+
+.card h2{
+  margin:10px 0 8px;
+  font-size:22px;
+  color:#1f3b57;
+}
+
+.number{
+  font-size:36px;
+  font-weight:bold;
+  color:#e53935;
+}
+
+.card p{
+  font-size:16px;
+  color:#555;
+}
+
+.operating{
+  color:#00a86b;
+  font-size:30px;
+  font-weight:bold;
+}
+
+.goal{
+  margin:30px 15px;
+  padding:25px 20px;
+  background:#fff8e6;
+  border-radius:22px;
+  font-size:20px;
+  line-height:1.6;
+  font-weight:bold;
+  color:#333;
+}
+
+.home-btn{
+  display:inline-block;
+  margin:25px 0 40px;
+  padding:16px 34px;
+  background:#1f8cff;
+  color:white;
+  text-decoration:none;
+  border-radius:999px;
+  font-size:18px;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>🐶 펫넷 현황</h1>
+  <p>펫넷 코리아의 현재 운영 현황입니다.</p>
+</div>
+
+<div class="status-wrap">
+
+  <div class="card">
+    <div class="icon">🐶</div>
+    <h2>등록된 반려견</h2>
+    <div class="number" id="totalPets">-</div>
+    <p>현재 펫넷에 등록되어 있는 반려견입니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="icon">🚨</div>
+    <h2>현재 분실 신고</h2>
+    <div class="number" id="lostPets">-</div>
+    <p>현재 보호자를 찾고 있는 반려견입니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="icon">🤝</div>
+    <h2>보호자 연결 사례</h2>
+    <div class="number">0건</div>
+    <p>QR를 통해 보호자와 다시 연결된 사례입니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="icon">📍</div>
+    <h2>유기견 · 발견동물 제보</h2>
+    <div class="number" id="foundReports">-</div>
+    <p>현재 등록된 발견동물 제보입니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="icon">🟢</div>
+    <h2>서비스 운영 현황</h2>
+    <div class="operating">정상 운영 중</div>
+    <p>펫넷 코리아는 24시간 이용 가능합니다.</p>
+  </div>
+
+</div>
+
+<div class="goal">
+  QR 스캔 한 번으로<br>
+  반려견과 보호자를<br>
+  다시 연결합니다.
+</div>
+
+<a href="index.html" class="home-btn">홈으로 돌아가기</a>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
+
+fetch(API_URL + "?action=status")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("totalPets").innerText = (data.totalPets || 0) + "마리";
+    document.getElementById("lostPets").innerText = (data.lostPets || 0) + "건";
+    document.getElementById("foundReports").innerText = (data.foundReports || 0) + "건";
+  })
+  .catch(() => {
+    document.getElementById("totalPets").innerText = "확인 중";
+    document.getElementById("lostPets").innerText = "확인 중";
+    document.getElementById("foundReports").innerText = "확인 중";
+  });
+</script>
+
+</body>
+</html>
