@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>잇넷 QR 정보</title>
+
+<style>
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f5fbfc;
+  color:#0b2239;
+  text-align:center;
+}
+
+.wrap{
+  max-width:620px;
+  margin:0 auto;
+  padding:36px 18px 50px;
+}
+
+.logo{
+  font-size:32px;
+  font-weight:900;
+  color:#073052;
+  margin-bottom:8px;
+}
+
+.logo span{
+  color:#00a99d;
+}
+
+.sub{
+  font-size:17px;
+  color:#456;
+  margin-bottom:28px;
+}
+
+.card{
+  background:white;
+  border-radius:28px;
+  padding:30px 22px;
+  box-shadow:0 10px 28px rgba(0,0,0,0.08);
+}
+
+h1{
+  font-size:28px;
+  margin:0 0 16px;
+}
+
+.item-name{
+  font-size:34px;
+  font-weight:900;
+  color:#00a99d;
+  margin:18px 0 26px;
+}
+
+.btn{
+  display:block;
+  width:100%;
+  max-width:360px;
+  margin:14px auto;
+  padding:18px 16px;
+  border-radius:18px;
+  text-decoration:none;
+  font-size:20px;
+  font-weight:900;
+}
+
+.call{
+  background:#0077d9;
+  color:white;
+}
+
+.emergency{
+  background:#ff8a00;
+  color:white;
+}
+
+.kakao{
+  background:#ffe812;
+  color:#222;
+}
+
+.notice{
+  margin-top:24px;
+  font-size:15px;
+  color:#556;
+  line-height:1.7;
+}
+
+.home{
+  display:inline-block;
+  margin-top:22px;
+  color:#073b78;
+  font-weight:bold;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+  <div class="logo">잇넷 <span>(ITNET KOREA)</span></div>
+  <div class="sub">소중한 그것(It)을 다시 연결합니다.</div>
+
+  <div class="card">
+    <h1>이 물건을 발견하셨나요?</h1>
+
+    <div class="item-name" id="itemName">확인 중</div>
+
+    <a id="ownerCall" class="btn call" style="display:none;">주인에게 연락하기</a>
+
+    <div id="emergencyBox" style="display:none;">
+      <div class="notice">주인과 연결되지 않나요?</div>
+      <a id="emergencyCall" class="btn emergency">비상 연락망으로 연락하기</a>
+    </div>
+
+    <a id="kakaoBtn" class="btn kakao" target="_blank" style="display:none;">카카오 오픈채팅으로 연락하기</a>
+
+    <div class="notice">
+      QR을 스캔해주셔서 감사합니다.<br>
+      아래 연락 버튼을 통해 주인에게 알려주세요.
+    </div>
+  </div>
+
+  <a href="index.html" class="home">잇넷 메인으로 가기</a>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+function showItem(data){
+  if(!data || data.error){
+    document.getElementById("itemName").innerText = "정보를 찾을 수 없습니다";
+    return;
+  }
+
+  document.getElementById("itemName").innerText = data.itemName || "등록된 물건";
+
+  if(data.ownerPhone){
+    const btn = document.getElementById("ownerCall");
+    btn.href = "tel:" + data.ownerPhone;
+    btn.style.display = "block";
+  }
+
+  if(data.emergencyPhone){
+    const box = document.getElementById("emergencyBox");
+    const btn = document.getElementById("emergencyCall");
+    btn.href = "tel:" + data.emergencyPhone;
+    box.style.display = "block";
+  }
+
+  if(data.kakaoLink){
+    const kakao = document.getElementById("kakaoBtn");
+    kakao.href = data.kakaoLink;
+    kakao.style.display = "block";
+  }
+}
+
+if(id){
+  const script = document.createElement("script");
+  script.src = API_URL + "?action=itnetItem&id=" + encodeURIComponent(id) + "&callback=showItem";
+  document.body.appendChild(script);
+}else{
+  document.getElementById("itemName").innerText = "잘못된 QR입니다";
+}
+</script>
+
+</body>
+</html>

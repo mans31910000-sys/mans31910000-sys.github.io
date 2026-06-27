@@ -3,29 +3,268 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ITNET KOREA</title>
+<title>잇넷 | 무료 분실물 QR 서비스</title>
+
 <style>
+*{box-sizing:border-box;}
+
 body{
-    font-family:Arial,sans-serif;
-    background:#f5f9ff;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#ffffff;
+  color:#0b2239;
+  text-align:center;
+}
+
+.wrap{
+  max-width:980px;
+  margin:0 auto;
+  padding:28px 18px 50px;
+}
+
+.logo{
+  font-size:34px;
+  font-weight:900;
+  color:#073052;
+  margin-bottom:6px;
+}
+
+.logo span{
+  color:#00a99d;
+}
+
+.sub{
+  font-size:17px;
+  color:#456;
+  margin-bottom:22px;
+}
+
+.hero-img{
+  width:100%;
+  border-radius:28px;
+  box-shadow:0 12px 32px rgba(0,0,0,0.12);
+  margin-bottom:28px;
+}
+
+.main-title{
+  font-size:38px;
+  line-height:1.35;
+  font-weight:900;
+  margin:18px 0;
+}
+
+.main-title span{
+  color:#00a99d;
+}
+
+.desc{
+  font-size:20px;
+  line-height:1.6;
+  color:#344;
+  margin-bottom:26px;
+}
+
+.qr-btn{
+  display:block;
+  max-width:560px;
+  margin:0 auto 14px;
+  padding:24px 18px;
+  border-radius:22px;
+  background:linear-gradient(90deg,#00b8a9,#0077d9);
+  color:white;
+  text-decoration:none;
+  font-size:30px;
+  font-weight:900;
+  box-shadow:0 12px 26px rgba(0,120,160,0.25);
+}
+
+.simple{
+  font-size:18px;
+  color:#445;
+  margin-bottom:30px;
+}
+
+.accordion{
+  max-width:760px;
+  margin:0 auto 14px;
+  border:1px solid #e4eef2;
+  border-radius:18px;
+  overflow:hidden;
+  background:white;
+  box-shadow:0 6px 18px rgba(0,0,0,0.05);
+  text-align:left;
+}
+
+.acc-btn{
+  width:100%;
+  border:0;
+  background:white;
+  padding:22px 24px;
+  font-size:21px;
+  font-weight:900;
+  color:#0b2239;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+}
+
+.acc-content{
+  display:none;
+  padding:0 24px 22px;
+  font-size:17px;
+  line-height:1.7;
+  color:#405060;
+}
+
+.accordion.active .acc-content{
+  display:block;
+}
+
+.petnet-box{
+  max-width:800px;
+  margin:32px auto;
+  padding:24px;
+  border-radius:24px;
+  background:#eefcff;
+  display:flex;
+  align-items:center;
+  gap:22px;
+  text-align:left;
+}
+
+.dog{
+  font-size:70px;
+  flex:0 0 auto;
+}
+
+.petnet-text{
+  flex:1;
+}
+
+.petnet-text h3{
+  margin:0 0 8px;
+  font-size:24px;
+}
+
+.petnet-text p{
+  margin:0;
+  font-size:17px;
+  line-height:1.6;
+  color:#405060;
+}
+
+.petnet-btn{
+  display:inline-block;
+  padding:16px 22px;
+  border-radius:16px;
+  background:#073b78;
+  color:white;
+  text-decoration:none;
+  font-size:18px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.footer{
+  margin-top:30px;
+  font-size:16px;
+  line-height:1.6;
+  color:#667;
+}
+
+@media(max-width:700px){
+  .logo{font-size:30px;}
+  .main-title{font-size:31px;}
+  .desc{font-size:18px;}
+  .qr-btn{font-size:26px;}
+  .acc-btn{font-size:19px;}
+  .petnet-box{
+    flex-direction:column;
     text-align:center;
-    padding:60px 20px;
-}
-h1{
-    color:#0066cc;
-}
-p{
-    font-size:20px;
-    color:#444;
+  }
+  .petnet-btn{
+    width:100%;
+    text-align:center;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<h1>ITNET KOREA</h1>
+<div class="wrap">
 
-<p>잇넷 홈페이지가 정상적으로 생성되었습니다.</p>
+  <div class="logo">잇넷 <span>(ITNET KOREA)</span></div>
+  <div class="sub">소중한 그것(It)을 다시 연결합니다.</div>
+
+  <img src="itnet-hero.png" class="hero-img" alt="잇넷 분실물 QR 서비스">
+
+  <div class="main-title">
+    소중한 물건을 잃어버렸을 때,<br>
+    가장 필요한 것은 <span>빠른 연결</span>입니다.
+  </div>
+
+  <div class="desc">
+    QR 스캔 한 번으로<br>
+    발견자와 주인을 바로 연결합니다.
+  </div>
+
+  <a href="register.html" class="qr-btn">무료 QR 생성하기</a>
+
+  <div class="simple">
+    회원가입 없이 · 앱 설치 없이 · 바로 사용
+  </div>
+
+  <div class="accordion">
+    <button class="acc-btn" onclick="toggleAcc(this)">
+      잇넷은 어떤 서비스인가요?
+      <span>⌄</span>
+    </button>
+    <div class="acc-content">
+      잇넷은 소중한 물건을 잃어버렸을 때, QR 스캔 한 번으로 발견자와 주인을 빠르게 연결해주는 대한민국 대표 무료 QR 연결 서비스입니다.
+    </div>
+  </div>
+
+  <div class="accordion">
+    <button class="acc-btn" onclick="toggleAcc(this)">
+      어떤 물건에 사용할 수 있나요?
+      <span>⌄</span>
+    </button>
+    <div class="acc-content">
+      열쇠, 지갑, 가방, 노트북, 휴대폰, 캐리어, 자전거, 유모차 등 다양한 물건에 사용할 수 있습니다.
+      그 외 여러분의 소중한 물건 어디에나 활용할 수 있습니다.
+    </div>
+  </div>
+
+  <div class="petnet-box">
+    <div class="dog">🐶</div>
+
+    <div class="petnet-text">
+      <h3>반려견 QR가 필요하신가요?</h3>
+      <p>
+        펫넷 코리아는 반려견 분실 예방과 보호자 연결을 위한 무료 QR 서비스입니다.
+      </p>
+    </div>
+
+    <a href="https://mans31910000-sys.github.io/" class="petnet-btn">
+      펫넷 코리아 바로가기
+    </a>
+  </div>
+
+  <div class="footer">
+    잇넷은 소중한 물건을 잃어버렸을 때<br>
+    발견자와 주인을 빠르게 연결해주는 무료 QR 서비스입니다.
+  </div>
+
+</div>
+
+<script>
+function toggleAcc(button){
+  const box = button.parentElement;
+  box.classList.toggle("active");
+}
+</script>
 
 </body>
 </html>

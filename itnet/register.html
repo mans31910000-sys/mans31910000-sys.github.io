@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>잇넷 QR 등록</title>
+
+<style>
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f5fbfc;
+  color:#0b2239;
+}
+
+.wrap{
+  max-width:620px;
+  margin:0 auto;
+  padding:34px 18px 50px;
+}
+
+.logo{
+  text-align:center;
+  font-size:32px;
+  font-weight:900;
+  color:#073052;
+  margin-bottom:8px;
+}
+
+.logo span{
+  color:#00a99d;
+}
+
+.sub{
+  text-align:center;
+  font-size:17px;
+  color:#456;
+  margin-bottom:28px;
+}
+
+.card{
+  background:white;
+  border-radius:26px;
+  padding:28px 22px;
+  box-shadow:0 10px 28px rgba(0,0,0,0.08);
+}
+
+h1{
+  text-align:center;
+  font-size:28px;
+  margin:0 0 12px;
+}
+
+.desc{
+  text-align:center;
+  font-size:16px;
+  color:#566;
+  line-height:1.6;
+  margin-bottom:26px;
+}
+
+label{
+  display:block;
+  font-size:17px;
+  font-weight:bold;
+  margin:18px 0 8px;
+}
+
+input{
+  width:100%;
+  padding:17px 16px;
+  border:2px solid #dce9ee;
+  border-radius:16px;
+  font-size:17px;
+}
+
+input:focus{
+  outline:none;
+  border-color:#00a99d;
+}
+
+.help{
+  font-size:14px;
+  color:#778;
+  margin-top:6px;
+  line-height:1.5;
+}
+
+.btn{
+  width:100%;
+  margin-top:28px;
+  padding:21px 15px;
+  border:0;
+  border-radius:20px;
+  background:linear-gradient(90deg,#00b8a9,#0077d9);
+  color:white;
+  font-size:24px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.home{
+  display:block;
+  text-align:center;
+  margin-top:18px;
+  color:#073b78;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.notice{
+  margin-top:22px;
+  padding:16px;
+  border-radius:16px;
+  background:#eefcff;
+  font-size:15px;
+  color:#405060;
+  line-height:1.6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <div class="logo">잇넷 <span>(ITNET KOREA)</span></div>
+  <div class="sub">소중한 그것(It)을 다시 연결합니다.</div>
+
+  <div class="card">
+    <h1>무료 QR 등록</h1>
+
+    <div class="desc">
+      소중한 물건에 붙일 QR을 생성합니다.<br>
+      발견자가 QR을 스캔하면 주인에게 연락할 수 있습니다.
+    </div>
+
+    <form action="https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec" method="post">
+      <input type="hidden" name="action" value="itnetRegister">
+
+      <label>물건 이름</label>
+      <input type="text" name="itemName" placeholder="예: 자동차 키, 지갑, 캐리어" required>
+
+      <label>주인 연락처</label>
+      <input type="tel" name="ownerPhone" placeholder="예: 01012345678" required>
+      <div class="help">숫자만 입력해도 됩니다.</div>
+
+      <label>비상 연락처 <span style="color:#888; font-weight:normal;">(선택)</span></label>
+      <input type="tel" name="emergencyPhone" placeholder="주인이 연락되지 않을 때 연결할 번호">
+
+      <label>카카오 오픈채팅 링크 <span style="color:#888; font-weight:normal;">(선택)</span></label>
+      <input type="url" name="kakaoLink" placeholder="https://open.kakao.com/...">
+
+      <button type="submit" class="btn">QR 생성하기</button>
+    </form>
+
+    <div class="notice">
+      🔒 잇넷은 발견자와 주인을 빠르게 연결하기 위한 QR 서비스입니다.<br>
+      비상 연락처는 선택 입력이며, 주인과 연결되지 않을 때 도움을 줄 수 있습니다.
+    </div>
+  </div>
+
+  <a href="index.html" class="home">잇넷 메인으로 돌아가기</a>
+
+</div>
+
+</body>
+</html>
