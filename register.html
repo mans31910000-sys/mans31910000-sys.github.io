@@ -153,13 +153,8 @@ textarea{
 }
 
 @media(max-width:700px){
-    .logo{
-        width:230px;
-    }
-
-    h1{
-        font-size:26px;
-    }
+    .logo{ width:230px; }
+    h1{ font-size:26px; }
 }
 </style>
 </head>
@@ -198,19 +193,21 @@ textarea{
 
             <textarea name="feature" id="feature" placeholder="특징 예: 겁이 많음, 흰색 털, 빨간 목줄 착용"></textarea>
 
+            <input name="animalRegNo" id="animalRegNo" type="text" placeholder="국가 동물등록번호 선택 - 동물등록번호를 공개할 경우에만 입력하세요">
+
             <div class="section-title">반려동물 사진</div>
 
-<input type="file" id="petPhoto" accept="image/*">
-<input type="hidden" name="photoData" id="photoData">
-<input type="hidden" name="photoName" id="photoName">
-<br><br>
+            <input type="file" id="petPhoto" accept="image/*">
+            <input type="hidden" name="photoData" id="photoData">
+            <input type="hidden" name="photoName" id="photoName">
+            <br><br>
 
-<img id="preview"
-     style="max-width:100%;
-            max-height:250px;
-            display:none;
-            border-radius:12px;
-            border:1px solid #ddd;">
+            <img id="preview"
+                 style="max-width:100%;
+                        max-height:250px;
+                        display:none;
+                        border-radius:12px;
+                        border:1px solid #ddd;">
 
             <div class="section-title">보호자 연락 방법</div>
 
@@ -339,31 +336,30 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
         return;
     }
 });
+
 document.getElementById("petPhoto").addEventListener("change", function(event){
-
     const file = event.target.files[0];
-
     if(!file) return;
 
     const reader = new FileReader();
 
     reader.onload = function(e){
-
         const preview = document.getElementById("preview");
 
         preview.src = e.target.result;
         preview.style.display = "block";
-document.getElementById("photoData").value = e.target.result;
-document.getElementById("photoName").value = file.name;
+        document.getElementById("photoData").value = e.target.result;
+        document.getElementById("photoName").value = file.name;
     };
 
     reader.readAsDataURL(file);
-
 });
 </script>
+
 <script>
 document.getElementById("memberEmail").value =
 localStorage.getItem("petnetEmail") || "";
 </script>
+
 </body>
 </html>
