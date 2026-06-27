@@ -162,6 +162,7 @@ h1{
                 <p id="breed"></p>
                 <p id="gender"></p>
                 <p id="feature"></p>
+                <p id="animalRegNo" style="display:none;"></p>
             </div>
 
             <a id="phoneLink" class="btn phone" href="#" style="display:none;">
@@ -207,6 +208,7 @@ var text = {
         breed:"품종",
         gender:"성별",
         feature:"특징",
+        animalRegNo:"국가 동물등록번호",
         noInfo:"정보 없음",
         phone:"📞 보호자 전화하기",
         kakao:"💬 카카오톡 연락하기",
@@ -305,6 +307,14 @@ function renderPetInfo(){
 
     document.getElementById("feature").innerHTML =
         "<b>" + t.feature + ":</b> " + (petData.feature || t.noInfo);
+
+        if(petData.animalRegNo && petData.animalRegNo.trim() !== ""){
+    document.getElementById("animalRegNo").innerHTML =
+        "<b>" + t.animalRegNo + ":</b> " + petData.animalRegNo;
+    document.getElementById("animalRegNo").style.display = "block";
+}else{
+    document.getElementById("animalRegNo").style.display = "none";
+}
 }
 
 function showPet(data) {

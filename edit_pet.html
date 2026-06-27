@@ -120,7 +120,7 @@ textarea{
   <textarea id="feature" placeholder="특징"></textarea>
 
   <input id="phone" class="input-box" type="tel" placeholder="보호자 연락처 예: 01012345678">
-
+<input id="animalRegNo" class="input-box" type="text" placeholder="국가 동물등록번호 선택 - 동물등록번호를 공개할 경우에만 입력하세요">
   <input id="kakao" class="input-box" type="text" placeholder="카카오 오픈채팅 링크 선택">
 
   <img id="preview" class="preview" src="petnet-logo-crop.png" alt="반려견 사진">
@@ -169,7 +169,7 @@ function loadPetInfo(data){
   document.getElementById("feature").value = data.feature || "";
   document.getElementById("phone").value = data.phone || "";
   document.getElementById("kakao").value = data.kakao || "";
-
+document.getElementById("animalRegNo").value = data.animalRegNo || "";
   currentPhoto = data.photo || "";
   if(currentPhoto){
     document.getElementById("preview").src = currentPhoto;
@@ -224,7 +224,7 @@ function sendUpdate(photoData, photoName){
   formData.append("feature", document.getElementById("feature").value.trim());
   formData.append("phone", document.getElementById("phone").value.replace(/[^0-9]/g, ""));
   formData.append("kakao", document.getElementById("kakao").value.trim());
-
+formData.append("animalRegNo", document.getElementById("animalRegNo").value.trim());
   if(photoData){
     formData.append("photoData", photoData);
     formData.append("photoName", photoName);
