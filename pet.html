@@ -199,170 +199,118 @@ var petData = null;
 var currentLang = "ko";
 
 var text = {
-    ko:{
-        title:"이 반려견을 발견하셨나요?",
-        desc:"아래 정보를 확인한 뒤<br>보호자에게 바로 연락해주세요.",
-        loading:"반려견 정보를 불러오는 중...",
-        notFound:"등록 정보를 찾을 수 없습니다.",
-        name:"이름",
-        breed:"품종",
-        gender:"성별",
-        feature:"특징",
-        animalRegNo:"국가 동물등록번호",
-        noInfo:"정보 없음",
-        phone:"📞 보호자 전화하기",
-        kakao:"💬 카카오톡 연락하기",
-        share:"📤 카카오톡 공유하기",
-        home:"🏠 펫넷 바로가기",
-        notice:"🔒 펫넷은 개인정보 노출을 줄이고<br>발견자와 보호자를 빠르게 연결합니다.",
-        copied:"반려견 페이지 주소가 복사되었습니다. 카카오톡에 붙여넣어 공유할 수 있습니다.",
-        copyFail:"주소창의 링크를 복사해서 카카오톡에 공유해주세요."
-    },
-    en:{
-        title:"Did you find this dog?",
-        desc:"Please check the information below<br>and contact the owner.",
-        loading:"Loading dog information...",
-        notFound:"Registration information not found.",
-        name:"Name",
-        breed:"Breed",
-        gender:"Gender",
-        feature:"Features",
-        noInfo:"No information",
-        phone:"📞 Call Owner",
-        kakao:"💬 Contact via KakaoTalk",
-        share:"📤 Share on KakaoTalk",
-        home:"🏠 Visit PetNet",
-        notice:"🔒 PetNet helps connect finders and owners<br>while reducing personal information exposure.",
-        copied:"The page link has been copied. You can paste it into KakaoTalk to share.",
-        copyFail:"Please copy the address bar link and share it on KakaoTalk."
-    },
-    zh:{
-        title:"您发现了这只狗吗？",
-        desc:"请确认以下信息后<br>立即联系主人。",
-        loading:"正在加载宠物信息...",
-        notFound:"找不到登记信息。",
-        name:"名字",
-        breed:"品种",
-        gender:"性别",
-        feature:"特征",
-        noInfo:"无信息",
-        phone:"📞 联系主人",
-        kakao:"💬 通过 KakaoTalk 联系",
-        share:"📤 分享到 KakaoTalk",
-        home:"🏠 访问 PetNet",
-        notice:"🔒 PetNet 可减少个人信息暴露<br>并快速连接发现者和主人。",
-        copied:"页面链接已复制。您可以粘贴到 KakaoTalk 分享。",
-        copyFail:"请复制地址栏链接并分享到 KakaoTalk。"
-    },
-    ja:{
-        title:"この犬を見つけましたか？",
-        desc:"下の情報を確認して<br>飼い主に連絡してください。",
-        loading:"犬の情報を読み込み中...",
-        notFound:"登録情報が見つかりません。",
-        name:"名前",
-        breed:"犬種",
-        gender:"性別",
-        feature:"特徴",
-        noInfo:"情報なし",
-        phone:"📞 飼い主に電話する",
-        kakao:"💬 KakaoTalkで連絡する",
-        share:"📤 KakaoTalkで共有する",
-        home:"🏠 PetNetへ移動",
-        notice:"🔒 PetNetは個人情報の露出を減らし<br>発見者と飼い主を素早くつなぎます。",
-        copied:"ページのリンクをコピーしました。KakaoTalkに貼り付けて共有できます。",
-        copyFail:"アドレスバーのリンクをコピーしてKakaoTalkで共有してください。"
-    }
+  ko:{
+    title:"이 반려견을 발견하셨나요?",
+    desc:"아래 정보를 확인한 뒤<br>보호자에게 바로 연락해주세요.",
+    loading:"반려견 정보를 불러오는 중...",
+    notFound:"등록 정보를 찾을 수 없습니다.",
+    name:"이름",
+    breed:"품종",
+    gender:"성별",
+    feature:"특징",
+    animalRegNo:"국가 동물등록번호",
+    noInfo:"정보 없음",
+    phone:"📞 보호자 전화하기",
+    kakao:"💬 카카오톡 연락하기",
+    share:"📤 카카오톡 공유하기",
+    home:"🏠 펫넷 바로가기",
+    notice:"🔒 펫넷은 개인정보 노출을 줄이고<br>발견자와 보호자를 빠르게 연결합니다.",
+    copied:"반려견 페이지 주소가 복사되었습니다.",
+    copyFail:"주소창의 링크를 복사해서 공유해주세요."
+  }
 };
 
 function setLang(lang){
-    currentLang = lang;
-    var t = text[lang];
+  currentLang = "ko";
+  var t = text.ko;
 
-    document.getElementById("title").innerHTML = t.title;
-    document.getElementById("desc").innerHTML = t.desc;
-    document.getElementById("phoneLink").innerHTML = t.phone;
-    document.getElementById("kakaoLink").innerHTML = t.kakao;
-    document.getElementById("shareBtn").innerHTML = t.share;
-    document.getElementById("homeBtn").innerHTML = t.home;
-    document.getElementById("notice").innerHTML = t.notice;
+  if(document.getElementById("title")) document.getElementById("title").innerHTML = t.title;
+  if(document.getElementById("desc")) document.getElementById("desc").innerHTML = t.desc;
+  if(document.getElementById("phoneLink")) document.getElementById("phoneLink").innerHTML = t.phone;
+  if(document.getElementById("kakaoLink")) document.getElementById("kakaoLink").innerHTML = t.kakao;
+  if(document.getElementById("shareBtn")) document.getElementById("shareBtn").innerHTML = t.share;
+  if(document.getElementById("homeBtn")) document.getElementById("homeBtn").innerHTML = t.home;
+  if(document.getElementById("notice")) document.getElementById("notice").innerHTML = t.notice;
 
-    if(!petData){
-        document.getElementById("loading").innerHTML = t.loading;
-    }else{
-        renderPetInfo();
-    }
+  if(petData) renderPetInfo();
 }
 
 function renderPetInfo(){
-    var t = text[currentLang];
+  var t = text.ko;
 
-    document.getElementById("name").innerHTML =
-        "<b>" + t.name + ":</b> " + (petData.name || t.noInfo);
+  document.getElementById("name").innerHTML =
+    "<b>" + t.name + ":</b> " + (petData.name || t.noInfo);
 
-    document.getElementById("breed").innerHTML =
-        "<b>" + t.breed + ":</b> " + (petData.breed || t.noInfo);
+  document.getElementById("breed").innerHTML =
+    "<b>" + t.breed + ":</b> " + (petData.breed || t.noInfo);
 
-    document.getElementById("gender").innerHTML =
-        "<b>" + t.gender + ":</b> " + (petData.gender || t.noInfo);
+  document.getElementById("gender").innerHTML =
+    "<b>" + t.gender + ":</b> " + (petData.gender || t.noInfo);
 
-    document.getElementById("feature").innerHTML =
-        "<b>" + t.feature + ":</b> " + (petData.feature || t.noInfo);
+  document.getElementById("feature").innerHTML =
+    "<b>" + t.feature + ":</b> " + (petData.feature || t.noInfo);
 
-        if(petData.animalRegNo && petData.animalRegNo.trim() !== ""){
+  var regNo =
+    petData.animalRegNo ||
+    petData.animalregno ||
+    petData.animal_reg_no ||
+    petData.regNo ||
+    "";
+
+  if(regNo && String(regNo).trim() !== ""){
     document.getElementById("animalRegNo").innerHTML =
-        "<b>" + t.animalRegNo + ":</b> " + petData.animalRegNo;
+      "<b>" + t.animalRegNo + ":</b> " + regNo;
     document.getElementById("animalRegNo").style.display = "block";
-}else{
+  }else{
     document.getElementById("animalRegNo").style.display = "none";
-}
-}
-
-function showPet(data) {
-    if (data.error) {
-        document.getElementById("loading").innerText = text[currentLang].notFound;
-        return;
-    }
-
-    petData = data;
-
-    document.getElementById("loading").style.display = "none";
-    document.getElementById("content").style.display = "block";
-
-    renderPetInfo();
-
-var photo = data.photoUrl || data.photo || data.image || "";
-
-if(photo && photo.trim() !== ""){
-  document.getElementById("petPhoto").src = photo;
-  document.getElementById("petPhoto").style.display = "block";
+  }
 }
 
-if (data.phone) {
-  document.getElementById("phoneLink").href = "tel:" + data.phone;
-  document.getElementById("phoneLink").style.display = "block";
-}
-    if (data.kakao) {
-        document.getElementById("kakaoLink").href = data.kakao;
-        document.getElementById("kakaoLink").style.display = "block";
-    }
+function showPet(data){
+  if(data.error){
+    document.getElementById("loading").innerText = text.ko.notFound;
+    return;
+  }
+
+  petData = data;
+
+  document.getElementById("loading").style.display = "none";
+  document.getElementById("content").style.display = "block";
+
+  renderPetInfo();
+
+  var photo = data.photoUrl || data.photo || data.image || "";
+  if(photo && String(photo).trim() !== ""){
+    document.getElementById("petPhoto").src = photo;
+    document.getElementById("petPhoto").style.display = "block";
+  }
+
+  if(data.phone){
+    document.getElementById("phoneLink").href = "tel:" + data.phone;
+    document.getElementById("phoneLink").style.display = "block";
+  }
+
+  if(data.kakao){
+    document.getElementById("kakaoLink").href = data.kakao;
+    document.getElementById("kakaoLink").style.display = "block";
+  }
 }
 
 function copyPageLink(){
-    var pageUrl = window.location.href;
-
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(pageUrl).then(function(){
-            alert(text[currentLang].copied);
-        });
-    } else {
-        alert(text[currentLang].copyFail);
-    }
+  var pageUrl = window.location.href;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(pageUrl).then(function(){
+      alert(text.ko.copied);
+    });
+  }else{
+    alert(text.ko.copyFail);
+  }
 }
 
 setLang("ko");
 
 var script = document.createElement("script");
-script.src = "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec?id=" + petId + "&callback=showPet";
+script.src = "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec?id=" + encodeURIComponent(petId) + "&callback=showPet";
 document.body.appendChild(script);
 </script>
 
