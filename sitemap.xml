@@ -3,23 +3,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-<loc>https://mans31910000-sys.github.io/petnet/</loc>
+<loc>https://mans31910000-sys.github.io/</loc>
 </url>
 
 <url>
-<loc>https://mans31910000-sys.github.io/petnet/register.html</loc>
+<loc>https://mans31910000-sys.github.io/register.html</loc>
 </url>
 
 <url>
-<loc>https://mans31910000-sys.github.io/petnet/qr.html</loc>
+<loc>https://mans31910000-sys.github.io/qr.html</loc>
 </url>
 
 <url>
-<loc>https://mans31910000-sys.github.io/petnet/pets.html</loc>
+<loc>https://mans31910000-sys.github.io/pets.html</loc>
 </url>
 
 <url>
-<loc>https://mans31910000-sys.github.io/petnet/lost.html</loc>
+<loc>https://mans31910000-sys.github.io/lost.html</loc>
+</url>
+
+<url>
+<loc>https://mans31910000-sys.github.io/dog-tag.html</loc>
 </url>
 
 </urlset>
