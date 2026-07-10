@@ -213,23 +213,19 @@ h1{
         <h1>QR 생성이 완료되었습니다</h1>
 
         <div class="desc">
-            아래 QR을 저장하거나 출력해서<br>
-            반려견 목걸이, 인식표, 하네스 등에 부착하세요.
-        </div>
+    아래에서 출력 형태와 크기를 선택한 뒤<br>
+    반려견 목걸이, 인식표, 하네스 등에 부착하세요.
+</div>
 
         <div class="qr-box">
             <img id="qrImage" src="" alt="펫넷 QR 코드">
         </div>
 
         <div class="info">
-            📱 휴대폰 카메라로 먼저 스캔해보세요.<br>
-            💾 QR 이미지는 저장해서 사용할 수 있습니다.<br>
-            🖨️ 출력 크기를 선택하면 A4 한 장에 자동 배치됩니다.
-        </div>
+    📱 휴대폰 카메라로 먼저 스캔해보세요.<br>
+    ✂️ 사각 또는 원형 테두리를 따라 잘라 사용할 수 있습니다.
+</div>
 
-        <a id="saveBtn" class="btn primary" href="#" download="petnet-qr.png">
-            💾 QR 이미지 저장하기
-        </a>
 
         <div class="print-size-box">
 <div class="print-size-title">
@@ -288,13 +284,22 @@ h1{
 
         </div>
 
-        <button class="btn secondary" onclick="printQrSheet()">
-            🖨️ A4에 QR만 출력하기
-        </button>
+        <button class="btn primary" onclick="printQrSheet()">
+    🖨️ A4에 QR 출력하기
+</button>
 
-        <a href="index.html" class="btn secondary">
-            홈으로 돌아가기
-        </a>
+<button class="btn secondary" onclick="sharePrintLink()">
+    📤 PC로 링크 보내기
+</button>
+
+<div class="info">
+    📱 휴대폰이 프린터와 연결되어 있으면 위 출력 버튼을 누르세요.<br>
+    💻 연결되어 있지 않으면 링크를 보내 PC에서 출력하세요.
+</div>
+
+<a href="index.html" class="btn secondary">
+    홈으로 돌아가기
+</a>
 
     </div>
 
@@ -340,7 +345,6 @@ const qrUrl =
     encodeURIComponent(qrData);
 
 document.getElementById("qrImage").src = qrUrl;
-document.getElementById("saveBtn").href = qrUrl;
 
 let selectedSize = 25;
 
@@ -416,7 +420,24 @@ document.querySelectorAll(".size-btn").forEach(function(button){
 });
 
 updateSizeInformation();
+function sharePrintLink(){
+    const shareUrl = window.location.href;
+    const shareText = "펫넷 QR 출력 링크입니다. PC에서 열어 출력하세요.";
 
+    if(navigator.share){
+        navigator.share({
+            title:"펫넷 QR 출력",
+            text:shareText,
+            url:shareUrl
+        }).catch(function(){});
+    }else if(navigator.clipboard){
+        navigator.clipboard.writeText(shareUrl).then(function(){
+            alert("출력 링크가 복사되었습니다. 카카오톡 나에게 또는 PC로 보내 출력하세요.");
+        });
+    }else{
+        prompt("아래 링크를 복사해 PC에서 여세요.", shareUrl);
+    }
+}
 function printQrSheet(){
 
     const layout = getLayout(selectedSize);
