@@ -899,9 +899,6 @@ width:100%;
 <section class="stats">
     🐶 현재 등록된 반려견 <strong id="petCount">99</strong>마리와 함께하고 있어요!
 
-    <div class="stats-sub">
-        🎒 현재 등록된 소중한 물건 <strong id="itnetCount">0</strong>개
-    </div>
 </section>
 <section class="found-main-section">
   <div class="found-main-head">
@@ -1006,8 +1003,6 @@ function showCount(data){
   document.getElementById("petCount").innerText =
     (data.petCount ?? data.count ?? 0).toLocaleString();
 
-  document.getElementById("itnetCount").innerText =
-    (data.itnetCount ?? 0).toLocaleString();
 }
 
 var countScript = document.createElement("script");
