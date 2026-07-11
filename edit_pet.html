@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
 
 <style>
 *{box-sizing:border-box;}
+
 body{
   margin:0;
   font-family:Arial, sans-serif;
@@ -15,6 +16,7 @@ body{
   text-align:center;
   padding:18px;
 }
+
 .card{
   background:white;
   width:100%;
@@ -24,19 +26,24 @@ body{
   border-radius:24px;
   box-shadow:0 8px 25px rgba(0,0,0,0.08);
 }
+
 .logo{
   width:170px;
   max-width:70%;
   margin:4px auto 18px;
   display:block;
 }
+
 h1{
   margin:0 0 18px;
   font-size:32px;
   color:#0066cc;
   font-weight:900;
 }
-.input-box, select, textarea{
+
+.input-box,
+select,
+textarea{
   width:100%;
   margin-bottom:14px;
   padding:15px;
@@ -45,10 +52,12 @@ h1{
   border-radius:14px;
   outline:none;
 }
+
 textarea{
   min-height:90px;
   resize:none;
 }
+
 .preview{
   width:100%;
   max-height:280px;
@@ -57,6 +66,7 @@ textarea{
   margin:12px 0 16px;
   background:#eee;
 }
+
 .save-btn{
   width:100%;
   height:60px;
@@ -67,7 +77,15 @@ textarea{
   color:white;
   border:none;
   border-radius:16px;
+  cursor:pointer;
 }
+
+.save-btn:disabled,
+.delete-btn:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
 .back-btn{
   display:block;
   width:100%;
@@ -81,6 +99,7 @@ textarea{
   text-decoration:none;
   border-radius:16px;
 }
+
 .notice{
   background:#f5f9ff;
   border-radius:18px;
@@ -88,6 +107,38 @@ textarea{
   margin-bottom:20px;
   font-size:15px;
   line-height:1.6;
+}
+
+.delete-area{
+  margin-top:28px;
+  padding-top:24px;
+  border-top:2px solid #f0f0f0;
+}
+
+.delete-title{
+  margin-bottom:8px;
+  color:#b3261e;
+  font-size:18px;
+  font-weight:900;
+}
+
+.delete-guide{
+  margin-bottom:14px;
+  color:#666;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.delete-btn{
+  width:100%;
+  height:56px;
+  font-size:19px;
+  font-weight:900;
+  color:#c62828;
+  background:#fff;
+  border:2px solid #c62828;
+  border-radius:16px;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -119,21 +170,67 @@ textarea{
 
   <textarea id="feature" placeholder="특징"></textarea>
 
-  <input id="phone" class="input-box" type="tel" placeholder="보호자 연락처 예: 01012345678">
-<input id="animalRegNo" class="input-box" type="text" placeholder="국가 동물등록번호 선택 - 동물등록번호를 공개할 경우에만 입력하세요">
-  <input id="kakao" class="input-box" type="text" placeholder="카카오 오픈채팅 링크 선택">
+  <input
+    id="phone"
+    class="input-box"
+    type="tel"
+    placeholder="보호자 연락처 예: 01012345678"
+  >
 
-  <img id="preview" class="preview" src="petnet-logo-crop.png" alt="반려견 사진">
+  <input
+    id="animalRegNo"
+    class="input-box"
+    type="text"
+    placeholder="국가 동물등록번호 선택 - 공개할 경우에만 입력하세요"
+  >
 
-  <input id="photo" class="input-box" type="file" accept="image/*">
+  <input
+    id="kakao"
+    class="input-box"
+    type="text"
+    placeholder="카카오 오픈채팅 링크 선택"
+  >
 
-  <button class="save-btn" onclick="savePetInfo()">정보 저장하기</button>
+  <img
+    id="preview"
+    class="preview"
+    src="petnet-logo-crop.png"
+    alt="반려견 사진"
+  >
 
-  <a class="back-btn" href="my.html">내 반려견 관리로 돌아가기</a>
+  <input
+    id="photo"
+    class="input-box"
+    type="file"
+    accept="image/*"
+  >
+
+  <button id="saveBtn" class="save-btn" onclick="savePetInfo()">
+    정보 저장하기
+  </button>
+
+  <a class="back-btn" href="my.html">
+    내 반려견 관리로 돌아가기
+  </a>
+
+  <div class="delete-area">
+    <div class="delete-title">반려견 등록 삭제</div>
+
+    <div class="delete-guide">
+      삭제하면 내 반려견 목록에서 사라지고<br>
+      기존 QR로도 정보를 조회할 수 없습니다.
+    </div>
+
+    <button id="deleteBtn" class="delete-btn" onclick="deletePetInfo()">
+      🗑 등록 정보 삭제
+    </button>
+  </div>
 </div>
 
 <script>
-var API_URL = "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
+var API_URL =
+  "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
+
 var currentPhoto = "";
 
 function getPetId(){
@@ -141,8 +238,17 @@ function getPetId(){
   return params.get("id") || "";
 }
 
+function getMemberEmail(){
+  return (
+    localStorage.getItem("petnetEmail") ||
+    localStorage.getItem("memberEmail") ||
+    ""
+  ).trim().toLowerCase();
+}
+
 window.onload = function(){
   var petId = getPetId();
+
   document.getElementById("petId").value = petId;
 
   if(!petId){
@@ -151,13 +257,25 @@ window.onload = function(){
     return;
   }
 
+  if(!getMemberEmail()){
+    alert("로그인 정보가 없습니다. 다시 로그인해주세요.");
+    location.href = "login.html";
+    return;
+  }
+
   var script = document.createElement("script");
-  script.src = API_URL + "?id=" + encodeURIComponent(petId) + "&callback=loadPetInfo";
+
+  script.src =
+    API_URL +
+    "?id=" +
+    encodeURIComponent(petId) +
+    "&callback=loadPetInfo";
+
   document.body.appendChild(script);
 };
 
 function loadPetInfo(data){
-  if(data.error){
+  if(!data || data.error){
     alert("반려견 정보를 불러오지 못했습니다.");
     location.href = "my.html";
     return;
@@ -169,28 +287,47 @@ function loadPetInfo(data){
   document.getElementById("feature").value = data.feature || "";
   document.getElementById("phone").value = data.phone || "";
   document.getElementById("kakao").value = data.kakao || "";
-document.getElementById("animalRegNo").value = data.animalRegNo || "";
+  document.getElementById("animalRegNo").value =
+    data.animalRegNo || "";
+
   currentPhoto = data.photo || "";
+
   if(currentPhoto){
     document.getElementById("preview").src = currentPhoto;
   }
 }
 
-document.getElementById("photo").addEventListener("change", function(){
-  var file = this.files[0];
-  if(!file) return;
+document.getElementById("photo").addEventListener(
+  "change",
+  function(){
+    var file = this.files[0];
 
-  var reader = new FileReader();
-  reader.onload = function(e){
-    document.getElementById("preview").src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-});
+    if(!file) return;
+
+    var reader = new FileReader();
+
+    reader.onload = function(e){
+      document.getElementById("preview").src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
+);
+
+function setWorking(isWorking){
+  document.getElementById("saveBtn").disabled = isWorking;
+  document.getElementById("deleteBtn").disabled = isWorking;
+}
 
 function savePetInfo(){
-  var petId = document.getElementById("petId").value;
-  var phone = document.getElementById("phone").value.replace(/[^0-9]/g, "");
-  var file = document.getElementById("photo").files[0];
+  var phone =
+    document
+      .getElementById("phone")
+      .value
+      .replace(/[^0-9]/g, "");
+
+  var file =
+    document.getElementById("photo").files[0];
 
   if(!document.getElementById("name").value.trim()){
     alert("이름을 입력해주세요.");
@@ -202,11 +339,20 @@ function savePetInfo(){
     return;
   }
 
+  setWorking(true);
+
   if(file){
     var reader = new FileReader();
+
     reader.onload = function(e){
       sendUpdate(e.target.result, file.name);
     };
+
+    reader.onerror = function(){
+      setWorking(false);
+      alert("사진을 불러오지 못했습니다.");
+    };
+
     reader.readAsDataURL(file);
   }else{
     sendUpdate("", "");
@@ -217,14 +363,49 @@ function sendUpdate(photoData, photoName){
   var formData = new FormData();
 
   formData.append("action", "updatePetInfo");
-  formData.append("petId", document.getElementById("petId").value);
-  formData.append("name", document.getElementById("name").value.trim());
-  formData.append("breed", document.getElementById("breed").value.trim());
-  formData.append("gender", document.getElementById("gender").value);
-  formData.append("feature", document.getElementById("feature").value.trim());
-  formData.append("phone", document.getElementById("phone").value.replace(/[^0-9]/g, ""));
-  formData.append("kakao", document.getElementById("kakao").value.trim());
-formData.append("animalRegNo", document.getElementById("animalRegNo").value.trim());
+  formData.append(
+    "petId",
+    document.getElementById("petId").value
+  );
+
+  formData.append(
+    "name",
+    document.getElementById("name").value.trim()
+  );
+
+  formData.append(
+    "breed",
+    document.getElementById("breed").value.trim()
+  );
+
+  formData.append(
+    "gender",
+    document.getElementById("gender").value
+  );
+
+  formData.append(
+    "feature",
+    document.getElementById("feature").value.trim()
+  );
+
+  formData.append(
+    "phone",
+    document
+      .getElementById("phone")
+      .value
+      .replace(/[^0-9]/g, "")
+  );
+
+  formData.append(
+    "kakao",
+    document.getElementById("kakao").value.trim()
+  );
+
+  formData.append(
+    "animalRegNo",
+    document.getElementById("animalRegNo").value.trim()
+  );
+
   if(photoData){
     formData.append("photoData", photoData);
     formData.append("photoName", photoName);
@@ -238,7 +419,9 @@ formData.append("animalRegNo", document.getElementById("animalRegNo").value.trim
     return response.text();
   })
   .then(function(result){
-    if(result === "update_success"){
+    setWorking(false);
+
+    if(result.trim() === "update_success"){
       alert("반려견 정보가 수정되었습니다.");
       location.href = "my.html";
     }else{
@@ -246,6 +429,86 @@ formData.append("animalRegNo", document.getElementById("animalRegNo").value.trim
     }
   })
   .catch(function(){
+    setWorking(false);
+    alert("연결 오류가 발생했습니다.");
+  });
+}
+
+function deletePetInfo(){
+  var petId =
+    document.getElementById("petId").value;
+
+  var memberEmail = getMemberEmail();
+
+  var phone =
+    document
+      .getElementById("phone")
+      .value
+      .replace(/[^0-9]/g, "");
+
+  if(!memberEmail){
+    alert("로그인 정보가 없습니다. 다시 로그인해주세요.");
+    location.href = "login.html";
+    return;
+  }
+
+  var firstConfirm = confirm(
+    "정말 이 반려견의 등록 정보를 삭제하시겠습니까?"
+  );
+
+  if(!firstConfirm){
+    return;
+  }
+
+  var secondConfirm = confirm(
+    "삭제 후에는 복구할 수 없습니다.\n그래도 삭제하시겠습니까?"
+  );
+
+  if(!secondConfirm){
+    return;
+  }
+
+  setWorking(true);
+
+  var formData = new FormData();
+
+  formData.append("action", "deletePet");
+  formData.append("petId", petId);
+  formData.append("memberEmail", memberEmail);
+  formData.append("phone", phone);
+
+  fetch(API_URL, {
+    method:"POST",
+    body:formData
+  })
+  .then(function(response){
+    return response.text();
+  })
+  .then(function(result){
+    setWorking(false);
+
+    result = result.trim();
+
+    if(result === "delete_success"){
+      alert("반려견 등록 정보가 삭제되었습니다.");
+      location.href = "my.html";
+      return;
+    }
+
+    if(result === "owner_mismatch"){
+      alert("본인이 등록한 반려견만 삭제할 수 있습니다.");
+      return;
+    }
+
+    if(result === "pet_not_found"){
+      alert("삭제할 반려견 정보를 찾지 못했습니다.");
+      return;
+    }
+
+    alert("삭제 중 문제가 발생했습니다.");
+  })
+  .catch(function(){
+    setWorking(false);
     alert("연결 오류가 발생했습니다.");
   });
 }
