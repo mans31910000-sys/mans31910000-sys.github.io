@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>내 반려견 관리 | PETNET KOREA</title>
+<title>펫넷 회원센터 | PETNET KOREA</title>
 
 <style>
 *{
@@ -19,153 +19,241 @@ body{
     padding:18px;
 }
 
-.card{
-    background:white;
+.page{
     width:100%;
-    max-width:430px;
+    max-width:470px;
     margin:0 auto;
-    padding:26px 22px 30px;
+}
+
+.main-card{
+    background:#fff;
+    padding:26px 20px 30px;
     border-radius:24px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
 }
 
 .logo{
-    width:170px;
+    width:165px;
     max-width:70%;
-    margin:4px auto 18px;
+    margin:4px auto 16px;
     display:block;
 }
 
 h1{
     margin:0;
-    font-size:34px;
+    font-size:32px;
     color:#0066cc;
     font-weight:900;
 }
 
-.desc{
-    font-size:17px;
-    line-height:1.6;
-    margin:18px 0 22px;
-    color:#222;
+.intro{
+    margin:14px 0 20px;
+    color:#444;
+    font-size:16px;
+    line-height:1.65;
 }
 
-.notice{
-    background:#f5f9ff;
-    border-radius:18px;
-    padding:18px 16px;
+.account-box{
     margin-bottom:22px;
+    padding:15px;
+    border-radius:16px;
+    background:#f5f9ff;
+    color:#334;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.section{
+    margin-top:30px;
+    padding-top:26px;
+    border-top:3px solid #e7edf5;
+}
+
+.section:first-of-type{
+    margin-top:0;
+    padding-top:0;
+    border-top:none;
+}
+
+.section-title{
+    margin:0 0 8px;
+    font-size:25px;
+    font-weight:900;
+}
+
+.pet-title{
+    color:#0066cc;
+}
+
+.found-title{
+    color:#17804b;
+}
+
+.section-desc{
+    margin:0 0 18px;
+    color:#666;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.action-link,
+.home-btn{
+    display:block;
+    width:100%;
+    min-height:56px;
+    line-height:56px;
+    border-radius:16px;
+    text-decoration:none;
+    font-size:19px;
+    font-weight:900;
+}
+
+.pet-register{
+    margin-bottom:20px;
+    background:#ff9800;
+    color:#fff;
+    box-shadow:0 5px 15px rgba(255,152,0,.24);
+}
+
+.found-register{
+    margin-bottom:20px;
+    background:#17804b;
+    color:#fff;
+    box-shadow:0 5px 15px rgba(23,128,75,.20);
+}
+
+.result-card{
+    margin-bottom:18px;
+    padding:21px 17px;
+    background:#fff;
+    border:1px solid #e2e8f0;
+    border-radius:20px;
+    box-shadow:0 5px 18px rgba(0,0,0,.06);
+}
+
+.result-card h2{
+    margin:0 0 14px;
+    color:#0066cc;
+    font-size:26px;
+}
+
+.result-card p{
+    margin:9px 0;
+    font-size:16px;
+    line-height:1.5;
+}
+
+.status-badge{
+    display:inline-block;
+    margin:0 0 10px;
+    padding:7px 13px;
+    border-radius:20px;
+    font-weight:900;
+}
+
+.status-normal{
+    background:#eef8f2;
+    color:#17804b;
+}
+
+.status-lost{
+    background:#fff0f0;
+    color:#c62828;
+}
+
+.found-status{
+    background:#eef8f2;
+    color:#17804b;
+}
+
+.found-status.closed{
+    background:#f0f0f0;
+    color:#666;
+}
+
+.card-btn{
+    display:block;
+    width:100%;
+    min-height:52px;
+    line-height:52px;
+    margin-top:11px;
+    border:none;
+    border-radius:15px;
+    color:#fff;
+    text-decoration:none;
+    font-size:17px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.view-btn{
+    background:#36b36b;
+}
+
+.edit-btn{
+    background:#0066cc;
+}
+
+.lost-btn{
+    background:#cc3333;
+}
+
+.found-btn{
+    background:#36b36b;
+}
+
+.reopen-btn{
+    background:#0066cc;
+}
+
+.error-card{
+    padding:20px 16px;
+    background:#fff7f7;
+    border:1px solid #ffd0d0;
+    border-radius:18px;
+}
+
+.error-card h2{
+    margin:0 0 10px;
+    color:#cc3333;
+    font-size:22px;
+}
+
+.error-card p{
+    margin:0;
+    color:#555;
     font-size:15px;
     line-height:1.6;
-    color:#333;
 }
 
-.input-box{
+.bottom-actions{
+    margin-top:30px;
+    padding-top:24px;
+    border-top:3px solid #e7edf5;
+}
+
+.logout-btn{
     width:100%;
-    height:56px;
-    margin-bottom:14px;
-    padding:0 16px;
-    font-size:17px;
-    border:1px solid #d5dce8;
-    border-radius:14px;
-    outline:none;
-    background:#fff;
-}
-
-.input-box:focus{
-    border-color:#0066cc;
-    box-shadow:0 0 0 3px rgba(0,102,204,0.12);
-}
-
-.search-btn{
-    width:100%;
-    height:60px;
-    margin-top:8px;
-    font-size:22px;
-    font-weight:900;
-    background:#0066cc;
-    color:white;
+    height:52px;
+    margin-bottom:12px;
     border:none;
     border-radius:16px;
+    background:#e53935;
+    color:#fff;
+    font-size:18px;
+    font-weight:900;
     cursor:pointer;
 }
 
 .home-btn{
-    display:block;
-    width:100%;
-    height:52px;
-    line-height:52px;
-    margin-top:16px;
-    font-size:18px;
-    font-weight:800;
     background:#f0f0f0;
     color:#111;
-    text-decoration:none;
-    border-radius:16px;
 }
 
-#result{
-    margin-top:24px;
-}
-
-.result-card{
-    background:#ffffff;
-    border:1px solid #e2e8f0;
-    border-radius:20px;
-    padding:22px 18px;
-    box-shadow:0 5px 18px rgba(0,0,0,0.06);
-}
-
-.result-card h2{
-    margin:0 0 16px;
-    color:#0066cc;
-    font-size:28px;
-}
-
-.result-card p{
-    font-size:17px;
-    margin:10px 0;
-    line-height:1.5;
-}
-
-.error-card{
-    background:#fff7f7;
-    border:1px solid #ffd0d0;
-    border-radius:18px;
-    padding:20px 16px;
-}
-
-.error-card h2{
-    margin:0 0 12px;
-    color:#cc3333;
-    font-size:24px;
-}
-
-.error-card p{
-    font-size:16px;
-    line-height:1.6;
-    margin:0;
-}
-
-.pet-view-btn{
-    display:block;
-    width:100%;
-    height:54px;
-    line-height:54px;
-    margin-top:20px;
-    background:#36b36b;
-    color:white;
-    font-size:19px;
-    font-weight:900;
-    border-radius:16px;
-    text-decoration:none;
-}
-
-.tip{
-    margin-top:18px;
-    font-size:13px;
-    color:#777;
-    line-height:1.5;
+.loading{
+    margin:12px 0;
+    color:#666;
+    font-size:15px;
 }
 
 @media(max-width:480px){
@@ -173,491 +261,237 @@ h1{
         padding:14px;
     }
 
-    .card{
-        padding:24px 18px 28px;
+    .main-card{
+        padding:24px 17px 28px;
         border-radius:22px;
     }
 
     .logo{
-        width:155px;
-        margin-bottom:16px;
+        width:150px;
     }
 
     h1{
-        font-size:32px;
+        font-size:29px;
     }
 
-    .desc{
-        font-size:16px;
-        margin:16px 0 20px;
+    .section-title{
+        font-size:23px;
     }
 
-    .notice{
-        font-size:14px;
-        padding:16px 14px;
-    }
-
-    .input-box{
-        height:54px;
-        font-size:16px;
-    }
-
-    .search-btn{
-        height:58px;
-        font-size:21px;
-    }
-
+    .action-link,
     .home-btn{
-        height:50px;
-        line-height:50px;
-        font-size:17px;
+        min-height:54px;
+        line-height:54px;
+        font-size:18px;
     }
 }
-
-.found-section{
-    margin-top:34px;
-    padding-top:28px;
-    border-top:3px solid #e7edf5;
-}
-
-.found-title{
-    margin:0 0 12px;
-    color:#17804b;
-    font-size:27px;
-    font-weight:900;
-}
-
-.found-desc{
-    margin:0 0 20px;
-    color:#555;
-    font-size:15px;
-    line-height:1.6;
-}
-
-.found-status{
-    display:inline-block;
-    margin:5px 0 12px;
-    padding:8px 14px;
-    border-radius:20px;
-    background:#eef8f2;
-    color:#17804b;
-    font-weight:900;
-}
-
-.found-end-btn{
-    width:100%;
-    min-height:54px;
-    margin-top:12px;
-    border:none;
-    border-radius:16px;
-    background:#36b36b;
-    color:white;
-    font-size:18px;
-    font-weight:900;
-    cursor:pointer;
-}
-
-.found-reopen-btn{
-    background:#0066cc;
-}
-
-.register-btn{
-    display:block;
-    width:100%;
-    height:58px;
-    line-height:58px;
-    margin:0 0 22px;
-    background:#ff9800;
-    color:#fff;
-    text-decoration:none;
-    font-size:20px;
-    font-weight:900;
-    border-radius:16px;
-    box-shadow:0 5px 15px rgba(255,152,0,.25);
-}
-
-.register-btn:hover{
-    background:#f57c00;
-}
-
-.logout-btn{
-    width:100%;
-    height:52px;
-    margin-top:18px;
-    font-size:18px;
-    font-weight:900;
-    background:#e53935;
-    color:#fff;
-    border:none;
-    border-radius:16px;
-    cursor:pointer;
-}
-
-.logout-btn:hover{
-    background:#c62828;
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="page">
+<div class="main-card">
 
     <img src="petnet-logo-crop.png" class="logo" alt="PETNET KOREA 로고">
 
-    <h1>🐶 내 반려견 관리</h1>
+    <h1>🐾 펫넷 회원센터</h1>
 
-    <p class="desc">
-        회원가입한 보호자는<br>
-        등록한 반려견을 한눈에 확인하고<br>
-        QR 보기, 정보 수정, 분실신고를 할 수 있습니다.
+    <p class="intro">
+        반려견 등록과 관리, 분실 신고,<br>
+        발견동물 제보를 한곳에서 이용할 수 있습니다.
     </p>
 
-<div class="notice">
-    ✅ 로그인한 회원의 반려견 목록입니다.<br>
-    ✅ 등록한 반려견을 한눈에 확인할 수 있습니다.<br>
-    ✅ QR 보기, 분실신고, 분실해제가 가능합니다.
-</div>
+    <div class="account-box" id="accountBox">
+        로그인 정보를 확인하는 중입니다.
+    </div>
 
-   <a class="register-btn" href="register.html">
-    🐶 새 반려견 등록하기
-</a>
+    <section class="section">
+        <h2 class="section-title pet-title">🐶 내 반려견</h2>
 
-    <div id="result"></div>
+        <p class="section-desc">
+            새 반려견을 등록하거나 기존 반려견의 정보와 상태를 관리하세요.
+        </p>
 
-    <div class="found-section">
-    <h2 class="found-title">🐕 내 발견동물 제보 관리</h2>
+        <a class="action-link pet-register" href="register.html">
+            ➕ 새 반려견 등록하기
+        </a>
 
-    <p class="found-desc">
-        내가 등록한 발견동물 제보를 확인하고<br>
-        보호자를 찾으면 제보를 종료할 수 있습니다.
-    </p>
+        <div id="result"></div>
+    </section>
 
-    <div id="foundResult"></div>
-</div>
+    <section class="section">
+        <h2 class="section-title found-title">🐕 유기견 · 발견동물 제보</h2>
 
-<button class="logout-btn" onclick="logout()">
-    🚪 로그아웃
-</button>
+        <p class="section-desc">
+            발견동물을 새로 제보하고 내가 등록한 제보를 관리하세요.
+        </p>
 
-    <a class="home-btn" href="index.html">
-        🏠 홈으로 돌아가기
-    </a>
+        <a class="action-link found-register" href="found_write.html">
+            ➕ 새 발견동물 제보하기
+        </a>
 
-    <div class="tip">
-       로그인 기반 자동 관리는 다음 단계에서 연결됩니다. 현재는 PET번호와 연락처로 먼저 조회합니다.
+        <div id="foundResult"></div>
+    </section>
+
+    <div class="bottom-actions">
+        <button class="logout-btn" onclick="logout()">
+            🚪 로그아웃
+        </button>
+
+        <a class="home-btn" href="index.html">
+            🏠 홈으로 돌아가기
+        </a>
     </div>
 
 </div>
+</div>
 
 <script>
-function findPet() {
-  var petId = document.getElementById("petId").value.trim().toUpperCase();
-  var phone = document.getElementById("phone").value.trim().replace(/[^0-9]/g, "");
-  var searchBtn = document.getElementById("searchBtn");
+var API_URL =
+  "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
 
-  if (petId === "" || phone === "") {
-    alert("PET번호와 보호자 연락처를 입력해주세요.");
+window.onload = function(){
+  var email =
+    (localStorage.getItem("petnetEmail") ||
+     localStorage.getItem("memberEmail") ||
+     "")
+    .trim()
+    .toLowerCase();
+
+  if(!email){
+    alert("로그인이 필요합니다.");
+    location.href = "login.html";
     return;
   }
 
-  if (!/^PET[0-9]{6}$/.test(petId)) {
-    alert("PET번호 형식이 올바르지 않습니다. 예: PET000001");
-    return;
-  }
+  document.getElementById("accountBox").innerHTML =
+    "현재 로그인 계정<br><strong>" + escapeHtml(email) + "</strong>";
 
-  if (!/^[0-9]{10,11}$/.test(phone)) {
-    alert("전화번호는 숫자만 입력하고 10~11자리로 입력해주세요. 예: 01012345678");
-    return;
-  }
+  loadMyPets(email);
+  loadMyFound(email);
+};
 
-  searchBtn.disabled = true;
-  searchBtn.innerText = "조회 중...";
+function escapeHtml(value){
+  return String(value == null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
+function loadMyPets(email){
   document.getElementById("result").innerHTML =
-    '<p style="font-size:17px; color:#666;">반려견 정보를 조회 중입니다...</p>';
+    '<p class="loading">내 반려견 목록을 불러오는 중입니다...</p>';
 
-  var oldScript = document.getElementById("petSearchScript");
+  var oldScript = document.getElementById("myPetsScript");
   if(oldScript){
     oldScript.remove();
   }
 
   var script = document.createElement("script");
-  script.id = "petSearchScript";
+  script.id = "myPetsScript";
   script.src =
-    "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec" +
-    "?petid=" + encodeURIComponent(petId) +
-    "&phone=" + encodeURIComponent(phone) +
-    "&callback=showResult";
-
-  document.body.appendChild(script);
-}
-
-function showResult(data){
-  var searchBtn = document.getElementById("searchBtn");
-  searchBtn.disabled = false;
-  searchBtn.innerText = "내 반려견 찾기";
-
-  if(!data.success){
-    document.getElementById("result").innerHTML =
-      '<div class="error-card">' +
-      '<h2>조회 결과 없음</h2>' +
-      '<p>' +
-      'PET번호 또는 보호자 연락처가 일치하지 않습니다.<br>' +
-      '입력 정보를 다시 확인해주세요.' +
-      '</p>' +
-      '</div>';
-    return;
-  }
-
-  document.getElementById("result").innerHTML =
-    '<div class="result-card">' +
-    '<h2>' + data.petNumber + '</h2>' +
-    '<p><strong>이름 :</strong> ' + data.name + '</p>' +
-    '<p><strong>품종 :</strong> ' + data.breed + '</p>' +
-    '<p><strong>성별 :</strong> ' + data.gender + '</p>' +
-    '<p><strong>특징 :</strong> ' + data.feature + '</p>' +
-    '<a class="pet-view-btn" href="pet.html?id=' + data.petNumber + '">' +
-'QR / 반려견 정보 보기' +
-'</a>' +
-
-'<button class="pet-view-btn" style="border:none; background:#cc3333; margin-top:12px;" onclick="reportLost(\'' + data.petNumber + '\')">' +
-'🔴 분실 신고하기' +
-'</button>' +
-
-'<button class="pet-view-btn" style="border:none; background:#36b36b; margin-top:12px;" onclick="reportFound(\'' + data.petNumber + '\')">' +
-'🟢 찾았어요 / 분실 해제' +
-'</button>' +
-    '</div>';
-}
-function updatePetStatus(petNumber, status){
-  var formData = new FormData();
-  formData.append("action", "updatePetStatus");
-  formData.append("petId", petNumber);
-  formData.append("status", status);
-
-  fetch("https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec", {
-    method: "POST",
-    body: formData
-  })
-  .then(function(response){
-    return response.text();
-  })
-  .then(function(result){
-    if(result === "status_success"){
-      alert(status === "분실" ? "분실 신고가 완료되었습니다." : "분실 상태가 해제되었습니다.");
-      findPet();
-    } else {
-      alert("처리 중 문제가 발생했습니다. 다시 시도해주세요.");
-    }
-  })
-  .catch(function(){
-    alert("연결 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-  });
-}
-
-function reportLost(petNumber){
-  if(confirm(petNumber + " 반려견을 분실 신고하시겠습니까?")){
-    updatePetStatus(petNumber, "분실");
-  }
-}
-
-function reportFound(petNumber){
-  if(confirm(petNumber + " 반려견의 분실 상태를 해제하시겠습니까?")){
-    updatePetStatus(petNumber, "정상");
-  }
-}
-window.onload = function(){
-  var email = localStorage.getItem("petnetEmail") || "";
-
-  if(email !== ""){
-    loadMyPets(email);
-    loadMyFound(email);
-  }
-};
-
-function loadMyPets(email){
-  document.getElementById("result").innerHTML =
-    '<p style="font-size:17px; color:#666;">내 반려견 목록을 불러오는 중입니다...</p>';
-
-  var script = document.createElement("script");
-  script.src =
-    "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec" +
-    "?action=myPets&memberEmail=" + encodeURIComponent(email) +
+    API_URL +
+    "?action=myPets" +
+    "&memberEmail=" + encodeURIComponent(email) +
     "&callback=showMyPets";
 
   document.body.appendChild(script);
 }
 
 function showMyPets(data){
-  if(!data || data.length === 0){
-    document.getElementById("result").innerHTML =
-      '<div class="error-card"><h2>등록된 반려견 없음</h2><p>현재 로그인 계정으로 등록된 반려견이 없습니다.</p></div>';
-    return;
-  }
-
-  var html = "";
-
-  data.reverse().forEach(function(pet){
-    html +=
-      '<div class="result-card" style="margin-bottom:18px;">' +
-      '<h2>' + pet.petNumber + '</h2>' +
-      '<p><strong>이름 :</strong> ' + pet.name + '</p>' +
-      '<p><strong>품종 :</strong> ' + pet.breed + '</p>' +
-      '<p><strong>상태 :</strong> ' + pet.status + '</p>' +
-      '<a class="pet-view-btn" href="pet.html?id=' + pet.petNumber + '">QR / 반려견 정보 보기</a>' +
-      '<a class="pet-view-btn" style="background:#0066cc; margin-top:12px;" href="edit_pet.html?id=' + pet.petNumber + '">' +
-'✏️ 정보 수정하기' +
-'</a>' +
-      '<button class="pet-view-btn" style="border:none; background:#cc3333; margin-top:12px;" onclick="reportLost(\'' + pet.petNumber + '\')">🔴 분실 신고하기</button>' +
-      '<button class="pet-view-btn" style="border:none; background:#36b36b; margin-top:12px;" onclick="reportFound(\'' + pet.petNumber + '\')">🟢 찾았어요 / 분실 해제</button>' +
-      '</div>';
-  });
-
-  document.getElementById("result").innerHTML = html;
-}
-function loadMyFound(email){
-  document.getElementById("foundResult").innerHTML =
-    '<p style="font-size:16px; color:#666;">내 발견동물 제보를 불러오는 중입니다...</p>';
-
-  var oldScript = document.getElementById("myFoundScript");
-
-  if(oldScript){
-    oldScript.remove();
-  }
-
-  var script = document.createElement("script");
-  script.id = "myFoundScript";
-
-  script.src =
-    "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec" +
-    "?action=myFound" +
-    "&memberEmail=" + encodeURIComponent(email) +
-    "&callback=showMyFound";
-
-  document.body.appendChild(script);
-}
-
-function showMyFound(data){
-  var box = document.getElementById("foundResult");
+  var box = document.getElementById("result");
 
   if(!data || data.length === 0){
     box.innerHTML =
       '<div class="error-card">' +
-      '<h2>등록된 제보 없음</h2>' +
-      '<p>현재 로그인 계정으로 등록된 발견동물 제보가 없습니다.</p>' +
+      '<h2>등록된 반려견 없음</h2>' +
+      '<p>현재 로그인 계정으로 등록된 반려견이 없습니다.</p>' +
       '</div>';
     return;
   }
 
   var html = "";
 
-  data.reverse().forEach(function(item){
-    var status = item.status || "진행중";
-
-    var buttonText =
-      status === "종료"
-      ? "🔄 다시 제보하기"
-      : "🟢 보호자 찾았어요 / 제보 종료";
-
-    var nextStatus =
-      status === "종료"
-      ? "진행중"
-      : "종료";
-
-    var buttonClass =
-      status === "종료"
-      ? "found-end-btn found-reopen-btn"
-      : "found-end-btn";
+  data.slice().reverse().forEach(function(pet){
+    var petNumber = escapeHtml(pet.petNumber || "");
+    var status = String(pet.status || "정상").trim();
+    var isLost = status === "분실";
 
     html +=
-      '<div class="result-card" style="margin-bottom:18px;">' +
+      '<div class="result-card">' +
+      '<h2>' + petNumber + '</h2>' +
 
-      '<h2>' + (item.foundNumber || "발견동물 제보") + '</h2>' +
+      '<div class="status-badge ' +
+      (isLost ? "status-lost" : "status-normal") +
+      '">상태 : ' + escapeHtml(status) + '</div>' +
 
-      '<div class="found-status">상태 : ' + status + '</div>' +
+      '<p><strong>이름 :</strong> ' +
+      escapeHtml(pet.name || "-") + '</p>' +
 
-      '<p><strong>동물 종류 :</strong> ' +
-      (item.animalType || "-") + '</p>' +
+      '<p><strong>품종 :</strong> ' +
+      escapeHtml(pet.breed || "-") + '</p>' +
 
-      '<p><strong>발견 장소 :</strong> ' +
-      (item.foundPlace || "-") + '</p>' +
+      '<a class="card-btn view-btn" href="pet.html?id=' +
+      encodeURIComponent(pet.petNumber || "") +
+      '">QR / 반려견 정보 보기</a>' +
 
-      '<p><strong>발견 날짜 :</strong> ' +
-      (item.foundDate || "-") + '</p>' +
+      '<a class="card-btn edit-btn" href="edit_pet.html?id=' +
+      encodeURIComponent(pet.petNumber || "") +
+      '">✏️ 정보 수정 · 삭제</a>';
 
-      '<p><strong>털 색상 :</strong> ' +
-      (item.color || "-") + '</p>' +
+    if(isLost){
+      html +=
+        '<button class="card-btn found-btn" onclick="reportFound(\'' +
+        petNumber +
+        '\')">🟢 찾았어요 / 분실 해제</button>';
+    }else{
+      html +=
+        '<button class="card-btn lost-btn" onclick="reportLost(\'' +
+        petNumber +
+        '\')">🔴 분실 신고하기</button>';
+    }
 
-      '<p><strong>특징 :</strong> ' +
-      (item.feature || "-") + '</p>' +
-
-      '<a class="pet-view-btn" href="found_list.html">' +
-      '👁 발견동물 제보 목록 보기' +
-      '</a>' +
-
-      '<button class="' + buttonClass + '"' +
-      ' onclick="changeFoundStatus(\'' +
-      item.foundNumber + '\', \'' +
-      nextStatus + '\')">' +
-      buttonText +
-      '</button>' +
-
-      '</div>';
+    html += '</div>';
   });
 
   box.innerHTML = html;
 }
-
-function changeFoundStatus(foundNumber, status){
-  var email =
-    (localStorage.getItem("petnetEmail") || "")
-    .trim()
-    .toLowerCase();
-
-  var message =
-    status === "종료"
-    ? foundNumber + " 제보를 종료하시겠습니까?"
-    : foundNumber + " 제보를 다시 공개하시겠습니까?";
-
-  if(!confirm(message)){
-    return;
-  }
-
+function updatePetStatus(petNumber, status){
   var formData = new FormData();
+  formData.append("action","updatePetStatus");
+  formData.append("petId",petNumber);
+  formData.append("status",status);
 
-  formData.append("action", "updateFoundStatus");
-  formData.append("foundNumber", foundNumber);
-  formData.append("memberEmail", email);
-  formData.append("status", status);
-
-  fetch(
-    "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec",
-    {
-      method:"POST",
-      body:formData
-    }
-  )
+  fetch(API_URL,{
+    method:"POST",
+    body:formData
+  })
   .then(function(response){
     return response.text();
   })
   .then(function(result){
-    result = result.trim();
 
-    if(result === "found_status_success"){
+    result=result.trim();
+
+    if(result==="status_success"){
+
       alert(
-        status === "종료"
-        ? "발견동물 제보가 종료되었습니다."
-        : "발견동물 제보가 다시 공개되었습니다."
+        status==="분실"
+        ? "분실 신고가 완료되었습니다."
+        : "분실 상태가 해제되었습니다."
       );
 
-      loadMyFound(email);
-      return;
-    }
+      var email=
+        (localStorage.getItem("petnetEmail")||
+        localStorage.getItem("memberEmail")||
+        "")
+        .trim()
+        .toLowerCase();
 
-    if(result === "owner_mismatch"){
-      alert("본인이 등록한 제보만 변경할 수 있습니다.");
+      loadMyPets(email);
       return;
     }
 
@@ -668,18 +502,184 @@ function changeFoundStatus(foundNumber, status){
   });
 }
 
-function logout(){
+function reportLost(petNumber){
 
-    if(!confirm("로그아웃하시겠습니까?")){
-        return;
+  if(confirm(petNumber+" 반려견을 분실 신고하시겠습니까?")){
+    updatePetStatus(petNumber,"분실");
+  }
+
+}
+
+function reportFound(petNumber){
+
+  if(confirm(petNumber+" 반려견의 분실 상태를 해제하시겠습니까?")){
+    updatePetStatus(petNumber,"정상");
+  }
+
+}
+
+function loadMyFound(email){
+
+  document.getElementById("foundResult").innerHTML=
+  '<p class="loading">내 발견동물 제보를 불러오는 중입니다...</p>';
+
+  var oldScript=document.getElementById("myFoundScript");
+
+  if(oldScript){
+    oldScript.remove();
+  }
+
+  var script=document.createElement("script");
+
+  script.id="myFoundScript";
+
+  script.src=
+    API_URL+
+    "?action=myFound"+
+    "&memberEmail="+encodeURIComponent(email)+
+    "&callback=showMyFound";
+
+  document.body.appendChild(script);
+
+}
+
+function showMyFound(data){
+
+  var box=document.getElementById("foundResult");
+
+  if(!data||data.length===0){
+
+    box.innerHTML=
+      '<div class="error-card">'+
+      '<h2>등록된 제보 없음</h2>'+
+      '<p>현재 로그인 계정으로 등록된 발견동물 제보가 없습니다.</p>'+
+      '</div>';
+
+    return;
+  }
+
+  var html="";
+
+  data.reverse().forEach(function(item){
+
+    var status=item.status||"진행중";
+
+    html+=
+      '<div class="result-card">'+
+
+      '<h2>'+item.foundNumber+'</h2>'+
+
+      '<div class="status-badge found-status">'+
+      '상태 : '+status+
+      '</div>'+
+
+      '<p><strong>동물 종류 :</strong> '+(item.animalType||"-")+'</p>'+
+      '<p><strong>발견 장소 :</strong> '+(item.foundPlace||"-")+'</p>'+
+      '<p><strong>발견 날짜 :</strong> '+(item.foundDate||"-")+'</p>'+
+      '<p><strong>털 색상 :</strong> '+(item.color||"-")+'</p>'+
+      '<p><strong>특징 :</strong> '+(item.feature||"-")+'</p>'+
+
+      '<a class="card-btn view-btn" href="found_list.html">'+
+      '👁 발견동물 제보 목록 보기'+
+      '</a>';
+
+    if(status==="종료"){
+
+      html+=
+      '<button class="card-btn reopen-btn" onclick="changeFoundStatus(\''+
+      item.foundNumber+
+      '\',\'진행중\')">'+
+      '🔄 다시 제보하기'+
+      '</button>';
+
+    }else{
+
+      html+=
+      '<button class="card-btn found-btn" onclick="changeFoundStatus(\''+
+      item.foundNumber+
+      '\',\'종료\')">'+
+      '🟢 보호자 찾았어요 / 제보 종료'+
+      '</button>';
+
     }
 
-    localStorage.removeItem("petnetEmail");
-    localStorage.removeItem("memberEmail");
+    html+='</div>';
 
-    alert("로그아웃되었습니다.");
+  });
 
-    location.href = "index.html";
+  box.innerHTML=html;
+
+}
+
+function changeFoundStatus(foundNumber,status){
+
+  var email=
+    (localStorage.getItem("petnetEmail")||
+    localStorage.getItem("memberEmail")||
+    "")
+    .trim()
+    .toLowerCase();
+
+  if(!confirm(
+    status==="종료"
+    ? foundNumber+" 제보를 종료하시겠습니까?"
+    : foundNumber+" 제보를 다시 공개하시겠습니까?"
+  )){
+    return;
+  }
+
+  var formData=new FormData();
+
+  formData.append("action","updateFoundStatus");
+  formData.append("foundNumber",foundNumber);
+  formData.append("memberEmail",email);
+  formData.append("status",status);
+
+  fetch(API_URL,{
+    method:"POST",
+    body:formData
+  })
+  .then(function(response){
+    return response.text();
+  })
+  .then(function(result){
+
+    result=result.trim();
+
+    if(result==="found_status_success"){
+
+      alert(
+        status==="종료"
+        ? "발견동물 제보가 종료되었습니다."
+        : "발견동물 제보가 다시 공개되었습니다."
+      );
+
+      loadMyFound(email);
+      return;
+    }
+
+    alert("처리 중 문제가 발생했습니다.");
+
+  })
+  .catch(function(){
+    alert("연결 오류가 발생했습니다.");
+  });
+
+}
+
+function logout(){
+
+  if(!confirm("로그아웃하시겠습니까?")){
+    return;
+  }
+
+  localStorage.removeItem("petnetEmail");
+  localStorage.removeItem("memberEmail");
+
+  alert("로그아웃되었습니다.");
+
+  location.href="index.html";
+
 }
 
 </script>
