@@ -213,6 +213,54 @@ h1{
         font-size:17px;
     }
 }
+
+.found-section{
+    margin-top:34px;
+    padding-top:28px;
+    border-top:3px solid #e7edf5;
+}
+
+.found-title{
+    margin:0 0 12px;
+    color:#17804b;
+    font-size:27px;
+    font-weight:900;
+}
+
+.found-desc{
+    margin:0 0 20px;
+    color:#555;
+    font-size:15px;
+    line-height:1.6;
+}
+
+.found-status{
+    display:inline-block;
+    margin:5px 0 12px;
+    padding:8px 14px;
+    border-radius:20px;
+    background:#eef8f2;
+    color:#17804b;
+    font-weight:900;
+}
+
+.found-end-btn{
+    width:100%;
+    min-height:54px;
+    margin-top:12px;
+    border:none;
+    border-radius:16px;
+    background:#36b36b;
+    color:white;
+    font-size:18px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.found-reopen-btn{
+    background:#0066cc;
+}
+
 </style>
 </head>
 
@@ -239,6 +287,17 @@ h1{
    
 
     <div id="result"></div>
+
+    <div class="found-section">
+    <h2 class="found-title">🐕 내 발견동물 제보 관리</h2>
+
+    <p class="found-desc">
+        내가 등록한 발견동물 제보를 확인하고<br>
+        보호자를 찾으면 제보를 종료할 수 있습니다.
+    </p>
+
+    <div id="foundResult"></div>
+</div>
 
     <a class="home-btn" href="index.html">
         🏠 홈으로 돌아가기
@@ -372,6 +431,7 @@ window.onload = function(){
 
   if(email !== ""){
     loadMyPets(email);
+    loadMyFound(email);
   }
 };
 
@@ -415,6 +475,157 @@ function showMyPets(data){
 
   document.getElementById("result").innerHTML = html;
 }
+function loadMyFound(email){
+  document.getElementById("foundResult").innerHTML =
+    '<p style="font-size:16px; color:#666;">내 발견동물 제보를 불러오는 중입니다...</p>';
+
+  var oldScript = document.getElementById("myFoundScript");
+
+  if(oldScript){
+    oldScript.remove();
+  }
+
+  var script = document.createElement("script");
+  script.id = "myFoundScript";
+
+  script.src =
+    "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec" +
+    "?action=myFound" +
+    "&memberEmail=" + encodeURIComponent(email) +
+    "&callback=showMyFound";
+
+  document.body.appendChild(script);
+}
+
+function showMyFound(data){
+  var box = document.getElementById("foundResult");
+
+  if(!data || data.length === 0){
+    box.innerHTML =
+      '<div class="error-card">' +
+      '<h2>등록된 제보 없음</h2>' +
+      '<p>현재 로그인 계정으로 등록된 발견동물 제보가 없습니다.</p>' +
+      '</div>';
+    return;
+  }
+
+  var html = "";
+
+  data.reverse().forEach(function(item){
+    var status = item.status || "진행중";
+
+    var buttonText =
+      status === "종료"
+      ? "🔄 다시 제보하기"
+      : "🟢 보호자 찾았어요 / 제보 종료";
+
+    var nextStatus =
+      status === "종료"
+      ? "진행중"
+      : "종료";
+
+    var buttonClass =
+      status === "종료"
+      ? "found-end-btn found-reopen-btn"
+      : "found-end-btn";
+
+    html +=
+      '<div class="result-card" style="margin-bottom:18px;">' +
+
+      '<h2>' + (item.foundNumber || "발견동물 제보") + '</h2>' +
+
+      '<div class="found-status">상태 : ' + status + '</div>' +
+
+      '<p><strong>동물 종류 :</strong> ' +
+      (item.animalType || "-") + '</p>' +
+
+      '<p><strong>발견 장소 :</strong> ' +
+      (item.foundPlace || "-") + '</p>' +
+
+      '<p><strong>발견 날짜 :</strong> ' +
+      (item.foundDate || "-") + '</p>' +
+
+      '<p><strong>털 색상 :</strong> ' +
+      (item.color || "-") + '</p>' +
+
+      '<p><strong>특징 :</strong> ' +
+      (item.feature || "-") + '</p>' +
+
+      '<a class="pet-view-btn" href="found_list.html">' +
+      '👁 발견동물 제보 목록 보기' +
+      '</a>' +
+
+      '<button class="' + buttonClass + '"' +
+      ' onclick="changeFoundStatus(\'' +
+      item.foundNumber + '\', \'' +
+      nextStatus + '\')">' +
+      buttonText +
+      '</button>' +
+
+      '</div>';
+  });
+
+  box.innerHTML = html;
+}
+
+function changeFoundStatus(foundNumber, status){
+  var email =
+    (localStorage.getItem("petnetEmail") || "")
+    .trim()
+    .toLowerCase();
+
+  var message =
+    status === "종료"
+    ? foundNumber + " 제보를 종료하시겠습니까?"
+    : foundNumber + " 제보를 다시 공개하시겠습니까?";
+
+  if(!confirm(message)){
+    return;
+  }
+
+  var formData = new FormData();
+
+  formData.append("action", "updateFoundStatus");
+  formData.append("foundNumber", foundNumber);
+  formData.append("memberEmail", email);
+  formData.append("status", status);
+
+  fetch(
+    "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec",
+    {
+      method:"POST",
+      body:formData
+    }
+  )
+  .then(function(response){
+    return response.text();
+  })
+  .then(function(result){
+    result = result.trim();
+
+    if(result === "found_status_success"){
+      alert(
+        status === "종료"
+        ? "발견동물 제보가 종료되었습니다."
+        : "발견동물 제보가 다시 공개되었습니다."
+      );
+
+      loadMyFound(email);
+      return;
+    }
+
+    if(result === "owner_mismatch"){
+      alert("본인이 등록한 제보만 변경할 수 있습니다.");
+      return;
+    }
+
+    alert("처리 중 문제가 발생했습니다.");
+  })
+  .catch(function(){
+    alert("연결 오류가 발생했습니다.");
+  });
+}
+
 </script>
 
 </body>
