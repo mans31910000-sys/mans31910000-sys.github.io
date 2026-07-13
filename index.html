@@ -12,6 +12,12 @@
 <meta name="keywords" content="펫넷코리아, 펫넷, 반려견 분실, 강아지 분실, 분실견, 분실견 찾기, 잃어버린 강아지, 강아지 찾기, 유기견 발견, 발견동물 제보, 보호자 찾기, 무료 QR, 반려견 QR, 강아지 QR, QR 신분증, 강아지 QR 목걸이, 반려견 보호자 연결">
 <meta name="robots" content="index,follow">
 <meta name="color-scheme" content="light">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="반려견 네트워크">
+<link rel="apple-touch-icon" href="petnet-icon-192.png">
 <style>
     html,
 body{
@@ -206,7 +212,25 @@ body{
     max-width:720px;
     margin:18px auto 0;
 }
+.install-guide{
+    width:90%;
+    max-width:720px;
+    margin:12px auto 0;
+}
 
+.install-guide button{
+    width:100%;
+    min-height:56px;
+    padding:12px 20px;
+    border:2px solid #1769e8;
+    border-radius:18px;
+    background:#ffffff;
+    color:#1769e8;
+    font-size:18px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 5px 16px rgba(23,105,232,.10);
+}
 .member-guide a{
     display:flex;
     align-items:center;
@@ -1029,12 +1053,14 @@ width:100%;
             <a href="found.html">🐕 유기견 · 발견동물 제보</a>
             <a href="reviews.html">📝 후기게시판</a>
             <a href="about.html">❤️ 펫넷 소개</a>
+            <a href="#" class="install-app-link">📲 홈 화면에 추가하기</a>
         </div>
         <div class="quick-slider-group" aria-hidden="true">
             <a href="my.html">🐶 내 반려견 관리</a>
             <a href="found.html">🐕 유기견 · 발견동물 제보</a>
             <a href="reviews.html">📝 후기게시판</a>
             <a href="about.html">❤️ 펫넷 소개</a>
+            <a href="#" class="install-app-link">📲 홈 화면에 추가하기</a>
         </div>
     </div>
 </div>
@@ -1363,6 +1389,39 @@ function showMainLostPets(data){
   });
 
   box.innerHTML = html;
+}
+</script>
+<script>
+let deferredInstallPrompt = null;
+
+window.addEventListener("beforeinstallprompt", function(event){
+    event.preventDefault();
+    deferredInstallPrompt = event;
+});
+
+document.querySelectorAll(".install-app-link").forEach(function(link){
+    link.addEventListener("click", async function(event){
+        event.preventDefault();
+
+        if(deferredInstallPrompt){
+            deferredInstallPrompt.prompt();
+            await deferredInstallPrompt.userChoice;
+            deferredInstallPrompt = null;
+            return;
+        }
+
+        if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
+            alert("Safari 아래쪽 공유 버튼을 누른 뒤\n‘홈 화면에 추가’를 선택하세요.");
+        }else{
+            alert("브라우저 오른쪽 위 ⋮ 메뉴를 누른 뒤\n‘홈 화면에 추가’를 선택하세요.");
+        }
+    });
+});
+
+if("serviceWorker" in navigator){
+    window.addEventListener("load", function(){
+        navigator.serviceWorker.register("./sw.js");
+    });
 }
 </script>
 </body>
