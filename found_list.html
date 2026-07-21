@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>제보 목록 보기 | PETNET KOREA</title>
+<title>입양 희망 신청 목록 | PETNET KOREA</title>
 
 <style>
 *{
@@ -46,7 +46,7 @@ body{
 
 h1{
     margin:0;
-    font-size:26px;
+    font-size:28px;
     color:#0066cc;
     font-weight:900;
     line-height:1.3;
@@ -63,43 +63,20 @@ h1{
     margin-top:18px;
 }
 
-.report-card{
+.request-card{
     background:white;
     border-radius:22px;
-    padding:16px;
+    padding:20px 18px;
     margin-bottom:16px;
     box-shadow:0 6px 18px rgba(0,0,0,0.08);
-    overflow:hidden;
 }
 
-.photo-box{
-    width:100%;
-    height:150px;
-    border-radius:18px;
-    background:#eef3f8;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#999;
-    font-size:18px;
-    font-weight:900;
-    margin-bottom:16px;
-    overflow:hidden;
-}
-
-.photo-box img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:18px;
-}
-
-.report-top{
+.request-top{
     display:flex;
     justify-content:space-between;
     align-items:center;
     gap:10px;
-    margin-bottom:12px;
+    margin-bottom:14px;
 }
 
 .type{
@@ -116,7 +93,7 @@ h1{
 
 .info{
     font-size:16px;
-    line-height:1.7;
+    line-height:1.8;
     color:#333;
 }
 
@@ -126,9 +103,6 @@ h1{
 
 .contact-area{
     margin-top:16px;
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
 }
 
 .contact-btn{
@@ -213,12 +187,7 @@ h1{
     }
 
     h1{
-        font-size:24px;
-    }
-
-    .photo-box{
-        height:135px;
-        font-size:16px;
+        font-size:25px;
     }
 
     .type{
@@ -244,75 +213,56 @@ h1{
     <div class="header">
         <img src="petnet-logo-crop.png" class="logo" alt="PETNET KOREA 로고">
 
-        <h1>유기견 · 발견동물 제보 목록</h1>
+        <h1>🐾 입양 희망 신청 목록</h1>
 
         <p class="sub">
-            등록된 발견동물 제보를 확인할 수 있습니다.<br>
-            보호자를 찾는 데 도움이 되는 정보입니다.
+            반려견 입양을 희망하는 분들의 신청 목록입니다.<br>
+            희망 지역과 내용을 확인하고 직접 연락할 수 있습니다.
         </p>
     </div>
 
     <div id="list" class="list">
-        <div class="loading">제보 목록을 불러오는 중...</div>
+        <div class="loading">입양 희망 신청을 불러오는 중입니다...</div>
     </div>
 
     <div class="btns">
-        <a class="btn write-btn" href="found_write.html">제보하기</a>
-        <a class="btn home-btn" href="found.html">이전으로</a>
+        <a class="btn write-btn" href="found_write.html">입양 희망 신청</a>
+        <a class="btn home-btn" href="index.html">홈으로</a>
     </div>
 
 </div>
 
 <script>
-var API_URL = "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
+var API_URL =
+    "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
 
-function formatDateOnly(value){
-    if(!value){
-        return "-";
-    }
-
-    var date = new Date(value);
-
-    if(isNaN(date.getTime())){
-        return value;
-    }
-
-    var year = date.getFullYear();
-    var month = String(date.getMonth() + 1).padStart(2, "0");
-    var day = String(date.getDate()).padStart(2, "0");
-
-    return year + "." + month + "." + day;
-}
-
-function makePhotoBox(photoUrl){
-    if(!photoUrl || photoUrl.trim() === ""){
-        return '<div class="photo-box">사진 준비중</div>';
-    }
-
-    var url = photoUrl.trim();
-
-    if(url.indexOf("drive.google.com/uc?export=view&id=") !== -1){
-        var id = url.split("id=")[1];
-        url = "https://drive.google.com/thumbnail?id=" + id + "&sz=w1000";
-    }
-
-    return '<div class="photo-box"><img src="' + url + '" alt="제보 사진"></div>';
+function escapeHtml(value){
+    return String(value == null ? "" : value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 function makeContactArea(item){
     var contactType = item.contactType || "";
     var phone = String(item.phone || "").replace(/[^0-9]/g, "");
-    var kakaoLink = item.kakaoLink || "";
+    var kakaoLink = String(item.kakaoLink || "").trim();
 
     if(contactType === "phone" && phone !== ""){
         return '<div class="contact-area">' +
-            '<a class="contact-btn phone-btn" href="tel:' + phone + '">전화하기</a>' +
+            '<a class="contact-btn phone-btn" href="tel:' +
+            phone +
+            '">전화로 연락하기</a>' +
         '</div>';
     }
 
     if(contactType === "kakao" && kakaoLink !== ""){
         return '<div class="contact-area">' +
-            '<a class="contact-btn kakao-btn" href="' + kakaoLink + '" target="_blank">카톡으로 연락하기</a>' +
+            '<a class="contact-btn kakao-btn" href="' +
+            escapeHtml(kakaoLink) +
+            '" target="_blank" rel="noopener">카톡으로 연락하기</a>' +
         '</div>';
     }
 
@@ -327,7 +277,7 @@ function makeContactArea(item){
     '</div>';
 }
 
-function loadFoundList(){
+function loadAdoptionRequests(){
     fetch(API_URL + "?action=foundList")
     .then(function(response){
         return response.json();
@@ -337,26 +287,35 @@ function loadFoundList(){
         list.innerHTML = "";
 
         if(!data || data.length === 0){
-            list.innerHTML = '<div class="empty">아직 등록된 제보가 없습니다.</div>';
+            list.innerHTML =
+                '<div class="empty">아직 등록된 입양 희망 신청이 없습니다.</div>';
             return;
         }
 
-        data.reverse().forEach(function(item){
+        data.slice().reverse().forEach(function(item){
             var card = document.createElement("div");
-            card.className = "report-card";
+            card.className = "request-card";
 
             card.innerHTML =
-                makePhotoBox(item.photoUrl || "") +
-                '<div class="report-top">' +
-                    '<div class="type">🐾 ' + (item.animalType || "발견동물") + '</div>' +
-                    '<div class="date">' + (item.reportDate || "") + '</div>' +
+                '<div class="request-top">' +
+                    '<div class="type">🐾 ' +
+                    escapeHtml(item.animalType || "희망 동물 미입력") +
+                    '</div>' +
+                    '<div class="date">' +
+                    escapeHtml(item.reportDate || "") +
+                    '</div>' +
                 '</div>' +
+
                 '<div class="info">' +
-                    '<div><strong>발견 장소</strong> : ' + (item.foundPlace || "-") + '</div>' +
-                    '<div><strong>발견 날짜</strong> : ' + formatDateOnly(item.foundDate) + '</div>' +
-                    '<div><strong>털 색상</strong> : ' + (item.color || "-") + '</div>' +
-                    '<div><strong>특징</strong> : ' + (item.feature || "-") + '</div>' +
+                    '<div><strong>입양 희망 지역</strong> : ' +
+                    escapeHtml(item.foundPlace || "-") +
+                    '</div>' +
+
+                    '<div><strong>희망 내용</strong> : ' +
+                    escapeHtml(item.feature || "-") +
+                    '</div>' +
                 '</div>' +
+
                 makeContactArea(item);
 
             list.appendChild(card);
@@ -364,11 +323,11 @@ function loadFoundList(){
     })
     .catch(function(){
         document.getElementById("list").innerHTML =
-            '<div class="empty">제보 목록을 불러오지 못했습니다.</div>';
+            '<div class="empty">입양 희망 신청 목록을 불러오지 못했습니다.</div>';
     });
 }
 
-loadFoundList();
+loadAdoptionRequests();
 </script>
 
 </body>
