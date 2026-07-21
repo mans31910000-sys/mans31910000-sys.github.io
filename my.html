@@ -195,7 +195,7 @@ h1{
 }
 
 .lost-btn{
-    background:#cc3333;
+    background:#ff9800;
 }
 
 .found-btn{
@@ -418,16 +418,17 @@ function showMyPets(data){
   data.slice().reverse().forEach(function(pet){
     var petNumber = escapeHtml(pet.petNumber || "");
     var status = String(pet.status || "정상").trim();
-    var isLost = status === "분실";
+    var isForAdoption = status === "무료분양";
+    var adoptionArea = escapeHtml(pet.adoptionArea || "");
 
     html +=
       '<div class="result-card">' +
       '<h2>' + petNumber + '</h2>' +
 
       '<div class="status-badge ' +
-      (isLost ? "status-lost" : "status-normal") +
+      (isForAdoption ? "status-lost" : "status-normal") +
       '">분양 상태 : ' +
-      (isLost ? "무료 분양 중" : "미등록") +
+      (isForAdoption ? "무료 분양 중" : "미등록") +
       '</div>' +
 
       '<p><strong>이름 :</strong> ' +
@@ -435,6 +436,10 @@ function showMyPets(data){
 
       '<p><strong>품종 :</strong> ' +
       escapeHtml(pet.breed || "-") + '</p>' +
+
+      (isForAdoption
+        ? '<p><strong>분양 지역 :</strong> ' + (adoptionArea || "-") + '</p>'
+        : '') +
 
       '<a class="card-btn view-btn" href="pet.html?id=' +
       encodeURIComponent(pet.petNumber || "") +
@@ -444,14 +449,14 @@ function showMyPets(data){
       encodeURIComponent(pet.petNumber || "") +
       '">✏️ 정보 수정 · 삭제</a>';
 
-    if(isLost){
+    if(isForAdoption){
       html +=
-        '<button class="card-btn found-btn" onclick="reportFound(\'' +
+        '<button class="card-btn found-btn" onclick="endFreeAdoption(\'' +
         petNumber +
         '\')">🟢 무료 분양 종료</button>';
     }else{
       html +=
-        '<button class="card-btn lost-btn" onclick="reportLost(\'' +
+        '<button class="card-btn lost-btn" onclick="registerFreeAdoption(\'' +
         petNumber +
         '\')">🏠 무료 분양 등록</button>';
     }
@@ -461,11 +466,12 @@ function showMyPets(data){
 
   box.innerHTML = html;
 }
-function updatePetStatus(petNumber, status){
+function updatePetStatus(petNumber, status, adoptionArea){
   var formData = new FormData();
   formData.append("action","updatePetStatus");
   formData.append("petId",petNumber);
   formData.append("status",status);
+  formData.append("adoptionArea",adoptionArea || "");
 
   fetch(API_URL,{
     method:"POST",
@@ -504,18 +510,36 @@ function updatePetStatus(petNumber, status){
   });
 }
 
-function reportLost(petNumber){
+function registerFreeAdoption(petNumber){
 
-  if(confirm(petNumber+" 반려견을 무료 분양으로 등록하시겠습니까?")){
-    updatePetStatus(petNumber,"분실");
+  var adoptionArea = prompt(
+    "무료 분양 지역을 입력해주세요.\n예: 서울 강남구, 경기 수원시"
+  );
+
+  if(adoptionArea === null){
+    return;
+  }
+
+  adoptionArea = adoptionArea.trim();
+
+  if(adoptionArea === ""){
+    alert("분양 지역을 입력해주세요.");
+    return;
+  }
+
+  if(confirm(
+    petNumber + " 반려견을 " + adoptionArea +
+    " 지역의 무료 분양으로 등록하시겠습니까?"
+  )){
+    updatePetStatus(petNumber, "무료분양", adoptionArea);
   }
 
 }
 
-function reportFound(petNumber){
+function endFreeAdoption(petNumber){
 
   if(confirm(petNumber+" 반려견의 무료 분양을 종료하시겠습니까?")){
-    updatePetStatus(petNumber,"정상");
+    updatePetStatus(petNumber, "정상", "");
   }
 
 }
