@@ -298,8 +298,8 @@ h1{
     <h1>🐾 펫넷 회원센터</h1>
 
     <p class="intro">
-        반려견 등록과 관리, 분실 신고,<br>
-        발견동물 제보를 한곳에서 이용할 수 있습니다.
+        반려견 등록과 관리, 무료 분양 등록,<br>
+        입양 희망 신청을 한곳에서 이용할 수 있습니다.
     </p>
 
     <div class="account-box" id="accountBox">
@@ -310,7 +310,7 @@ h1{
         <h2 class="section-title pet-title">🐶 내 반려견</h2>
 
         <p class="section-desc">
-            새 반려견을 등록하거나 기존 반려견의 정보와 상태를 관리하세요.
+            새 반려견을 등록하거나 기존 반려견의 정보와 무료 분양 상태를 관리하세요.
         </p>
 
         <a class="action-link pet-register" href="register.html">
@@ -321,14 +321,14 @@ h1{
     </section>
 
     <section class="section">
-        <h2 class="section-title found-title">🐕 유기견 · 발견동물 제보</h2>
+        <h2 class="section-title found-title">🐕 입양 희망 신청</h2>
 
         <p class="section-desc">
-            발견동물을 새로 제보하고 내가 등록한 제보를 관리하세요.
+            입양 희망 신청을 새로 등록하고 내가 등록한 신청을 관리하세요.
         </p>
 
         <a class="action-link found-register" href="found_write.html">
-            ➕ 새 발견동물 제보하기
+            ➕ 입양 희망 신청하기
         </a>
 
         <div id="foundResult"></div>
@@ -426,7 +426,9 @@ function showMyPets(data){
 
       '<div class="status-badge ' +
       (isLost ? "status-lost" : "status-normal") +
-      '">상태 : ' + escapeHtml(status) + '</div>' +
+      '">분양 상태 : ' +
+      (isLost ? "무료 분양 중" : "미등록") +
+      '</div>' +
 
       '<p><strong>이름 :</strong> ' +
       escapeHtml(pet.name || "-") + '</p>' +
@@ -446,12 +448,12 @@ function showMyPets(data){
       html +=
         '<button class="card-btn found-btn" onclick="reportFound(\'' +
         petNumber +
-        '\')">🟢 찾았어요 / 분실 해제</button>';
+        '\')">🟢 무료 분양 종료</button>';
     }else{
       html +=
         '<button class="card-btn lost-btn" onclick="reportLost(\'' +
         petNumber +
-        '\')">🔴 분실 신고하기</button>';
+        '\')">🏠 무료 분양 등록</button>';
     }
 
     html += '</div>';
@@ -480,8 +482,8 @@ function updatePetStatus(petNumber, status){
 
       alert(
         status==="분실"
-        ? "분실 신고가 완료되었습니다."
-        : "분실 상태가 해제되었습니다."
+        ? "무료 분양 등록이 완료되었습니다."
+        : "무료 분양이 종료되었습니다."
       );
 
       var email=
@@ -504,7 +506,7 @@ function updatePetStatus(petNumber, status){
 
 function reportLost(petNumber){
 
-  if(confirm(petNumber+" 반려견을 분실 신고하시겠습니까?")){
+  if(confirm(petNumber+" 반려견을 무료 분양으로 등록하시겠습니까?")){
     updatePetStatus(petNumber,"분실");
   }
 
@@ -512,7 +514,7 @@ function reportLost(petNumber){
 
 function reportFound(petNumber){
 
-  if(confirm(petNumber+" 반려견의 분실 상태를 해제하시겠습니까?")){
+  if(confirm(petNumber+" 반려견의 무료 분양을 종료하시겠습니까?")){
     updatePetStatus(petNumber,"정상");
   }
 
@@ -521,7 +523,7 @@ function reportFound(petNumber){
 function loadMyFound(email){
 
   document.getElementById("foundResult").innerHTML=
-  '<p class="loading">내 발견동물 제보를 불러오는 중입니다...</p>';
+  '<p class="loading">내 입양 희망 신청을 불러오는 중입니다...</p>';
 
   var oldScript=document.getElementById("myFoundScript");
 
@@ -551,8 +553,8 @@ function showMyFound(data){
 
     box.innerHTML=
       '<div class="error-card">'+
-      '<h2>등록된 제보 없음</h2>'+
-      '<p>현재 로그인 계정으로 등록된 발견동물 제보가 없습니다.</p>'+
+      '<h2>등록된 신청 없음</h2>'+
+      '<p>현재 로그인 계정으로 등록된 입양 희망 신청이 없습니다.</p>'+
       '</div>';
 
     return;
@@ -573,14 +575,12 @@ function showMyFound(data){
       '상태 : '+status+
       '</div>'+
 
-      '<p><strong>동물 종류 :</strong> '+(item.animalType||"-")+'</p>'+
-      '<p><strong>발견 장소 :</strong> '+(item.foundPlace||"-")+'</p>'+
-      '<p><strong>발견 날짜 :</strong> '+(item.foundDate||"-")+'</p>'+
-      '<p><strong>털 색상 :</strong> '+(item.color||"-")+'</p>'+
-      '<p><strong>특징 :</strong> '+(item.feature||"-")+'</p>'+
+      '<p><strong>희망 동물 종류 :</strong> '+(item.animalType||"-")+'</p>'+
+      '<p><strong>입양 희망 지역 :</strong> '+(item.foundPlace||"-")+'</p>'+
+      '<p><strong>희망 내용 :</strong> '+(item.feature||"-")+'</p>'+
 
       '<a class="card-btn view-btn" href="found_list.html">'+
-      '👁 발견동물 제보 목록 보기'+
+      '👁 입양 희망 신청 목록 보기'+
       '</a>';
 
     if(status==="종료"){
@@ -589,7 +589,7 @@ function showMyFound(data){
       '<button class="card-btn reopen-btn" onclick="changeFoundStatus(\''+
       item.foundNumber+
       '\',\'진행중\')">'+
-      '🔄 다시 제보하기'+
+      '🔄 다시 공개하기'+
       '</button>';
 
     }else{
@@ -598,7 +598,7 @@ function showMyFound(data){
       '<button class="card-btn found-btn" onclick="changeFoundStatus(\''+
       item.foundNumber+
       '\',\'종료\')">'+
-      '🟢 보호자 찾았어요 / 제보 종료'+
+      '🟢 입양 희망 신청 종료'+
       '</button>';
 
     }
@@ -622,8 +622,8 @@ function changeFoundStatus(foundNumber,status){
 
   if(!confirm(
     status==="종료"
-    ? foundNumber+" 제보를 종료하시겠습니까?"
-    : foundNumber+" 제보를 다시 공개하시겠습니까?"
+    ? foundNumber+" 입양 희망 신청을 종료하시겠습니까?"
+    : foundNumber+" 입양 희망 신청을 다시 공개하시겠습니까?"
   )){
     return;
   }
@@ -650,8 +650,8 @@ function changeFoundStatus(foundNumber,status){
 
       alert(
         status==="종료"
-        ? "발견동물 제보가 종료되었습니다."
-        : "발견동물 제보가 다시 공개되었습니다."
+        ? "입양 희망 신청이 종료되었습니다."
+        : "입양 희망 신청이 다시 공개되었습니다."
       );
 
       loadMyFound(email);
