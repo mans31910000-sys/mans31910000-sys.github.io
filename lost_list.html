@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>현재 분실된 반려견 | PETNET KOREA</title>
+<title>무료 분양 중인 반려견 | PETNET KOREA</title>
 
 <style>
-*{box-sizing:border-box;}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  background:#f5f9ff;
+  background:#fff8ef;
   color:#111;
   padding:18px;
 }
@@ -39,7 +41,7 @@ body{
 h1{
   margin:0;
   font-size:32px;
-  color:#cc2222;
+  color:#e67e00;
   font-weight:900;
 }
 
@@ -50,13 +52,16 @@ h1{
   margin:14px 0 0;
 }
 
-.lost-card{
+.adoption-card{
+  display:block;
   background:white;
   border-radius:22px;
   padding:18px;
   margin-bottom:16px;
   box-shadow:0 8px 22px rgba(0,0,0,0.08);
-  border:2px solid #ffd2d2;
+  border:2px solid #ffd8a8;
+  text-decoration:none;
+  color:#111;
 }
 
 .pet-photo{
@@ -68,9 +73,9 @@ h1{
   margin-bottom:14px;
 }
 
-.lost-badge{
+.adoption-badge{
   display:inline-block;
-  background:#cc2222;
+  background:#ff9800;
   color:white;
   font-weight:900;
   padding:8px 12px;
@@ -81,7 +86,7 @@ h1{
 .pet-name{
   font-size:28px;
   font-weight:900;
-  color:#cc2222;
+  color:#e67e00;
   margin:6px 0 12px;
 }
 
@@ -91,18 +96,12 @@ h1{
   color:#222;
 }
 
-.call-btn{
-  display:block;
-  width:100%;
-  height:56px;
-  line-height:56px;
-  margin-top:16px;
-  background:#cc2222;
-  color:white;
-  text-align:center;
-  text-decoration:none;
-  border-radius:16px;
-  font-size:20px;
+.detail-guide{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid #eee;
+  color:#0066cc;
+  font-size:16px;
   font-weight:900;
 }
 
@@ -138,15 +137,17 @@ h1{
 
   <div class="header">
     <img src="petnet-logo-crop.png" class="logo" alt="PETNET KOREA 로고">
-    <h1>🔴 현재 분실된 반려견</h1>
+
+    <h1>🏠 무료 분양 중인 반려견</h1>
+
     <p class="desc">
-      우리 주변에서 보호자를 기다리는 반려견입니다.<br>
-      비슷한 반려견을 발견하셨다면 보호자에게 연락해주세요.
+      새로운 가족을 기다리는 반려견입니다.<br>
+      카드를 누르면 자세한 정보와 연락 방법을 확인할 수 있습니다.
     </p>
   </div>
 
-  <div id="lostList">
-    <div class="empty">분실 반려견 정보를 불러오는 중입니다...</div>
+  <div id="adoptionList">
+    <div class="empty">무료 분양 정보를 불러오는 중입니다...</div>
   </div>
 
   <a class="home-btn" href="index.html">🏠 홈으로 돌아가기</a>
@@ -155,45 +156,68 @@ h1{
 
 <script>
 var script = document.createElement("script");
+
 script.src =
   "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec" +
-  "?action=lostPetList&callback=showLostPets";
+  "?action=lostPetList&callback=showAdoptionPets";
+
 document.body.appendChild(script);
 
-function showLostPets(data){
-  var box = document.getElementById("lostList");
+function escapeHtml(value){
+  return String(value == null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function showAdoptionPets(data){
+  var box = document.getElementById("adoptionList");
 
   if(!data || data.length === 0){
     box.innerHTML =
       '<div class="empty">' +
-      '현재 등록된 분실 반려견이 없습니다.<br>' +
-      '모든 반려견이 안전하게 보호자 곁에 있기를 바랍니다.' +
+      '현재 무료 분양 중인 반려견이 없습니다.' +
       '</div>';
     return;
   }
 
   var html = "";
 
-  data.reverse().forEach(function(pet){
+  data.slice().reverse().forEach(function(pet){
+    var petNumber = pet.petNumber || "";
     var photo = pet.photo || "petnet-logo-crop.png";
-    var phone = String(pet.phone || "").replace(/[^0-9]/g, "");
 
     html +=
-      '<div class="lost-card">' +
-      '<img class="pet-photo" src="' + photo + '" alt="분실 반려견 사진">' +
-      '<div class="lost-badge">분실 신고 중</div>' +
-      '<div class="pet-name">' + (pet.name || "이름 미등록") + '</div>' +
+      '<a class="adoption-card" href="pet.html?id=' +
+      encodeURIComponent(petNumber) +
+      '">' +
+
+      '<img class="pet-photo" src="' +
+      escapeHtml(photo) +
+      '" alt="무료 분양 반려견 사진">' +
+
+      '<div class="adoption-badge">무료 분양 중</div>' +
+
+      '<div class="pet-name">' +
+      escapeHtml(pet.name || "이름 미등록") +
+      '</div>' +
+
       '<div class="info">' +
-      '<strong>품종 :</strong> ' + (pet.breed || "-") + '<br>' +
-      '<strong>성별 :</strong> ' + (pet.gender || "-") + '<br>' +
-      '<strong>특징 :</strong> ' + (pet.feature || "-") +
-      '</div>';
+      '<strong>품종 :</strong> ' +
+      escapeHtml(pet.breed || "-") +
+      '<br>' +
 
-    if(phone){
-      html += '<a class="call-btn" href="tel:' + phone + '">📞 보호자에게 연락하기</a>';
-    }
+      '<strong>분양 지역 :</strong> ' +
+      escapeHtml(pet.adoptionArea || "지역 미입력") +
+      '</div>' +
 
-    html += '</div>';
+      '<div class="detail-guide">' +
+      '자세한 정보와 연락 방법 보기 →' +
+      '</div>' +
+
+      '</a>';
   });
 
   box.innerHTML = html;
