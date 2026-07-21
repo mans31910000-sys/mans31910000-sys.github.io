@@ -424,7 +424,7 @@ body{
     margin-top:3px;
 }
 
-/* 유기견 · 발견동물 제보 메인 영역 */
+/* 입양 희망 신청 메인 영역 */
 .found-main-section{
     max-width:1100px;
     margin:30px auto 34px;
@@ -465,7 +465,9 @@ body{
     border-radius:18px;
     box-shadow:0 6px 18px rgba(0,0,0,0.08);
     overflow:hidden;
-    min-height:210px;
+    min-height:125px;
+    display:flex;
+    align-items:center;
 }
 
 .main-found-photo{
@@ -487,7 +489,8 @@ body{
 }
 
 .main-found-info{
-    padding:12px 13px 14px;
+    width:100%;
+    padding:20px 18px;
     text-align:left;
 }
 
@@ -513,7 +516,7 @@ body{
 }
 
 .main-found-card.empty{
-    height:210px;
+    height:125px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -943,7 +946,7 @@ width:100%;
 
     .main-found-card{
         border-radius:12px;
-        min-height:145px;
+        min-height:105px;
     }
 
     .main-found-photo{
@@ -952,7 +955,7 @@ width:100%;
     }
 
     .main-found-info{
-        padding:8px 7px 9px;
+        padding:13px 10px;
     }
 
     .main-found-type{
@@ -970,7 +973,7 @@ width:100%;
     }
 
     .main-found-card.empty{
-        height:145px;
+        height:105px;
         font-size:12px;
         border-radius:12px;
     }
@@ -1032,13 +1035,13 @@ width:100%;
     <div class="quick-slider-track">
         <div class="quick-slider-group">
             <a href="my.html">🐶 내 반려견 관리</a>
-            <a href="found.html">🐕 유기견 · 발견동물 제보</a>
+            <a href="found.html">🐕 입양 희망 신청</a>
             <a href="reviews.html">📝 후기게시판</a>
             <a href="about.html">❤️ 펫넷 소개</a>
         </div>
         <div class="quick-slider-group" aria-hidden="true">
             <a href="my.html">🐶 내 반려견 관리</a>
-            <a href="found.html">🐕 유기견 · 발견동물 제보</a>
+            <a href="found.html">🐕 입양 희망 신청</a>
             <a href="reviews.html">📝 후기게시판</a>
             <a href="about.html">❤️ 펫넷 소개</a>
         </div>
@@ -1058,7 +1061,7 @@ width:100%;
     <a href="signup.html">회원가입</a>
     <a href="login.html">로그인</a>
     <a href="my.html">내 반려견 관리</a>
-    <a href="found.html">유기견 · 발견동물 제보</a>
+    <a href="found.html">입양 희망 신청</a>
     <a href="reviews.html">📝 후기게시판</a>
     <a href="status.html">📊 펫넷 현황</a>
     <a href="https://open.kakao.com/o/sbvojyAi" target="_blank">💬 관리자에게 문의하기</a>
@@ -1117,7 +1120,7 @@ width:100%;
 </section>
 <section class="found-main-section">
   <div class="found-main-head">
-    <h2><span class="blink-red">🔴</span> 현재 분실된 반려견</h2>
+    <h2><span class="blink-red">🔴</span> 무료 분양 진행중 </h2>
     <a href="lost_list.html">전체 보기</a>
   </div>
 
@@ -1129,14 +1132,14 @@ width:100%;
 </section>
 <section class="found-main-section">
     <div class="found-main-head">
-        <h2>🐾 유기견 · 발견동물 제보</h2>
+        <h2>🐾 입양 희망 신청</h2>
         <a href="found_list.html">전체 보기</a>
     </div>
 
     <div id="mainFoundList" class="main-found-list">
-        <div class="main-found-card empty">제보를 불러오는 중...</div>
-        <div class="main-found-card empty">제보를 불러오는 중...</div>
-        <div class="main-found-card empty">제보를 불러오는 중...</div>
+        <div class="main-found-card empty">신청을 불러오는 중...</div>
+        <div class="main-found-card empty">신청을 불러오는 중...</div>
+        <div class="main-found-card empty">신청을 불러오는 중...</div>
     </div>
 </section>
 <section class="itnet-section">
@@ -1229,21 +1232,6 @@ document.body.appendChild(countScript);
 <script>
 var FOUND_API_URL = "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
 
-function mainFoundPhoto(photoUrl){
-    if(!photoUrl || photoUrl.trim() === ""){
-        return '<div class="main-found-photo">사진 준비중</div>';
-    }
-
-    var url = photoUrl.trim();
-
-    if(url.indexOf("drive.google.com/uc?export=view&id=") !== -1){
-        var id = url.split("id=")[1];
-        url = "https://drive.google.com/thumbnail?id=" + id + "&sz=w1000";
-    }
-
-    return '<div class="main-found-photo"><img src="' + url + '" alt="제보 사진"></div>';
-}
-
 function loadMainFoundList(){
     var box = document.getElementById("mainFoundList");
 
@@ -1260,9 +1248,9 @@ function loadMainFoundList(){
 
         if(!data || data.length === 0){
             box.innerHTML =
-                '<div class="main-found-card empty">아직 제보 없음</div>' +
-                '<div class="main-found-card empty">아직 제보 없음</div>' +
-                '<div class="main-found-card empty">아직 제보 없음</div>';
+                '<div class="main-found-card empty">아직 신청 없음</div>' +
+                '<div class="main-found-card empty">아직 신청 없음</div>' +
+                '<div class="main-found-card empty">아직 신청 없음</div>';
             return;
         }
 
@@ -1271,10 +1259,9 @@ function loadMainFoundList(){
             card.className = "main-found-card";
 
             card.innerHTML =
-                mainFoundPhoto(item.photoUrl || "") +
                 '<div class="main-found-info">' +
-                    '<div class="main-found-type">🐾 ' + (item.animalType || "발견동물") + '</div>' +
-                    '<div class="main-found-place">' + (item.foundPlace || "장소 미입력") + '</div>' +
+                    '<div class="main-found-type">🐾 희망 동물 : ' + (item.animalType || "미입력") + '</div>' +
+                    '<div class="main-found-place">희망 지역 : ' + (item.foundPlace || "미입력") + '</div>' +
                     '<div class="main-found-feature">' + (item.feature || "") + '</div>' +
                 '</div>';
 
@@ -1284,15 +1271,15 @@ function loadMainFoundList(){
         while(box.children.length < 3){
             var empty = document.createElement("div");
             empty.className = "main-found-card empty";
-            empty.innerText = "제보 대기중";
+            empty.innerText = "신청 대기중";
             box.appendChild(empty);
         }
     })
     .catch(function(){
         box.innerHTML =
-            '<div class="main-found-card empty">제보 불러오기 실패</div>' +
-            '<div class="main-found-card empty">제보 불러오기 실패</div>' +
-            '<div class="main-found-card empty">제보 불러오기 실패</div>';
+            '<div class="main-found-card empty">신청 불러오기 실패</div>' +
+            '<div class="main-found-card empty">신청 불러오기 실패</div>' +
+            '<div class="main-found-card empty">신청 불러오기 실패</div>';
     });
 }
 
