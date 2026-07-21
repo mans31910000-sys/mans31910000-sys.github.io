@@ -647,7 +647,6 @@ font-size:17px;
 width:100%;
 }
 
-}
     .itnet-left{
         text-align:center;
     }
@@ -667,7 +666,6 @@ width:100%;
     .itnet-btn{
         width:100%;
     }
-}
 /* 하단 홍보 슬라이드 */
 .promo-slider-section{
     width:92%;
@@ -1367,12 +1365,12 @@ function showMainLostPets(data){
 
   var cardCount = data.slice().reverse().slice(0, 3).length;
 
-for(var i = cardCount; i < 3; i++){
-  html +=
-    '<div class="main-found-card empty">' +
-    '무료 분양 등록 대기중' +
-    '</div>';
-}
+  for(var i = cardCount; i < 3; i++){
+    html +=
+      '<div class="main-found-card empty">' +
+      '무료 분양 등록 대기중' +
+      '</div>';
+  }
 
   box.innerHTML = html;
 }
