@@ -1120,13 +1120,13 @@ width:100%;
 </section>
 <section class="found-main-section">
   <div class="found-main-head">
-    <h2><span class="blink-red">🔴</span> 무료 분양 진행중 </h2>
+    <h2>🏠 무료 분양 중인 반려견</h2>
     <a href="lost_list.html">전체 보기</a>
   </div>
 
   <div id="mainLostList" class="main-found-list">
     <a href="lost_list.html" class="main-found-card empty">
-      분실 신고된 반려견을 확인해주세요.
+      현재 무료 분양 중인 반려견이 없습니다.
     </a>
   </div>
 </section>
@@ -1336,24 +1336,38 @@ function showMainLostPets(data){
 
   if(!data || data.length === 0){
     box.innerHTML =
-    '<a href="lost_list.html" class="main-found-card empty">분실 신고된 반려견이 없습니다.</a>';
+      '<a href="lost_list.html" class="main-found-card empty">' +
+      '현재 무료 분양 중인 반려견이 없습니다.' +
+      '</a>';
     return;
   }
 
   var html = "";
 
-  data.reverse().slice(0,3).forEach(function(pet){
-
+  data.slice().reverse().slice(0,3).forEach(function(pet){
     var photo = pet.photo || "petnet-logo-crop.png";
+    var petNumber = pet.petNumber || "";
+    var name = pet.name || "이름 미입력";
+    var breed = pet.breed || "품종 미입력";
+    var adoptionArea = pet.adoptionArea || "지역 미입력";
 
     html +=
-    '<a href="pet.html?id=' + pet.petId + '" class="main-found-card">' +
-    '<img src="' + photo + '" style="width:100%;height:160px;object-fit:cover;border-radius:12px;">' +
-    '<strong> ' + pet.name + '</strong><br>' +
-    '<span>' + pet.breed + '</span>' +
-    '</a>';
-
+      '<a href="pet.html?id=' + encodeURIComponent(petNumber) + '" class="main-found-card">' +
+        '<div style="width:100%;">' +
+          '<img src="' + photo + '" alt="무료 분양 반려견 사진" ' +
+          'style="width:100%;height:145px;object-fit:cover;display:block;">' +
+          '<div class="main-found-info">' +
+            '<div class="main-found-type">🐶 ' + name + '</div>' +
+            '<div class="main-found-place">' + breed + '</div>' +
+            '<div class="main-found-feature">분양 지역 : ' + adoptionArea + '</div>' +
+          '</div>' +
+        '</div>' +
+      '</a>';
   });
+
+  while((box.children.length + (html.match(/class="main-found-card"/g) || []).length) < 3){
+    html += '<div class="main-found-card empty">무료 분양 등록 대기중</div>';
+  }
 
   box.innerHTML = html;
 }
