@@ -1365,9 +1365,14 @@ function showMainLostPets(data){
       '</a>';
   });
 
-  while((box.children.length + (html.match(/class="main-found-card"/g) || []).length) < 3){
-    html += '<div class="main-found-card empty">무료 분양 등록 대기중</div>';
-  }
+  var cardCount = data.slice().reverse().slice(0, 3).length;
+
+for(var i = cardCount; i < 3; i++){
+  html +=
+    '<div class="main-found-card empty">' +
+    '무료 분양 등록 대기중' +
+    '</div>';
+}
 
   box.innerHTML = html;
 }
