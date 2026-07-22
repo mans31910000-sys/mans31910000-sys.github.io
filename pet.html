@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -122,10 +122,10 @@ h1{
     <img src="petnet-logo.png" class="logo" alt="펫넷 로고">
 
     <div class="lang-box">
-        <button onclick="setLang('ko')">🇰🇷 한국어</button>
-        <button onclick="setLang('en')">🇺🇸 English</button>
-        <button onclick="setLang('zh')">🇨🇳 中文</button>
-        <button onclick="setLang('ja')">🇯🇵 日本語</button>
+        <button type="button" onclick="setLang('ko')">🇰🇷 한국어</button>
+        <button type="button" onclick="setLang('en')">🇺🇸 English</button>
+        <button type="button" onclick="setLang('zh')">🇨🇳 中文</button>
+        <button type="button" onclick="setLang('ja')">🇯🇵 日本語</button>
     </div>
 
     <div class="card">
@@ -145,39 +145,48 @@ h1{
 
             <div class="pet-info">
                 <img id="petPhoto"
-     style="width:100%;
-     max-height:300px;
-     object-fit:cover;
-     border-radius:15px;
-     margin-bottom:15px;
-     display:none;">
-     <img id="petPhoto"
-     style="width:100%;
-            max-height:300px;
-            object-fit:cover;
-            border-radius:15px;
-            margin-bottom:15px;
-            display:none;">
+                     alt="반려견 사진"
+                     style="width:100%;
+                            max-height:300px;
+                            object-fit:cover;
+                            border-radius:15px;
+                            margin-bottom:15px;
+                            display:none;">
+
                 <p id="name"></p>
                 <p id="breed"></p>
                 <p id="gender"></p>
                 <p id="feature"></p>
+                <p id="adoptionArea" style="display:none;"></p>
                 <p id="animalRegNo" style="display:none;"></p>
             </div>
 
-            <a id="phoneLink" class="btn phone" href="#" style="display:none;">
+            <a id="phoneLink"
+               class="btn phone"
+               href="#"
+               style="display:none;">
                 📞 보호자 전화하기
             </a>
 
-            <a id="kakaoLink" class="btn kakao" href="#" target="_blank" style="display:none;">
+            <a id="kakaoLink"
+               class="btn kakao"
+               href="#"
+               target="_blank"
+               rel="noopener"
+               style="display:none;">
                 💬 카카오톡 연락하기
             </a>
 
-            <button id="shareBtn" class="btn share" onclick="copyPageLink()">
+            <button id="shareBtn"
+                    type="button"
+                    class="btn share"
+                    onclick="copyPageLink()">
                 📤 카카오톡 공유하기
             </button>
 
-           <a id="homeBtn" href="https://mans31910000-sys.github.io/" class="btn home">
+            <a id="homeBtn"
+               href="https://mans31910000-sys.github.io/"
+               class="btn home">
                 🏠 펫넷 바로가기
             </a>
 
@@ -193,62 +202,357 @@ h1{
 </div>
 
 <script>
+var API_URL =
+  "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec";
+
 var params = new URLSearchParams(window.location.search);
-var petId = params.get("id");
+var petId = String(params.get("id") || "").trim();
+var isAdoptionMode = params.get("mode") === "adoption";
+
 var petData = null;
 var currentLang = "ko";
+var loadFailed = false;
 
 var text = {
   ko:{
-    title:"이 반려견을 발견하셨나요?",
-    desc:"아래 정보를 확인한 뒤<br>보호자에게 바로 연락해주세요.",
     loading:"반려견 정보를 불러오는 중...",
     notFound:"등록 정보를 찾을 수 없습니다.",
+    adoptionNotFound:
+      "현재 무료 분양 중인 반려견 정보를 찾을 수 없습니다.",
+
     name:"이름",
     breed:"품종",
     gender:"성별",
     feature:"특징",
+    adoptionArea:"분양 지역",
     animalRegNo:"국가 동물등록번호",
     noInfo:"정보 없음",
-    phone:"📞 보호자 전화하기",
-    kakao:"💬 카카오톡 연락하기",
-    share:"📤 카카오톡 공유하기",
-    home:"🏠 펫넷 바로가기",
-    notice:"🔒 펫넷은 개인정보 노출을 줄이고<br>발견자와 보호자를 빠르게 연결합니다.",
+
     copied:"반려견 페이지 주소가 복사되었습니다.",
-    copyFail:"주소창의 링크를 복사해서 공유해주세요."
+    copyFail:"주소창의 링크를 복사해서 공유해주세요.",
+
+    qr:{
+      pageTitle:"반려견 보호자 연결 - 펫넷",
+      title:"이 반려견을 발견하셨나요?",
+      desc:
+        "아래 정보를 확인한 뒤<br>" +
+        "보호자에게 바로 연락해주세요.",
+
+      phone:"📞 보호자 전화하기",
+      kakao:"💬 카카오톡 연락하기",
+      share:"📤 카카오톡 공유하기",
+      home:"🏠 펫넷 바로가기",
+
+      notice:
+        "🔒 펫넷은 개인정보 노출을 줄이고<br>" +
+        "발견자와 보호자를 빠르게 연결합니다."
+    },
+
+    adoption:{
+      pageTitle:"무료 분양 반려견 정보 - 펫넷",
+      title:"무료 분양 중인 반려견입니다",
+
+      desc:
+        "반려견 정보를 확인한 뒤<br>" +
+        "보호자에게 입양 문의해주세요.",
+
+      phone:"📞 입양 문의 전화하기",
+      kakao:"💬 카카오톡으로 입양 문의하기",
+      share:"📤 무료 분양 정보 공유하기",
+      home:"🏠 무료 분양 목록으로 돌아가기",
+
+      notice:
+        "🐶 분양 가능 여부와 자세한 조건은<br>" +
+        "보호자에게 직접 확인해주세요."
+    }
+  },
+
+  en:{
+    loading:"Loading pet information...",
+    notFound:"Registration information could not be found.",
+    adoptionNotFound:
+      "This pet is not currently listed for free adoption.",
+
+    name:"Name",
+    breed:"Breed",
+    gender:"Sex",
+    feature:"Features",
+    adoptionArea:"Adoption area",
+    animalRegNo:"National animal registration number",
+    noInfo:"No information",
+
+    copied:"The pet page address has been copied.",
+    copyFail:
+      "Please copy and share the address from the browser bar.",
+
+    qr:{
+      pageTitle:"Contact the Pet Owner - PetNet",
+      title:"Have you found this pet?",
+
+      desc:
+        "Please check the information below<br>" +
+        "and contact the owner.",
+
+      phone:"📞 Call the owner",
+      kakao:"💬 Contact via KakaoTalk",
+      share:"📤 Share via KakaoTalk",
+      home:"🏠 Go to PetNet",
+
+      notice:
+        "🔒 PetNet reduces personal information exposure<br>" +
+        "and quickly connects finders with owners."
+    },
+
+    adoption:{
+      pageTitle:"Pet Available for Free Adoption - PetNet",
+      title:"This pet is available for free adoption",
+
+      desc:
+        "Please review the information below<br>" +
+        "and contact the owner about adoption.",
+
+      phone:"📞 Call about adoption",
+      kakao:"💬 Ask about adoption via KakaoTalk",
+      share:"📤 Share adoption information",
+      home:"🏠 Back to the adoption list",
+
+      notice:
+        "🐶 Please confirm availability and adoption details<br>" +
+        "directly with the owner."
+    }
+  },
+
+  zh:{
+    loading:"正在加载宠物信息...",
+    notFound:"找不到登记信息。",
+    adoptionNotFound:
+      "找不到目前正在免费领养的宠物信息。",
+
+    name:"名字",
+    breed:"品种",
+    gender:"性别",
+    feature:"特征",
+    adoptionArea:"领养地区",
+    animalRegNo:"国家动物登记号码",
+    noInfo:"暂无信息",
+
+    copied:"宠物页面地址已复制。",
+    copyFail:"请复制浏览器地址栏中的链接后分享。",
+
+    qr:{
+      pageTitle:"联系宠物主人 - PetNet",
+      title:"您发现这只宠物了吗？",
+
+      desc:
+        "请确认以下信息后<br>" +
+        "立即联系主人。",
+
+      phone:"📞 给宠物主人打电话",
+      kakao:"💬 通过 KakaoTalk 联系",
+      share:"📤 分享到 KakaoTalk",
+      home:"🏠 前往 PetNet",
+
+      notice:
+        "🔒 PetNet 尽量减少个人信息暴露，<br>" +
+        "帮助发现者快速联系主人。"
+    },
+
+    adoption:{
+      pageTitle:"免费领养宠物信息 - PetNet",
+      title:"这是一只正在免费领养的宠物",
+
+      desc:
+        "请确认宠物信息后<br>" +
+        "向主人咨询领养事宜。",
+
+      phone:"📞 电话咨询领养",
+      kakao:"💬 通过 KakaoTalk 咨询领养",
+      share:"📤 分享免费领养信息",
+      home:"🏠 返回免费领养列表",
+
+      notice:
+        "🐶 是否仍可领养及具体条件，<br>" +
+        "请直接向主人确认。"
+    }
+  },
+
+  ja:{
+    loading:"ペット情報を読み込んでいます...",
+    notFound:"登録情報が見つかりません。",
+    adoptionNotFound:
+      "現在、無料譲渡中のペット情報が見つかりません。",
+
+    name:"名前",
+    breed:"犬種",
+    gender:"性別",
+    feature:"特徴",
+    adoptionArea:"譲渡地域",
+    animalRegNo:"国の動物登録番号",
+    noInfo:"情報なし",
+
+    copied:"ペットページのアドレスをコピーしました。",
+    copyFail:
+      "ブラウザのアドレス欄のリンクをコピーして共有してください。",
+
+    qr:{
+      pageTitle:"飼い主への連絡 - PetNet",
+      title:"このペットを見つけましたか？",
+
+      desc:
+        "以下の情報を確認してから<br>" +
+        "飼い主へご連絡ください。",
+
+      phone:"📞 飼い主に電話する",
+      kakao:"💬 KakaoTalkで連絡する",
+      share:"📤 KakaoTalkで共有する",
+      home:"🏠 PetNetへ移動",
+
+      notice:
+        "🔒 PetNetは個人情報の露出を抑え、<br>" +
+        "発見者と飼い主をすばやくつなぎます。"
+    },
+
+    adoption:{
+      pageTitle:"無料譲渡中のペット情報 - PetNet",
+      title:"無料譲渡中のペットです",
+
+      desc:
+        "ペット情報を確認してから<br>" +
+        "飼い主へ譲渡についてお問い合わせください。",
+
+      phone:"📞 譲渡について電話する",
+      kakao:"💬 KakaoTalkで譲渡を問い合わせる",
+      share:"📤 無料譲渡情報を共有する",
+      home:"🏠 無料譲渡一覧へ戻る",
+
+      notice:
+        "🐶 譲渡可能かどうかと詳しい条件は、<br>" +
+        "飼い主へ直接ご確認ください。"
+    }
   }
 };
 
+function escapeHtml(value){
+  return String(value == null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function getCurrentText(){
+  return text[currentLang] || text.ko;
+}
+
+function getModeText(){
+  var t = getCurrentText();
+
+  return isAdoptionMode
+    ? t.adoption
+    : t.qr;
+}
+
+function applyModeText(){
+  var t = getCurrentText();
+  var modeText = getModeText();
+
+  document.documentElement.lang = currentLang;
+  document.title = modeText.pageTitle;
+
+  document.getElementById("title").innerHTML =
+    modeText.title;
+
+  document.getElementById("desc").innerHTML =
+    modeText.desc;
+
+  document.getElementById("loading").innerText =
+    loadFailed
+      ? (
+          isAdoptionMode
+            ? t.adoptionNotFound
+            : t.notFound
+        )
+      : t.loading;
+
+  document.getElementById("phoneLink").innerHTML =
+    modeText.phone;
+
+  document.getElementById("kakaoLink").innerHTML =
+    modeText.kakao;
+
+  document.getElementById("shareBtn").innerHTML =
+    modeText.share;
+
+  document.getElementById("homeBtn").innerHTML =
+    modeText.home;
+
+  document.getElementById("homeBtn").href =
+    isAdoptionMode
+      ? "lost_list.html"
+      : "https://mans31910000-sys.github.io/";
+
+  document.getElementById("notice").innerHTML =
+    modeText.notice;
+}
+
 function setLang(lang){
-  currentLang = "ko";
-  var t = text.ko;
+  currentLang = text[lang]
+    ? lang
+    : "ko";
 
-  if(document.getElementById("title")) document.getElementById("title").innerHTML = t.title;
-  if(document.getElementById("desc")) document.getElementById("desc").innerHTML = t.desc;
-  if(document.getElementById("phoneLink")) document.getElementById("phoneLink").innerHTML = t.phone;
-  if(document.getElementById("kakaoLink")) document.getElementById("kakaoLink").innerHTML = t.kakao;
-  if(document.getElementById("shareBtn")) document.getElementById("shareBtn").innerHTML = t.share;
-  if(document.getElementById("homeBtn")) document.getElementById("homeBtn").innerHTML = t.home;
-  if(document.getElementById("notice")) document.getElementById("notice").innerHTML = t.notice;
+  applyModeText();
 
-  if(petData) renderPetInfo();
+  if(petData){
+    renderPetInfo();
+  }
 }
 
 function renderPetInfo(){
-  var t = text.ko;
+  var t = getCurrentText();
 
   document.getElementById("name").innerHTML =
-    "<b>" + t.name + ":</b> " + (petData.name || t.noInfo);
+    "<b>" +
+    escapeHtml(t.name) +
+    ":</b> " +
+    escapeHtml(petData.name || t.noInfo);
 
   document.getElementById("breed").innerHTML =
-    "<b>" + t.breed + ":</b> " + (petData.breed || t.noInfo);
+    "<b>" +
+    escapeHtml(t.breed) +
+    ":</b> " +
+    escapeHtml(petData.breed || t.noInfo);
 
   document.getElementById("gender").innerHTML =
-    "<b>" + t.gender + ":</b> " + (petData.gender || t.noInfo);
+    "<b>" +
+    escapeHtml(t.gender) +
+    ":</b> " +
+    escapeHtml(petData.gender || t.noInfo);
 
   document.getElementById("feature").innerHTML =
-    "<b>" + t.feature + ":</b> " + (petData.feature || t.noInfo);
+    "<b>" +
+    escapeHtml(t.feature) +
+    ":</b> " +
+    escapeHtml(petData.feature || t.noInfo);
+
+  var adoptionAreaElement =
+    document.getElementById("adoptionArea");
+
+  if(isAdoptionMode){
+    adoptionAreaElement.innerHTML =
+      "<b>" +
+      escapeHtml(t.adoptionArea) +
+      ":</b> " +
+      escapeHtml(
+        petData.adoptionArea || t.noInfo
+      );
+
+    adoptionAreaElement.style.display =
+      "block";
+  }else{
+    adoptionAreaElement.style.display =
+      "none";
+  }
 
   var regNo =
     petData.animalRegNo ||
@@ -257,61 +561,183 @@ function renderPetInfo(){
     petData.regNo ||
     "";
 
-  if(regNo && String(regNo).trim() !== ""){
+  if(String(regNo).trim() !== ""){
     document.getElementById("animalRegNo").innerHTML =
-      "<b>" + t.animalRegNo + ":</b> " + regNo;
-    document.getElementById("animalRegNo").style.display = "block";
+      "<b>" +
+      escapeHtml(t.animalRegNo) +
+      ":</b> " +
+      escapeHtml(regNo);
+
+    document.getElementById("animalRegNo").style.display =
+      "block";
   }else{
-    document.getElementById("animalRegNo").style.display = "none";
+    document.getElementById("animalRegNo").style.display =
+      "none";
+  }
+}
+
+function showNotFound(){
+  loadFailed = true;
+
+  var t = getCurrentText();
+
+  document.getElementById("loading").innerText =
+    isAdoptionMode
+      ? t.adoptionNotFound
+      : t.notFound;
+
+  document.getElementById("content").style.display =
+    "none";
+}
+
+function isSafeWebUrl(value){
+  try{
+    var url = new URL(
+      String(value || ""),
+      window.location.href
+    );
+
+    return (
+      url.protocol === "https:" ||
+      url.protocol === "http:"
+    );
+  }catch(error){
+    return false;
   }
 }
 
 function showPet(data){
-  if(data.error){
-    document.getElementById("loading").innerText = text.ko.notFound;
+  if(!data || data.error){
+    showNotFound();
     return;
   }
 
+  loadFailed = false;
   petData = data;
 
-  document.getElementById("loading").style.display = "none";
-  document.getElementById("content").style.display = "block";
+  document.getElementById("loading").style.display =
+    "none";
+
+  document.getElementById("content").style.display =
+    "block";
 
   renderPetInfo();
 
-  var photo = data.photoUrl || data.photo || data.image || "";
-  if(photo && String(photo).trim() !== ""){
-    document.getElementById("petPhoto").src = photo;
-    document.getElementById("petPhoto").style.display = "block";
+  var photo =
+    data.photoUrl ||
+    data.photo ||
+    data.image ||
+    "";
+
+  var photoElement =
+    document.getElementById("petPhoto");
+
+  if(isSafeWebUrl(photo)){
+    photoElement.src = photo;
+    photoElement.style.display = "block";
+  }else{
+    photoElement.removeAttribute("src");
+    photoElement.style.display = "none";
   }
 
-  if(data.phone){
-    document.getElementById("phoneLink").href = "tel:" + data.phone;
-    document.getElementById("phoneLink").style.display = "block";
+  var phone =
+    String(data.phone || "")
+      .replace(/[^0-9+]/g, "");
+
+  var phoneLink =
+    document.getElementById("phoneLink");
+
+  if(phone !== ""){
+    phoneLink.href = "tel:" + phone;
+    phoneLink.style.display = "block";
+  }else{
+    phoneLink.style.display = "none";
   }
 
-  if(data.kakao){
-    document.getElementById("kakaoLink").href = data.kakao;
-    document.getElementById("kakaoLink").style.display = "block";
+  var kakaoLink =
+    document.getElementById("kakaoLink");
+
+  if(isSafeWebUrl(data.kakao)){
+    kakaoLink.href = data.kakao;
+    kakaoLink.style.display = "block";
+  }else{
+    kakaoLink.removeAttribute("href");
+    kakaoLink.style.display = "none";
   }
+}
+
+function showAdoptionPetList(data){
+  if(!Array.isArray(data)){
+    showNotFound();
+    return;
+  }
+
+  var matchedPet = null;
+
+  for(var i = 0; i < data.length; i++){
+    if(
+      String(data[i].petNumber || "").trim()
+      === petId
+    ){
+      matchedPet = data[i];
+      break;
+    }
+  }
+
+  if(!matchedPet){
+    showNotFound();
+    return;
+  }
+
+  showPet(matchedPet);
 }
 
 function copyPageLink(){
+  var t = getCurrentText();
   var pageUrl = window.location.href;
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(pageUrl).then(function(){
-      alert(text.ko.copied);
-    });
+
+  if(
+    navigator.clipboard &&
+    window.isSecureContext
+  ){
+    navigator.clipboard
+      .writeText(pageUrl)
+      .then(function(){
+        alert(t.copied);
+      })
+      .catch(function(){
+        prompt(t.copyFail, pageUrl);
+      });
   }else{
-    alert(text.ko.copyFail);
+    prompt(t.copyFail, pageUrl);
   }
 }
 
-setLang("ko");
+applyModeText();
 
-var script = document.createElement("script");
-script.src = "https://script.google.com/macros/s/AKfycbxxS-o0PaeURCt_Uj9DnwcjtdBj-3zjFl5dxPWFTwMbQhAyMEnOtmYc9xK57chq5bq3yQ/exec?id=" + encodeURIComponent(petId) + "&callback=showPet";
-document.body.appendChild(script);
+if(petId === ""){
+  showNotFound();
+}else{
+  var apiScript =
+    document.createElement("script");
+
+  if(isAdoptionMode){
+    apiScript.src =
+      API_URL +
+      "?action=lostPetList" +
+      "&callback=showAdoptionPetList";
+  }else{
+    apiScript.src =
+      API_URL +
+      "?id=" +
+      encodeURIComponent(petId) +
+      "&callback=showPet";
+  }
+
+  apiScript.onerror = showNotFound;
+
+  document.body.appendChild(apiScript);
+}
 </script>
 
 </body>

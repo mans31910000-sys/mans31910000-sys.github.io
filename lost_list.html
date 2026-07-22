@@ -190,9 +190,9 @@ function showAdoptionPets(data){
     var photo = pet.photo || "petnet-logo-crop.png";
 
     html +=
-      '<a class="adoption-card" href="pet.html?id=' +
-      encodeURIComponent(petNumber) +
-      '">' +
+     '<a class="adoption-card" href="pet.html?id=' +
+encodeURIComponent(petNumber) +
+'&mode=adoption">' +
 
       '<img class="pet-photo" src="' +
       escapeHtml(photo) +
