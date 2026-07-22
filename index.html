@@ -1112,9 +1112,8 @@ width:100%;
     <img src="petnet-story3.png" class="story-img" alt="빠르게 보호자에게 연결">
 </section>
 
-<section class="stats">
-    🐶 현재 등록된 반려견 <strong id="petCount">99</strong>마리와 함께하고 있어요!
-
+<section class="stats" id="petStats">
+    🐶 현재 등록된 반려견 수를 불러오는 중...
 </section>
 <section class="found-main-section">
   <div class="found-main-head">
@@ -1215,9 +1214,12 @@ QR 스캔 한 번으로 소유자 또는 보호자에게 바로 연결됩니다.
 
 <script>
 function showCount(data){
-  document.getElementById("petCount").innerText =
-    (data.petCount ?? data.count ?? 0).toLocaleString();
+  var count = data.petCount ?? data.count ?? 0;
 
+  document.getElementById("petStats").innerHTML =
+    '🐶 현재 등록된 반려견 <strong>' +
+    count.toLocaleString() +
+    '</strong>마리와 함께하고 있어요!';
 }
 
 var countScript = document.createElement("script");
