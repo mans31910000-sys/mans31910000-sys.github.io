@@ -445,6 +445,17 @@ function printQrSheet(){
     const rows = layout.rows;
     const total = layout.total;
 
+    const labelHeight =
+        selectedSize === 15 ? 1.8 :
+        selectedSize === 20 ? 2.2 :
+        2.6;
+
+    const labelFontSize =
+        selectedSize === 15 ? 1.35 :
+        selectedSize === 20 ? 1.65 :
+        selectedSize === 25 ? 1.9 :
+        2.1;
+
     const printWindow = window.open("", "_blank");
 
     if(!printWindow){
@@ -471,7 +482,10 @@ for(let i = 0; i < total; i++){
 
     qrItems += `
         <div class="qr-item ${shapeClass}">
-            <img src="${qrUrl}" alt="">
+            <div class="qr-code-wrap">
+                <img src="${qrUrl}" alt="">
+            </div>
+            <div class="qr-label">펫넷 분실QR</div>
         </div>
     `;
 }
@@ -528,14 +542,17 @@ body{
     width:${selectedSize}mm;
     height:${selectedSize}mm;
     margin:0;
-    padding:0;
-    display:flex;
+    padding:1mm 1mm 0.7mm;
+    display:grid;
+    grid-template-rows:minmax(0,1fr) ${labelHeight}mm;
+    row-gap:0.25mm;
     align-items:center;
-    justify-content:center;
+    justify-items:center;
     overflow:hidden;
     break-inside:avoid;
     page-break-inside:avoid;
 }
+
 .qr-item.square{
     border:0.25mm dashed #cccccc;
     border-radius:3mm;
@@ -544,14 +561,42 @@ body{
 .qr-item.circle{
     border:0.25mm dashed #cccccc;
     border-radius:50%;
+    padding:1.2mm 1.5mm 1mm;
 }
+
+.qr-code-wrap{
+    width:100%;
+    height:100%;
+    min-width:0;
+    min-height:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
 .qr-item img{
     display:block;
-    width:${selectedSize - 4}mm;
-height:${selectedSize - 4}mm;
+    width:100%;
+    height:100%;
     margin:0;
     padding:0;
     object-fit:contain;
+}
+
+.qr-label{
+    width:100%;
+    height:${labelHeight}mm;
+    line-height:${labelHeight}mm;
+    margin:0;
+    padding:0;
+    color:#000000;
+    font-family:Arial, "Malgun Gothic", sans-serif;
+    font-size:${labelFontSize}mm;
+    font-weight:700;
+    letter-spacing:-0.08mm;
+    text-align:center;
+    white-space:nowrap;
 }
 </style>
 </head>
