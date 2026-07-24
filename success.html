@@ -445,12 +445,11 @@ function printQrSheet(){
     const rows = layout.rows;
     const total = layout.total;
 
-    const qrInnerSize = selectedSize - 4;
-
-    const labelHeight =
-        selectedSize === 15 ? 1.8 :
-        selectedSize === 20 ? 2.2 :
-        2.6;
+    const qrInnerSize =
+        selectedSize === 15 ? 9.5 :
+        selectedSize === 20 ? 13.5 :
+        selectedSize === 25 ? 18 :
+        22;
 
     const labelFontSize =
         selectedSize === 15 ? 1.35 :
@@ -469,25 +468,27 @@ const printShape =
 
 let qrItems = "";
 
-const half = Math.ceil(total / 2);
-
 for(let i = 0; i < total; i++){
 
-    const shapeClass =
-        (printShape === "square")
-        ? "square"
+    let shapeClass = "square";
 
-        : (printShape === "circle")
-        ? "circle"
+    if(printShape === "circle"){
+        shapeClass = "circle";
+    }else if(printShape === "half"){
+        const columnNumber = i % columns;
 
-        : (i < half ? "square" : "circle");
+        shapeClass =
+            columnNumber < Math.ceil(columns / 2)
+            ? "square"
+            : "circle";
+    }
 
     qrItems += `
         <div class="qr-item ${shapeClass}">
-            <div class="qr-code-wrap">
-                <img src="${qrUrl}" alt="">
+            <div class="qr-content">
+                <img src="${qrUrl}" alt="펫넷 QR 코드">
+                <div class="qr-label">펫넷 분실QR</div>
             </div>
-            <div class="qr-label">펫넷 분실QR</div>
         </div>
     `;
 }
@@ -546,13 +547,12 @@ body{
     margin:0;
     padding:0;
     display:flex;
-    flex-direction:column;
     align-items:center;
     justify-content:center;
-    gap:0.25mm;
     overflow:hidden;
     break-inside:avoid;
     page-break-inside:avoid;
+    background:#ffffff;
 }
 
 .qr-item.square{
@@ -565,14 +565,15 @@ body{
     border-radius:50%;
 }
 
-.qr-code-wrap{
-    width:${qrInnerSize}mm;
-    height:${qrInnerSize}mm;
-    flex:0 0 ${qrInnerSize}mm;
+.qr-content{
+    width:100%;
+    height:100%;
     display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
-    overflow:hidden;
+    gap:0.35mm;
+    padding:0.8mm;
 }
 
 .qr-item img{
@@ -582,21 +583,29 @@ body{
     margin:0;
     padding:0;
     object-fit:contain;
+    flex:none;
 }
 
 .qr-label{
-    width:100%;
-    height:${labelHeight}mm;
-    line-height:${labelHeight}mm;
     margin:0;
     padding:0;
     color:#000000;
-    font-family:Arial, "Malgun Gothic", sans-serif;
+    font-family:Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
     font-size:${labelFontSize}mm;
-    font-weight:700;
-    letter-spacing:-0.08mm;
+    font-weight:900;
+    line-height:1;
+    letter-spacing:-0.1mm;
     text-align:center;
     white-space:nowrap;
+}
+
+.qr-item.circle img{
+    width:${qrInnerSize - 1}mm;
+    height:${qrInnerSize - 1}mm;
+}
+
+.qr-item.circle .qr-label{
+    font-size:${labelFontSize * 0.9}mm;
 }
 </style>
 </head>
